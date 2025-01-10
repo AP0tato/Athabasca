@@ -1,7 +1,38 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 public class FileHelper 
 {
-    private static String FILE = "default.txt";
+    public static List<String> readFile(String file) throws IOException
+    {
+        List<String> list = new ArrayList<String>();
+        BufferedReader br = new BufferedReader(new FileReader(file));
 
-    public static String getFile() { return FILE; }
-    public static void setFile(String file) { FILE = file; }
+        String s;
+        while( (s = br.readLine())!=null )
+            list.add(s);
+
+        br.close();
+        return list;
+    }
+
+    public static void writeLine(String file, String line) throws IOException
+    {
+        List<String> list = readFile(file);
+        list.addLast(line);
+        
+        BufferedWriter bw = new BufferedWriter(new FileWriter(file));
+
+        String s = "";
+        for(String i : list)
+            s += i;
+        bw.write(s);
+        
+        bw.close();
+    }
 }
