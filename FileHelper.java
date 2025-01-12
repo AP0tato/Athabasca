@@ -21,16 +21,16 @@ public class FileHelper
         return list;
     }
 
-    public static void writeLine(String file, String line) throws IOException
+    public static void writeLine(String file, String line, String header) throws IOException
     {
         List<String> list = readFile(file);
         list.addLast(line);
         
         BufferedWriter bw = new BufferedWriter(new FileWriter(file));
 
-        String s = "";
+        String s = header+"\n";
         for(String i : list)
-            s += i;
+            s += i+"\n";
         bw.write(s);
         
         bw.close();
