@@ -21,6 +21,9 @@ dependencies {
 
     // This dependency is used by the application.
     implementation(libs.guava)
+
+    // The database
+    implementation("com.google.firebase:firebase-admin:9.4.3")
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
@@ -32,5 +35,5 @@ java {
 
 application {
     // Define the main class for the application.
-    mainClass = "org.example.App"
+    mainClass = "com.athabasca.Main"
 }
