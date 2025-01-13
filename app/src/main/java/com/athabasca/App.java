@@ -1,3 +1,5 @@
+package com.athabasca;
+
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.auth.oauth2.GoogleCredentials;
@@ -9,10 +11,10 @@ public class App {
     public static void main(String[] args) {
         try {
             // Load the service account key JSON file
-            FileInputStream serviceAccount = new FileInputStream("path/to/serviceAccountKey.json");
+            FileInputStream serviceAccount = new FileInputStream("/serviceAccountKey.json");
 
             // Configure Firebase options
-            FirebaseOptions options = new FirebaseOptions.Builder()
+            FirebaseOptions options = FirebaseOptions.builder()
                 .setCredentials(GoogleCredentials.fromStream(serviceAccount))
                 .setDatabaseUrl("https://finalproject12-1fd07-default-rtdb.firebaseio.com")
                 .build();
@@ -29,4 +31,6 @@ public class App {
             e.printStackTrace();
         }
     }
+
+    public String getGreeting() { return "Hi"; }
 }
