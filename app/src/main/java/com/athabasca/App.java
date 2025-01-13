@@ -1,8 +1,13 @@
 package com.athabasca;
 
 import java.io.FileInputStream;
+import com.google.firebase.FirebaseApp; // For initializing the Firebase app
+import com.google.firebase.FirebaseOptions; // For Firebase configuration options
+import com.google.auth.oauth2.GoogleCredentials; // For authenticating using the service account
 
 import javax.swing.JFrame;
+
+
 
 public class App extends JFrame
 {
