@@ -1,5 +1,4 @@
 import java.util.List;
-import java.util.Map;
 
 public class Employee 
 {
@@ -12,7 +11,7 @@ public class Employee
     private String f_name;
     private String l_name;
     private String employee_id;
-    private Map<String,Map<String,List<String>>> assigned;
+    private List<String> assigned;
 
     public Employee(String f_name, String l_name)
     {
