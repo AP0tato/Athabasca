@@ -1,28 +1,32 @@
-package com.athabasca;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
+import com.google.auth.oauth2.GoogleCredentials;
 
 import java.io.FileInputStream;
-import com.google.firebase.FirebaseApp; // For initializing the Firebase app
-import com.google.firebase.FirebaseOptions; // For Firebase configuration options
-import com.google.auth.oauth2.GoogleCredentials; // For authenticating using the service account
+import java.io.IOException;
 
-import javax.swing.JFrame;
+public class App {
+    public static void main(String[] args) {
+        try {
+            // Load the service account key JSON file
+            FileInputStream serviceAccount = new FileInputStream("path/to/serviceAccountKey.json");
 
+            // Configure Firebase options
+            FirebaseOptions options = new FirebaseOptions.Builder()
+                .setCredentials(GoogleCredentials.fromStream(serviceAccount))
+                .setDatabaseUrl("https://finalproject12-1fd07-default-rtdb.firebaseio.com")
+                .build();
 
-
-public class App extends JFrame
-{
-    public String getGreeting() { return "Hi"; }
-
-    public App()
-    {
-        FileInputStream serviceAccount =
-            new FileInputStream("/serviceAccountKey.json");
-
-        FirebaseOptions options = new FirebaseOptions.Builder()
-            .setCredentials(GoogleCredentials.fromStream(serviceAccount))
-            .setDatabaseUrl("https://finalproject12-1fd07-default-rtdb.firebaseio.com")
-            .build();
-
-        FirebaseApp.initializeApp(options);
+            // Initialize Firebase App
+            if (FirebaseApp.getApps().isEmpty()) {
+                FirebaseApp.initializeApp(options);
+                System.out.println("Firebase initialized successfully!");
+            } else {
+                System.out.println("Firebase App already initialized.");
+            }
+        } catch (IOException e) {
+            System.err.println("Error initializing Firebase: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 }
