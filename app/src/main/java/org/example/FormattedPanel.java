@@ -1,3 +1,4 @@
+package app.src.main.java.org.example;
 import javax.swing.*;
 import java.awt.*;
 

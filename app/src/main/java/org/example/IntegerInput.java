@@ -1,3 +1,4 @@
+package app.src.main.java.org.example;
 import java.awt.Dimension;
 
 import javax.swing.*;

@@ -1,3 +1,4 @@
+package app.src.main.java.org.example;
 import java.awt.GridBagConstraints;
 
 // A utility class extending GridBagConstraints to simplify its usage in layouts
