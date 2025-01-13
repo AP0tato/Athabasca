@@ -1,4 +1,4 @@
-package app.src.main.java.org.example;
+package app.src.main.java.com.athabasca;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -25,7 +25,7 @@ public class FileHelper
     public static void writeLine(String file, String line, String header) throws IOException
     {
         List<String> list = readFile(file);
-        list.addLast(line);
+        list.add(line);
         
         BufferedWriter bw = new BufferedWriter(new FileWriter(file));
 

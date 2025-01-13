@@ -1,4 +1,4 @@
-package app.src.main.java.org.example;
+package app.src.main.java.com.athabasca;
 import java.awt.Dimension;
 
 import javax.swing.*;
