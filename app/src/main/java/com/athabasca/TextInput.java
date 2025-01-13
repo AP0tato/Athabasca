@@ -1,4 +1,4 @@
-package app.src.main.java.com.athabasca;
+package com.athabasca;
 import java.awt.Dimension;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;

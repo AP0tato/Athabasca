@@ -1,4 +1,4 @@
-package app.src.main.java.com.athabasca;
+package com.athabasca;
 import java.awt.GridBagConstraints;
 
 // A utility class extending GridBagConstraints to simplify its usage in layouts

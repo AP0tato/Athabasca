@@ -1,4 +1,4 @@
-package app.src.main.java.com.athabasca;
+package com.athabasca;
 public class Admin extends Employee
 {
     /*
