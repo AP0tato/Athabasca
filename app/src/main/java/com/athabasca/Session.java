@@ -15,7 +15,7 @@ public class Session
     private String employee_id;
     private List<String> assigned;
 
-    public Session(String email)
+    public Session(String email, String token)
     {
         
     }
