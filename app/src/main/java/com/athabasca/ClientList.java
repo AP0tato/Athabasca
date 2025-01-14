@@ -1,4 +1,5 @@
 package com.athabasca;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -24,10 +25,14 @@ public class ClientList extends JFrame {
         JComboBox<String> bxCategories = new JComboBox<String>(Client.Categories);
         GeneralInput fldSearch = new GeneralInput(20, new Dimension(100,20));
 
+        JButton btnSearch = new JButton("Search");
 
 
-        JComponent[][] elemsAction = {{new JLabel("Search: "),new JLabel("by:"),bxCategories}};
+
+        JComponent[][] elemsAction = {{new JLabel("Search: "),new JLabel("by:"),bxCategories, fldSearch,btnSearch}};
         
+        pnlActions.addElements(elemsAction);
+
         model.setColumnIdentifiers(Client.Categories);
         
         updateTable(model, Clients.clients.toArray(new Client[Clients.clients.size()]));
