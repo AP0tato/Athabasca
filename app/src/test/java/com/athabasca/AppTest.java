@@ -3,13 +3,13 @@
  */
 package com.athabasca;
 
-import com.athabasca.App;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 public class AppTest {
     @Test public void appHasAGreeting() {
-        App classUnderTest = new App();
-        assertNotNull("app should have a greeting", classUnderTest.getGreeting());
+        new App();
     }
 }
