@@ -15,8 +15,9 @@ import java.io.IOException;
 public class DatabaseUtil
 {
     private FirebaseOptions options;
-    public FirebaseDatabase database;
+    private FirebaseDatabase database;
     private DatabaseReference ref;
+    private Object data;
 
     public DatabaseUtil()
     {
@@ -55,8 +56,7 @@ public class DatabaseUtil
             {
                 @Override
                 public void onDataChange(DataSnapshot snapshot) {
-                    Object val = snapshot.getValue();
-                    System.out.println("Data changed: " + val);
+                    data = snapshot.getValue();
                 }
 
                 @Override
@@ -91,5 +91,9 @@ public class DatabaseUtil
         }
         else return 1;
         return 0;
+    }
+
+    public Object getData() {
+        return data;
     }
 }

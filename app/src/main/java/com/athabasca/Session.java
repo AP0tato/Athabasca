@@ -1,5 +1,6 @@
 package com.athabasca;
 import java.util.List;
+import java.util.Map;
 
 public class Session 
 {
@@ -12,12 +13,36 @@ public class Session
     private String f_name;
     private String l_name;
     private String email;
-    private String employee_id;
-    private List<String> assigned;
+    private String token;
+    private Map<Integer, String> assigned;
 
     public Session(String email, String token)
     {
-        
+        DatabaseUtil db = new DatabaseUtil();
+        db.setRef("employee");
+        if(db.getData() != null)
+        {
+            Map<String, Map<String, Object>> data = (Map<String, Map<String, Object>>) db.getData();
+            for(Map.Entry<String, Map<String, Object>> entry : data.entrySet())
+            {
+                if(entry.getValue().get("email").equals(email))
+                {
+                    this.f_name = (String) entry.getValue().get("f_name");
+                    this.l_name = (String) entry.getValue().get("l_name");
+                    this.email = (String) entry.getValue().get("email");
+                    this.PERMISSION = (int) entry.getValue().get("permission");
+                    this.assigned = (Map<Integer, String>) entry.getValue().get("assigned");
+                    break;
+                }
+            }
+        }
+    }
+
+    /**
+     * @return String return the token
+     */
+    public String getToken() {
+        return token;
     }
 
     /**
