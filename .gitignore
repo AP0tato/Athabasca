@@ -6,4 +6,5 @@
 # Ignore Gradle build output directory
 build
 
-serviceAccountKey.json
+# Ignore service key json file
+app/src/main/resources
