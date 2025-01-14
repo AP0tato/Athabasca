@@ -95,31 +95,9 @@ public class Session
     }
 
     /**
-     * @return String return the employee_id
+     * @return Map<Integer, String> return the assigned
      */
-    public String getEmployee_id() {
-        return employee_id;
-    }
-
-    /**
-     * @param employee_id the employee_id to set
-     */
-    public void setEmployee_id(String employee_id) {
-        this.employee_id = employee_id;
-    }
-
-    /**
-     * @return List<String> return the assigned
-     */
-    public List<String> getAssigned() {
+    public Map<Integer, String> getAssigned() {
         return assigned;
     }
-
-    /**
-     * @param assigned the assigned to set
-     */
-    public void setAssigned(List<String> assigned) {
-        this.assigned = assigned;
-    }
-
 }
