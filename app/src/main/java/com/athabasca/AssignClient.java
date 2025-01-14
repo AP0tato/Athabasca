@@ -2,6 +2,8 @@ package com.athabasca;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Dimension;
+import java.awt.GridBagLayout;
+
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -9,6 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 public class AssignClient extends JFrame{
     AssignClient(){
+        setLayout(new GridBagLayout());
         FormattedPanel panel = new FormattedPanel();
         GridBagUtlity constraints = new GridBagUtlity(0, 0);
         Dimension dimflds = new Dimension(100,20);
@@ -31,9 +34,8 @@ public class AssignClient extends JFrame{
                 System.out.println("Rep ID: " + id + " Assignment: " + assign);
             }
         });
-        //pack();
+        pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(400, 300);
         setVisible(true);
 
 
