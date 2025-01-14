@@ -3,10 +3,28 @@
  */
 package com.athabasca;
 
+import java.lang.reflect.Field;
+import java.util.concurrent.CountDownLatch;
+
+import javax.swing.JButton;
+import javax.swing.SwingUtilities;
+
 import org.junit.Test;
 
 public class AppTest {
-    @Test public void appHasAGreeting() {
-        new Login();
+    @Test public void runApp() throws InterruptedException {
+        CountDownLatch latch = new CountDownLatch(1);
+        SwingUtilities.invokeLater(() -> {
+            try {
+                Login login = new Login();
+                Field btnLoginField = Login.class.getDeclaredField("btnLogin");
+                btnLoginField.setAccessible(true);
+                JButton btnLogin = (JButton) btnLoginField.get(login);
+                btnLogin.addActionListener(e -> latch.countDown());
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+        });
+        latch.await();
     }
 }
