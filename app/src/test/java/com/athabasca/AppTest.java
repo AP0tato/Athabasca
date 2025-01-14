@@ -18,6 +18,7 @@ public class AppTest {
             try {
                 Login login = new Login();
                 ClientList clientList = new ClientList();
+                AssignClient assignClient = new AssignClient();
 
                 Field btnField = Login.class.getDeclaredField("btnLogin"); // Change this to the button you want to listen from
                 btnField.setAccessible(true);
