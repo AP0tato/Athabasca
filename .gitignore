@@ -6,5 +6,5 @@
 # Ignore Gradle build output directory
 build
 
-# Ignore service key json file
-app/src/main/resources
+# Ignore the resources folder
+resources
