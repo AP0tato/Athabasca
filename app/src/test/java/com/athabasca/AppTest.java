@@ -17,8 +17,8 @@ public class AppTest {
         SwingUtilities.invokeLater(() -> {
             try {
                 Login login = new Login();
-                ClientList clientList = new ClientList();
-                AssignClient assignClient = new AssignClient();
+                new ClientList();
+                new AssignClient();
 
                 Field btnField = Login.class.getDeclaredField("btnLogin"); // Change this to the button you want to listen from
                 btnField.setAccessible(true);
