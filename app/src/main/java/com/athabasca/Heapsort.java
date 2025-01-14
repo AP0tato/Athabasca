@@ -4,42 +4,66 @@ import java.util.List;
 
 public class Heapsort 
 {
-    // Time complexity of O(nlogn)
+    /**
+     * Sorts a list of strings using the heapsort algorithm.
+     *
+     * Time complexity: O(nlogn)
+     *
+     * @param list The list of strings to sort.
+     * @return The sorted list.
+     */
     public static List<String> sort(List<String> list)
     {
         int n = list.size();
 
-        for(int i = n/2-1; i >= 0; i--) // Loops n/2 times, where n is the size of the list -> O(n/2)
+        // Build the max heap
+        for(int i = n/2 - 1; i >= 0; i--) // Loops n/2 times, where n is the size of the list -> O(n/2)
             heapify(list, i, n);
 
-        for(int i = n-1; i >= 0; i--) // Loop n times where n is the size of the list -> O(n)
+        // Extract elements from the heap one by one
+        for(int i = n - 1; i >= 0; i--) // Loop n times where n is the size of the list -> O(n)
         {
+            // Swap the root (maximum element) with the last element in the heap
             String swap = list.get(0);
             list.set(0, list.get(i));
             list.set(i, swap);
+
+            // Restore the max heap property for the reduced heap
             heapify(list, 0, i);
         }
 
         return list;
     }
 
+    /**
+     * Restores the max heap property for the subtree rooted at the given index.
+     *
+     * @param list The list representing the heap.
+     * @param index The root index of the subtree.
+     * @param size The size of the heap.
+     */
     private static void heapify(List<String> list, int index, int size)
     {
-        int largest = index;
-        int left = 2*index+1;
-        int right = 2*index+2;
+        int largest = index; // Initialize the largest element as the root
+        int left = 2 * index + 1; // Left index
+        int right = 2 * index + 2; // Right index
 
-        if(left<size && list.get(left).compareTo(list.get(largest))>0)
+        // Check if the left index is larger than the root
+        if(left < size && list.get(left).compareTo(list.get(largest)) > 0)
             largest = left;
         
-        if(right<size && list.get(right).compareTo(list.get(largest))>0)
+        // Check if the right index is larger than the current largest
+        if(right < size && list.get(right).compareTo(list.get(largest)) > 0)
             largest = right;
             
+        // If the largest is not the root, swap and continue heapifying
         if(largest != index) 
         {
             String swap = list.get(largest);
             list.set(largest, list.get(index));
             list.set(index, swap);
+
+            // Recursively heapify the affected subtree
             heapify(list, largest, size);
         }
     }
