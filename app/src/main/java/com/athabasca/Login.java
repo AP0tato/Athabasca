@@ -4,6 +4,7 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import java.util.HashMap;
 
@@ -45,6 +46,35 @@ public class Login extends JFrame
                 login_info.put("UNAME", uname);
                 login_info.put("PWORD", pword);
 
+                //process the login data
+                boolean loginSuccessful = authenticateUser(login_info);
+
+                if(loginSuccessful){
+                    //handle successful login
+                    JOptionPane.showMessageDialog(null, "Login Successful!");
+                    //redirect to the appropriate dashboard based on role
+                    if(role.equals("Admin")){}
+                        //Open Admin Dashboard
+                    }
+                    else if(role.equals("Rep")){
+                        //Open Rep dashboard
+                    }
+                    else {
+                        // Handle login failure
+                        JOptionPane.showMessageDialog(null, "Invalid Username or Password.", "Login Failed", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+
+                private boolean authenticateUser(HashMap<String, Object> login_info) {
+                    String uname = (String) login_info.get("UNAME");
+                    char[] pword = (char[]) login_info.get("PWORD");
+            
+                    // Replace this with actual authentication logic
+                    // For example, check against a database or an authentication service
+                    if ("admin".equals(uname) && "password".equals(new String(pword))) {
+                        return true;
+                    }
+                    return false;
             }
             
         });
