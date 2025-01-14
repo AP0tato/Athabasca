@@ -5,7 +5,7 @@ import java.util.List;
 public class SearchHelper 
 {
     private static List<Integer> found_indices = new ArrayList<Integer>();
-    public static List<Integer> BinSearch(List<String> list, int right, int left, String elem)
+    public static List<Integer> BinSearch(List<String> list, int left, int right, String elem)
     {
         if(list.size()==0||left>=right)
             return null;
