@@ -18,10 +18,11 @@ public class AppTest {
             try {
                 Login login = new Login();
                 ClientList clientList = new ClientList();
-                Field btnLoginField = Login.class.getDeclaredField("btnLogin");
-                btnLoginField.setAccessible(true);
-                JButton btnLogin = (JButton) btnLoginField.get(login);
-                btnLogin.addActionListener(e -> latch.countDown());
+
+                Field btnField = Login.class.getDeclaredField("btnLogin"); // Change this to the button you want to listen from
+                btnField.setAccessible(true);
+                JButton btn = (JButton) btnField.get(login);
+                btn.addActionListener(e -> latch.countDown());
             } catch(Exception e) {
                 e.printStackTrace();
             }
