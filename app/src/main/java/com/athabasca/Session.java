@@ -1,22 +1,30 @@
 package com.athabasca;
 import java.util.List;
 
-public class Employee 
+public class Session 
 {
     /*
      * Permission system
      * 0 = lowest, employees
      * 1 = admins
      */
-    public static final int PERMISSION = 0;
+    private int PERMISSION = -1;
     private String f_name;
     private String l_name;
+    private String email;
     private String employee_id;
     private List<String> assigned;
 
-    public Employee(String f_name, String l_name)
+    public Session(String email, String token)
     {
         
+    }
+
+    /**
+     * @return int return the PERMISSION
+     */
+    public int getPermissin() {
+        return PERMISSION;
     }
 
     /**
@@ -45,6 +53,20 @@ public class Employee
      */
     public void setL_name(String l_name) {
         this.l_name = l_name;
+    }
+
+    /**
+     * @return String return the email
+     */
+    public String getEmail() {
+        return email;
+    }
+
+    /**
+     * @param email the email to set
+     */
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     /**
