@@ -11,6 +11,7 @@ import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuthException;
+import com.google.firebase.auth.FirebaseToken;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -19,7 +20,6 @@ public class DatabaseUtil
 {
     private FirebaseOptions options;
     public FirebaseDatabase database;
-    private FirebaseAuth auth;
     private DatabaseReference ref;
 
     public DatabaseUtil()
@@ -42,7 +42,6 @@ public class DatabaseUtil
 
             // Get instances of FirebaseDatabase and FirebaseAuth
             database = FirebaseDatabase.getInstance();
-            auth = FirebaseAuth.getInstance();
         } 
         catch (IOException e) 
         {
@@ -96,18 +95,5 @@ public class DatabaseUtil
         }
         else return 1;
         return 0;
-    }
-
-    public void createUser(String email, String password) {
-        UserRecord.CreateRequest request = new UserRecord.CreateRequest()
-            .setEmail(email)
-            .setPassword(password);
-
-        try {
-            UserRecord record = auth.createUser(request);
-            System.out.println("Successfully created new user: " + record.getUid());
-        } catch(FirebaseAuthException e) {
-            System.err.println("Error creating user: " + e.getMessage());
-        }
     }
 }
