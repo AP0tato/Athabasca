@@ -9,21 +9,22 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridBagLayout;
 import java.util.ArrayList;
 
 public class ClientList extends JFrame {
     ClientList(){
-        setLayout(new GridBagLayout());
+        setLayout(new BorderLayout());
         GridBagUtlity gbc = new GridBagUtlity(0, 0);
         FormattedPanel pnlActions = new FormattedPanel();
         DefaultTableModel model = new DefaultTableModel();
         JTable tblClients = new JTable(model);
         JScrollPane scr = new JScrollPane(tblClients);
         scr.setSize(new Dimension(500,500));
-        ScalePanel pnlScale = new ScalePanel();
-        JPanel pnlTitle = new JPanel();
+        JPanel pnl = new JPanel();
+        pnl.setLayout(new GridBagLayout());
 
         JComboBox<String> bxCategories = new JComboBox<String>(Client.Categories);
         GeneralInput fldSearch = new GeneralInput(20, new Dimension(100,20));
@@ -40,16 +41,16 @@ public class ClientList extends JFrame {
         
         updateTable(model, Clients.clients.toArray(new Client[Clients.clients.size()]));
 
-        pnlTitle.add(new JLabel("Client List"));
 
-        pnlScale.add(pnlTitle,gbc);
+
+        pnl.add(new JLabel("Client List"),gbc);
         gbc.nextY();
-        pnlScale.add(pnlActions,gbc);
+        pnl.add(pnlActions,gbc);
         gbc.nextY();
-        pnlScale.add(scr, gbc);
-        pnlScale.setScaleFactor(2);
-        add(pnlScale);
-        pack();
+        pnl.add(scr, gbc);
+        ScalePanel pnlScale = new ScalePanel(pnl,1.5);
+        add(pnlScale, BorderLayout.CENTER);
+        setPreferredSize(new Dimension(700,700));
         setVisible(true);
     }
     private void updateTable(DefaultTableModel model, Client[] clients){
