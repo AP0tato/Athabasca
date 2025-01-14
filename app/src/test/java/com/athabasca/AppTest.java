@@ -4,9 +4,6 @@
 package com.athabasca;
 
 import org.junit.Test;
-import static org.junit.Assert.*;
-import org.slf4j.LoggerFactory;
-import org.slf4j.Logger;
 
 public class AppTest {
     @Test public void appHasAGreeting() {
