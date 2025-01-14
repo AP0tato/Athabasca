@@ -1,6 +1,7 @@
 package com.athabasca;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -12,28 +13,31 @@ public class FileHelper
     public static List<String> readFile(String file) throws IOException
     {
         List<String> list = new ArrayList<String>();
-        BufferedReader br = new BufferedReader(new FileReader(file));
 
-        String s;
-        while( (s = br.readLine())!=null )
-            list.add(s);
+        try(BufferedReader br = new BufferedReader(new FileReader(file)))
+        {
+            String s;
+            while( (s = br.readLine())!=null )
+                list.add(s);
+        }
 
-        br.close();
         return list;
     }
 
     public static void writeLine(String file, String line, String header) throws IOException
     {
-        List<String> list = readFile(file);
-        list.add(line);
+        File f = new File(file);
+        boolean fileExists = f.exists()&&!f.isDirectory();
         
-        BufferedWriter bw = new BufferedWriter(new FileWriter(file));
-
-        String s = header+"\n";
-        for(String i : list)
-            s += i+"\n";
-        bw.write(s);
-        
-        bw.close();
+        try(BufferedWriter bw = new BufferedWriter(new FileWriter(file, true)))
+        {
+            if(!fileExists)
+            {
+                bw.write(header);
+                bw.newLine();
+            }
+            bw.write(line);
+            bw.newLine();
+        }
     }
 }
