@@ -3,13 +3,30 @@
  */
 package com.athabasca;
 
-import com.athabasca.App;
+import java.lang.reflect.Field;
+import java.util.concurrent.CountDownLatch;
+
+import javax.swing.JButton;
+import javax.swing.SwingUtilities;
+
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 public class AppTest {
-    @Test public void appHasAGreeting() {
-        App classUnderTest = new App();
-        assertNotNull("app should have a greeting", classUnderTest.getGreeting());
+    @Test public void runApp() throws InterruptedException {
+        CountDownLatch latch = new CountDownLatch(1);
+        SwingUtilities.invokeLater(() -> {
+            try {
+                Login login = new Login();
+                ClientList clientList = new ClientList();
+
+                Field btnField = Login.class.getDeclaredField("btnLogin"); // Change this to the button you want to listen from
+                btnField.setAccessible(true);
+                JButton btn = (JButton) btnField.get(login);
+                btn.addActionListener(e -> latch.countDown());
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+        });
+        latch.await();
     }
 }
