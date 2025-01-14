@@ -12,6 +12,7 @@ import javax.swing.SwingUtilities;
 import org.junit.Test;
 
 public class AppTest {
+<<<<<<< Updated upstream
     @Test public void runApp() throws InterruptedException {
         CountDownLatch latch = new CountDownLatch(1);
         SwingUtilities.invokeLater(() -> {
@@ -26,5 +27,10 @@ public class AppTest {
             }
         });
         latch.await();
+=======
+    @Test public void appHasAGreeting() {
+        App classUnderTest = new App();
+        //assertNotNull("app should have a greeting", classUnderTest.getGreeting());
+>>>>>>> Stashed changes
     }
 }
