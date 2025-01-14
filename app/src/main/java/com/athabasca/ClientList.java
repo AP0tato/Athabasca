@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 public class ClientList extends JFrame {
     ClientList(){
-        setLayout(new BorderLayout());
+        setLayout(new GridBagLayout());
         GridBagUtlity gbc = new GridBagUtlity(0, 0);
         FormattedPanel pnlActions = new FormattedPanel();
         DefaultTableModel model = new DefaultTableModel();
@@ -41,14 +41,13 @@ public class ClientList extends JFrame {
 
 
 
-        pnl.add(new JLabel("Client List"),gbc);
+        add(new JLabel("Client List"),gbc);
         gbc.nextY();
-        pnl.add(pnlActions,gbc);
+        add(pnlActions,gbc);
         gbc.nextY();
-        pnl.add(scr, gbc);
-        ScalePanel pnlScale = new ScalePanel(pnl,1.5);
-        add(pnlScale, BorderLayout.CENTER);
-        setPreferredSize(new Dimension(700,700));
+        add(scr, gbc);
+        //ScalePanel pnlScale = new ScalePanel(pnl,1.5);
+        pack();
         setVisible(true);
     }
     private void updateTable(DefaultTableModel model, Client[] clients){
