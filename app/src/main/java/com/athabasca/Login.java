@@ -7,8 +7,6 @@ import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import java.util.HashMap;
 
-import com.google.apps.card.v1.Action;
-
 import java.awt.Dimension;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
