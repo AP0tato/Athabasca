@@ -22,9 +22,11 @@ public class ClientList extends JFrame {
         scr.setSize(new Dimension(500,500));
 
         JComboBox<String> bxCategories = new JComboBox<String>(Client.Categories);
-        
+        GeneralInput fldSearch = new GeneralInput(20, new Dimension(100,20));
 
-        JComponent[][] elemsAction = {{new JLabel("Search: "),new JLabel("by:")}};
+
+
+        JComponent[][] elemsAction = {{new JLabel("Search: "),new JLabel("by:"),bxCategories}};
         
         model.setColumnIdentifiers(Client.Categories);
         

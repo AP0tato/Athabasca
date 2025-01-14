@@ -29,7 +29,7 @@ public class Login extends JFrame
         GeneralInput flduname = new GeneralInput(20, dimflds);
 
         JPasswordField fldPass = new JPasswordField();
-        fldPass.setSize(dimflds);
+        fldPass.setPreferredSize(dimflds);
 
         JButton btnLogin = new JButton("Login");
 

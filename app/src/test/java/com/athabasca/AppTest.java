@@ -17,6 +17,7 @@ public class AppTest {
         SwingUtilities.invokeLater(() -> {
             try {
                 Login login = new Login();
+                ClientList clientList = new ClientList();
                 Field btnLoginField = Login.class.getDeclaredField("btnLogin");
                 btnLoginField.setAccessible(true);
                 JButton btnLogin = (JButton) btnLoginField.get(login);
