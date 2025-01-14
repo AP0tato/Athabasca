@@ -10,7 +10,7 @@ public class Heapsort
         int n = list.size();
 
         for(int i = n/2-1; i >= 0; i--) // Loops n/2 times, where n is the size of the list -> O(n/2)
-            list = heapify(list, i, n);
+            heapify(list, i, n);
 
         for(int i = n-1; i >= 0; i--) // Loop n times where n is the size of the list -> O(n)
         {
@@ -23,7 +23,7 @@ public class Heapsort
         return list;
     }
 
-    private static List<String> heapify(List<String> list, int index, int size)
+    private static void heapify(List<String> list, int index, int size)
     {
         int largest = index;
         int left = 2*index+1;
@@ -40,9 +40,7 @@ public class Heapsort
             String swap = list.get(largest);
             list.set(largest, list.get(index));
             list.set(index, swap);
-            return heapify(list, largest, size);
+            heapify(list, largest, size);
         }
-
-        return list;
     }
 }
