@@ -36,6 +36,7 @@ public class Login extends JFrame
         gbc.nextY();
         add(pnl,gbc);
         pack();
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
     }
 }
