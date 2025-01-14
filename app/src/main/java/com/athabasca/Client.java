@@ -7,6 +7,7 @@ public class Client {
     private String firstName;
     private String lastName;
     private String dateJoined;
+    
     public static String[] Categories = {"First Name","Last Name", "Phone number", "Address", "Date Joined"};
     Client(String firstName, String lastName, Long phoneNumber, String address, String dateJoined){
         this.firstName = firstName;
@@ -35,6 +36,42 @@ public class Client {
     @Override
     public String toString() {
         return firstName + "|" + lastName + "|" + phoneNumber + "|" + address + "|" + dateJoined;
+    }
+
+
+    /**
+     * @param phoneNumber the phoneNumber to set
+     */
+    public void setPhoneNumber(Long phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    /**
+     * @param address the address to set
+     */
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    /**
+     * @param firstName the firstName to set
+     */
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    /**
+     * @param lastName the lastName to set
+     */
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    /**
+     * @param dateJoined the dateJoined to set
+     */
+    public void setDateJoined(String dateJoined) {
+        this.dateJoined = dateJoined;
     }
 
 }
