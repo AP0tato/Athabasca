@@ -35,5 +35,5 @@ java {
 
 application {
     // Define the main class for the application.
-    mainClass = "com.athabasca.Main"
+    mainClass = "com.athabasca.App"
 }
