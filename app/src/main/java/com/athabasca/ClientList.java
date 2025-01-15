@@ -13,6 +13,7 @@ import java.awt.Dimension;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 
 public class ClientList extends JFrame {
     ClientList(){
@@ -63,7 +64,7 @@ public class ClientList extends JFrame {
         pnlActions.addElements(elemsAction);
 
         model.setColumnIdentifiers(Client.Categories);
-        System.out.println(Clients.clients.toArray(new Client[Clients.clients.size()]));
+        System.out.println(Arrays.toString(Clients.clients.toArray(new Client[Clients.clients.size()])));
         //updateTable(model, Clients.clients.toArray(new Client[Clients.clients.size()]));
 
 
