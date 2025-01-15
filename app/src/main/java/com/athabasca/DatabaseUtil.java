@@ -49,7 +49,7 @@ public class DatabaseUtil
         }
     }
 
-    public void setRef(String pathToData, Consumer<Object> callback) { 
+    public void setRef(String pathToData) { 
         System.out.println("Setting reference to path: " + pathToData);
         ref = database.getReference(pathToData); 
         System.out.println("Reference set to path: " + pathToData);
@@ -62,7 +62,6 @@ public class DatabaseUtil
                 public void onDataChange(DataSnapshot snapshot) {
                     fknWokr(snapshot.getValue());
                     System.out.println("Data retrieved: " + data);
-                    callback.accept(data); // Invoke the callback with the retrieved data
                 }
 
                 @Override

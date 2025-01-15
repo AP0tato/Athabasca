@@ -4,6 +4,7 @@
 package com.athabasca;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -40,5 +41,16 @@ public class AppTest {
             // TestFrame tf = new TestFrame();
             // Login login = new Login();
             // ClientList cl = new ClientList();
+    }
+
+    private void updateClients(ArrayList<Client> clients) {
+        SwingUtilities.invokeLater(() -> {
+            StringBuilder sb = new StringBuilder("<html>");
+            for (Client client : clients) {
+                sb.append(client.toString()).append("<br>");
+            }
+            sb.append("</html>");
+            System.out.println("UI updated with clients: " + clients);
+        });
     }
 }
