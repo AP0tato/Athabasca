@@ -1,5 +1,4 @@
 package com.athabasca;
-import java.util.List;
 import java.util.Map;
 
 public class Session 
@@ -17,6 +16,7 @@ public class Session
     private Map<Integer, String> assigned;
     private DatabaseUtil db;
 
+    @SuppressWarnings("unchecked")
     public Session(String email, String token)
     {
         db = new DatabaseUtil();
@@ -45,6 +45,7 @@ public class Session
         });
     }
 
+    @SuppressWarnings("unchecked")
     public void update()
     {
         db.setRef("employee", data -> {
