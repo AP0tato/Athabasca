@@ -63,7 +63,7 @@ public class ClientList extends JFrame {
         pnlActions.addElements(elemsAction);
 
         model.setColumnIdentifiers(Client.Categories);
-        System.out.println(Clients.clients);
+        
         updateTable(model, Clients.clients.toArray(new Client[Clients.clients.size()]));
 
 

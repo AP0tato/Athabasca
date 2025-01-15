@@ -1,5 +1,6 @@
 package com.athabasca;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 import java.awt.event.ActionEvent;
 import java.awt.Dimension;
 import java.awt.GridBagLayout;
@@ -19,7 +20,7 @@ public class AssignClient extends JFrame{
         JTextField idInput = new GeneralInput(20,dimflds);
         JTextField assignment = new GeneralInput(20,dimflds);
 
-        JComponent[][] elements = {{new JLabel("Rep ID: "), idInput}, {new JLabel("Assignment: "), assignment}};
+        JComponent[][] elements = {{new JLabel("Rep: "), idInput}, {new JLabel("Assignment: "), assignment}};
         panel.addElements(elements);
         add(panel, constraints);
 
@@ -29,9 +30,11 @@ public class AssignClient extends JFrame{
 
         assign.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
+                HashMap <String,String> assignementSender = new HashMap<String,String>();
                 String id = idInput.getText();
                 String assign = assignment.getText();
-                System.out.println("Rep ID: " + id + " Assignment: " + assign);
+                assignementSender.put("Rep", id);
+                assignementSender.put("Client", assign);
             }
         });
         pack();
