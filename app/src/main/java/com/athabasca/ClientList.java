@@ -35,7 +35,27 @@ public class ClientList extends JFrame {
 
         btnSearch.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-               
+                Client[] found;
+                String[] toSort = new String[Clients.clients.size()];
+               int category = bxCategories.getSelectedIndex();
+               for(int i = 0; i < Clients.clients.size();i++){
+                String[] categories = Clients.clients.get(i).toString().split("|");
+                toSort[i] = categories[category];
+               }
+               SearchHelper searcher = new SearchHelper();
+               int[] indices = searcher.originalIndicesBinary(toSort, fldSearch.getText().trim());
+               found = new Client[indices.length];
+               for(int i = 0; i < found.length;i++){
+                found[i] = Clients.clients.get(indices[i]);
+               }
+               if(found.length == 0){
+                fldSearch.setText("No client found");
+                return;
+               }
+               else{
+                updateTable(model,found);
+               }
+
             }
             
         });

@@ -45,7 +45,7 @@ public class SearchHelper
         }
         return indexes;
     }
-    private int[] originalIndicesBinary(String[] toSort, String key){
+    public int[] originalIndicesBinary(String[] toSort, String key){
         ArrayList<Map.Entry<String, Integer>> pairedList = new ArrayList<>();
                 for (int i = 0; i < toSort.length; i++) {
                     pairedList.add(new AbstractMap.SimpleEntry<>(toSort[i].toLowerCase(), i));
