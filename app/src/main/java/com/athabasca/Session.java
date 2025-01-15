@@ -19,7 +19,7 @@ public class Session
     public Session(String email, String token)
     {
         DatabaseUtil db = new DatabaseUtil();
-        db.setRef(DatabaseUtil.THING+"employee", data -> {
+        db.setRef("employee", data -> {
             if(db.getData() != null)
             {
                 Map<String, Map<String, Object>> loadedData = (Map<String, Map<String, Object>>) db.getData();

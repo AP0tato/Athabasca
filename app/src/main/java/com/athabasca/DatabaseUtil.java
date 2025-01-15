@@ -15,7 +15,7 @@ import java.util.function.Consumer;
 
 public class DatabaseUtil
 {
-    public static final String THING = "https://finalproject12-1fd07-default-rtdb.firebaseio.com/thing";
+    public static final String URL = "https://finalproject12-1fd07-default-rtdb.firebaseio.com";
     private FirebaseOptions options;
     private FirebaseDatabase database;
     private DatabaseReference ref;
@@ -31,7 +31,7 @@ public class DatabaseUtil
             // Configure Firebase options
             options = FirebaseOptions.builder()
                 .setCredentials(GoogleCredentials.fromStream(serviceAccount))
-                .setDatabaseUrl("https://finalproject12-1fd07-default-rtdb.firebaseio.com")
+                .setDatabaseUrl(DatabaseUtil.URL)
                 .build();
 
             // Initialize the Firebase app if not already initialized
@@ -39,7 +39,7 @@ public class DatabaseUtil
                 FirebaseApp.initializeApp(options);
             }
 
-            // Get instances of FirebaseDatabase and FirebaseAuth
+            // Get instances of FirebaseDatabase
             database = FirebaseDatabase.getInstance();
         } 
         catch (IOException e) 
@@ -50,7 +50,7 @@ public class DatabaseUtil
     }
 
     public void setRef(String pathToData, Consumer<Object> callback) { 
-        ref = database.getReference(pathToData); 
+        ref = database.getReference().child(pathToData); 
 
         if(ref != null)
         {

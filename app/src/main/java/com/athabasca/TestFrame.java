@@ -1,28 +1,40 @@
 package com.athabasca;
 
-import javax.swing.JButton;
+import java.util.ArrayList;
+
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
+import javax.swing.SwingUtilities;
 
 public class TestFrame extends JFrame {
+    private JLabel lbl;
     public TestFrame()
     {
-        JLabel lbl = new JLabel("<html>");
-        JButton btn = new JButton();
+        lbl = new JLabel("<html>");
         JScrollPane scrl = new JScrollPane(lbl);
 
-        Clients.loadClients();
+        Clients.loadClients(this::updateClients);
 
         for(Client client : Clients.clients)
         {
             lbl.setText(lbl.getText()+client.toString()+"<br>");
         }
 
-        add(btn);
         add(scrl);
-        pack();
+        setSize(100, 100);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
+    }
+
+    private void updateClients(ArrayList<Client> clients) {
+        SwingUtilities.invokeLater(() -> {
+            StringBuilder sb = new StringBuilder("<html>");
+            for (Client client : clients) {
+                sb.append(client.toString()).append("<br>");
+            }
+            sb.append("</html>");
+            lbl.setText(sb.toString());
+        });
     }
 }

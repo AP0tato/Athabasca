@@ -2,16 +2,17 @@ package com.athabasca;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.function.Consumer;
 
 //THIS CLASS NEEDS PROPER IMPLEMENTATION
 public class Clients {
     public static ArrayList<Client> clients;
 
-    public static void loadClients()
+    public static void loadClients(Consumer<ArrayList<Client>> callback)
     {
         clients = new ArrayList<Client>();
         DatabaseUtil db = new DatabaseUtil();
-        db.setRef(DatabaseUtil.THING+"client", data -> {
+        db.setRef("client", data -> {
             if(db.getData()!=null)
             {
                 Map<String, Map<String, Object>> loadedData = (Map<String, Map<String, Object>>) db.getData();
