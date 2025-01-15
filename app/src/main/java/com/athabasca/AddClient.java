@@ -18,8 +18,8 @@ public class AddClient extends JFrame{
         GridBagUtil constraints = new GridBagUtil(0, 0);
         Dimension dimflds = new Dimension(100,20);
 
-        // DateSelector dateJoined = new DateSelector();
-        // dateJoined.GUI();
+        DateSelector dateJoined = new DateSelector();
+        dateJoined.GUI();
 
         JTextField Fname = new TextInput(15, dimflds);
         JTextField Lname = new TextInput(15, dimflds);

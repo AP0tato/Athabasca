@@ -10,7 +10,7 @@ import javax.swing.JFrame;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
-import org.jdatepicker.impl.DateLabelFormatter;
+// import org.jdatepicker.impl.DateLabelFormatter;
 
 
 public class DateSelector {
