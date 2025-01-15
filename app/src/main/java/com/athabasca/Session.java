@@ -20,54 +20,56 @@ public class Session
     public Session(String email, String token)
     {
         db = new DatabaseUtil();
-        db.setRef("employee");
-        if(db.getData() != null)
-        {
-            try {
-                Map<String, Map<String, Object>> loadedData = (Map<String, Map<String, Object>>) db.getData();
-                for(Map.Entry<String, Map<String, Object>> entry : loadedData.entrySet())
-                {
-                    if(entry.getValue().get("email").equals(email))
+        db.setRef("employee", data -> {
+            if(data != null)
+            {
+                try {
+                    Map<String, Map<String, Object>> loadedData = (Map<String, Map<String, Object>>) data;
+                    for(Map.Entry<String, Map<String, Object>> entry : loadedData.entrySet())
                     {
-                        this.f_name = (String) entry.getValue().get("f_name");
-                        this.l_name = (String) entry.getValue().get("l_name");
-                        this.email = (String) entry.getValue().get("email");
-                        this.PERMISSION = (int) entry.getValue().get("permission");
-                        this.assigned = (Map<Integer, String>) entry.getValue().get("assigned");
-                        break;
+                        if(entry.getValue().get("email").equals(email))
+                        {
+                            this.f_name = (String) entry.getValue().get("f_name");
+                            this.l_name = (String) entry.getValue().get("l_name");
+                            this.email = (String) entry.getValue().get("email");
+                            this.PERMISSION = (int) entry.getValue().get("permission");
+                            this.assigned = (Map<Integer, String>) entry.getValue().get("assigned");
+                            break;
+                        }
                     }
+                } catch(ClassCastException e) {
+                    System.err.println("Error casting data: " + e.getMessage());
+                    e.printStackTrace();
                 }
-            } catch(ClassCastException e) {
-                System.err.println("Error casting data: " + e.getMessage());
-                e.printStackTrace();
             }
-        }
+        });
     }
 
     public void update()
     {
-        db.setRef("employee");
-        if(db.getData() != null)
-        {
-            try {
-                Map<String, Map<String, Object>> loadedData = (Map<String, Map<String, Object>>) db.getData();
-                for(Map.Entry<String, Map<String, Object>> entry : loadedData.entrySet())
-                {
-                    if(entry.getValue().get("email").equals(email))
+        db.setRef("employee", data -> {
+            if(data != null)
+            {
+                try {
+                    Map<String, Map<String, Object>> loadedData = (Map<String, Map<String, Object>>) data;
+                    for(Map.Entry<String, Map<String, Object>> entry : loadedData.entrySet())
                     {
-                        this.f_name = (String) entry.getValue().get("f_name");
-                        this.l_name = (String) entry.getValue().get("l_name");
-                        this.email = (String) entry.getValue().get("email");
-                        this.PERMISSION = (int) entry.getValue().get("permission");
-                        this.assigned = (Map<Integer, String>) entry.getValue().get("assigned");
-                        break;
+                        if(entry.getValue().get("email").equals(email))
+                        {
+                            this.f_name = (String) entry.getValue().get("f_name");
+                            this.l_name = (String) entry.getValue().get("l_name");
+                            this.email = (String) entry.getValue().get("email");
+                            this.PERMISSION = (int) entry.getValue().get("permission");
+                            this.assigned = (Map<Integer, String>) entry.getValue().get("assigned");
+                            break;
+                        }
                     }
+                } catch(ClassCastException e) {
+                    System.err.println("Error casting data: " + e.getMessage());
+                    e.printStackTrace();
                 }
-            } catch(ClassCastException e) {
-                System.err.println("Error casting data: " + e.getMessage());
-                e.printStackTrace();
             }
-        }
+        });
     }
 
     /**

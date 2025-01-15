@@ -13,13 +13,16 @@ import java.awt.Dimension;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.function.Consumer;
 
 public class ClientList extends JFrame {
+    private DefaultTableModel model;
     ClientList(){
         setLayout(new GridBagLayout());
         GridBagUtil gbc = new GridBagUtil(0, 0);
         FormattedPanel pnlActions = new FormattedPanel();
-        DefaultTableModel model = new DefaultTableModel();
+        model = new DefaultTableModel();
         JTable tblClients = new JTable(model);
         JScrollPane scr = new JScrollPane(tblClients);
         scr.setSize(new Dimension(500,500));
@@ -64,13 +67,7 @@ public class ClientList extends JFrame {
 
         model.setColumnIdentifiers(Client.Categories);
 
-        Clients.loadClients();
-        
-        Client c[] = new Client[Clients.clients.size()];
-        for(int i = 0; i < Clients.clients.size(); i++){
-            c[i] = Clients.clients.get(i);
-        }
-        updateTable(model, c);
+        Clients.loadClients(this::callback);
 
         add(new JLabel("Client List"),gbc);
         gbc.nextY();
@@ -81,11 +78,25 @@ public class ClientList extends JFrame {
         pack();
         setVisible(true);
     }
+
     private void updateTable(DefaultTableModel model, Client[] clients){
         model.setRowCount(0);
         for(Client client : clients){
             String[] clientData = client.toString().split(getName());
             model.addRow(clientData);
+        }
+    }
+
+    private void callback(ArrayList<Client> clients) {
+        model.setRowCount(0);
+        for (Client client : clients) {
+            model.addRow(new Object[]{
+                client.getFirstName(),
+                client.getLastName(),
+                client.getPhoneNumber(),
+                client.getAddress(),
+                client.getDateJoined()
+            });
         }
     }
 }
