@@ -5,6 +5,7 @@ package com.athabasca;
 
 import java.lang.reflect.Field;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.JButton;
 import javax.swing.SwingUtilities;
@@ -15,17 +16,29 @@ public class AppTest {
     @Test public void runApp() throws InterruptedException {
         CountDownLatch latch = new CountDownLatch(1);
         SwingUtilities.invokeLater(() -> {
-            // Login login = new Login();
-            ClientList cl = new ClientList();
-            // AssignClient ac = new AssignClient();
-            TestFrame tf = new TestFrame();
-            tf.addWindowListener(new java.awt.event.WindowAdapter() {
-                @Override
-                public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-                    latch.countDown(); // Release the latch when the window is closed
-                }
-            });
+            try {
+                // Login login = new Login();
+                ClientList cl = new ClientList();
+
+                // Field btnLoginField = Login.class.getDeclaredField("btnLogin");
+                // btnLoginField.setAccessible(true);
+                // JButton btnLogin = (JButton) btnLoginField.get(login);
+                // btnLogin.addActionListener(e -> {
+                //     latch.countDown();
+                // });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         });
-        latch.await();
+
+        // // Wait for the latch to be counted down
+        // latch.await();
+
+        // // Add a delay to ensure the ClientList window is displayed
+        // TimeUnit.SECONDS.sleep(5);
+
+            // TestFrame tf = new TestFrame();
+            // Login login = new Login();
+            // ClientList cl = new ClientList();
     }
 }

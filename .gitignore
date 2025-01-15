@@ -7,7 +7,7 @@
 build
 
 # Ignore the resources folder
-resources
+# resources
 
 # Ignore log file
 *.log

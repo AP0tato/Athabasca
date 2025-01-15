@@ -8,8 +8,12 @@ public class App
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             // TestFrame tf = new TestFrame();
-            JFrame frame = new TestFrame();
-            frame.setVisible(true);
+            // Login login = new Login();
+            // ClientList cl = new ClientList();
+            Clients clients = new Clients();
+            Clients.loadClients((loadedClients) -> {
+                System.out.println("Loaded clients: " + loadedClients);
+            });
         });
     }
 }
