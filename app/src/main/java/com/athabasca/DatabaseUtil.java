@@ -11,9 +11,11 @@ import com.google.firebase.FirebaseApp;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.function.Consumer;
 
 public class DatabaseUtil
 {
+    public static final String THING = "https://finalproject12-1fd07-default-rtdb.firebaseio.com/thing";
     private FirebaseOptions options;
     private FirebaseDatabase database;
     private DatabaseReference ref;
@@ -47,7 +49,7 @@ public class DatabaseUtil
         }
     }
 
-    public void setRef(String pathToData) { 
+    public void setRef(String pathToData, Consumer<Object> callback) { 
         ref = database.getReference(pathToData); 
 
         if(ref != null)

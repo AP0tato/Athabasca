@@ -19,23 +19,24 @@ public class Session
     public Session(String email, String token)
     {
         DatabaseUtil db = new DatabaseUtil();
-        db.setRef("employee");
-        if(db.getData() != null)
-        {
-            Map<String, Map<String, Object>> data = (Map<String, Map<String, Object>>) db.getData();
-            for(Map.Entry<String, Map<String, Object>> entry : data.entrySet())
+        db.setRef(DatabaseUtil.THING+"employee", data -> {
+            if(db.getData() != null)
             {
-                if(entry.getValue().get("email").equals(email))
+                Map<String, Map<String, Object>> loadedData = (Map<String, Map<String, Object>>) db.getData();
+                for(Map.Entry<String, Map<String, Object>> entry : loadedData.entrySet())
                 {
-                    this.f_name = (String) entry.getValue().get("f_name");
-                    this.l_name = (String) entry.getValue().get("l_name");
-                    this.email = (String) entry.getValue().get("email");
-                    this.PERMISSION = (int) entry.getValue().get("permission");
-                    this.assigned = (Map<Integer, String>) entry.getValue().get("assigned");
-                    break;
+                    if(entry.getValue().get("email").equals(email))
+                    {
+                        this.f_name = (String) entry.getValue().get("f_name");
+                        this.l_name = (String) entry.getValue().get("l_name");
+                        this.email = (String) entry.getValue().get("email");
+                        this.PERMISSION = (int) entry.getValue().get("permission");
+                        this.assigned = (Map<Integer, String>) entry.getValue().get("assigned");
+                        break;
+                    }
                 }
             }
-        }
+        });
     }
 
     /**

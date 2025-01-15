@@ -18,7 +18,7 @@ public class AppTest {
             Login login = new Login();
             // ClientList cl = new ClientList();
             // AssignClient ac = new AssignClient();
-            // TestFrame tf = new TestFrame();
+            TestFrame tf = new TestFrame();
         });
         latch.await();
     }
