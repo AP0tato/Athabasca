@@ -1,8 +1,5 @@
 package com.athabasca;
 
-import java.util.ArrayList;
-
-import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 public class App 

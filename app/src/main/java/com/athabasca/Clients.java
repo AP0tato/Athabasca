@@ -14,6 +14,7 @@ public class Clients {
             if (data != null) {
                 System.out.println("Data received in callback: " + data);
                 try {
+                    @SuppressWarnings("unchecked")
                     Map<String, Map<String, Object>> loadedData = (Map<String, Map<String, Object>>) data;
                     for (Map.Entry<String, Map<String, Object>> entry : loadedData.entrySet()) {
                         System.out.println("Processing entry: " + entry);
