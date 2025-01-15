@@ -11,6 +11,7 @@ import com.google.firebase.FirebaseApp;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.function.Consumer;
 
 public class DatabaseUtil
 {
@@ -48,8 +49,10 @@ public class DatabaseUtil
         }
     }
 
-    public void setRef(String pathToData) { 
-        ref = database.getReference().child(pathToData); 
+    public void setRef(String pathToData, Consumer<Object> callback) { 
+        System.out.println("Setting reference to path: " + pathToData);
+        ref = database.getReference(pathToData); 
+        System.out.println("Reference set to path: " + pathToData);
 
         if(ref != null)
         {
@@ -58,6 +61,8 @@ public class DatabaseUtil
                 @Override
                 public void onDataChange(DataSnapshot snapshot) {
                     fknWokr(snapshot.getValue());
+                    System.out.println("Data retrieved: " + data);
+                    callback.accept(data); // Invoke the callback with the retrieved data
                 }
 
                 @Override
@@ -65,6 +70,8 @@ public class DatabaseUtil
                     System.err.println("Database error: " + error.getMessage());
                 }
             });
+        } else {
+            System.err.println("Reference is null for path: " + pathToData);
         }
     }
 
