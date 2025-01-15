@@ -46,11 +46,13 @@ public class SearchHelper
         return indexes;
     }
     public int[] originalIndicesBinary(String[] toSort, String key){
-        ArrayList<Map.Entry<String, Integer>> pairedList = new ArrayList<>();
+                List<Map.Entry<String, Integer>> pairedList = new ArrayList<>();
                 for (int i = 0; i < toSort.length; i++) {
                     pairedList.add(new AbstractMap.SimpleEntry<>(toSort[i].toLowerCase(), i));
                 }
-                pairedList.sort(Map.Entry.comparingByKey());
+
+                pairedList = Heapsort.sort(pairedList);
+
                 String[] toSearch = new String[toSort.length];
                 for(int i = 0; i < toSort.length; i++){
                     toSearch[i] = pairedList.get(i).getKey();
