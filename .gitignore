@@ -8,3 +8,6 @@ build
 
 # Ignore the resources folder
 resources
+
+# Ignore log file
+*.log

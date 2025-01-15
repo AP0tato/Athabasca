@@ -33,8 +33,6 @@ public class ClientList extends JFrame {
 
         JButton btnSearch = new JButton("Search");
 
-
-
         JComponent[][] elemsAction = {{new JLabel("Search: "),new JLabel("by:"),bxCategories, fldSearch,btnSearch}};
 
         btnSearch.addActionListener(new ActionListener() {

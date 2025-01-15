@@ -40,9 +40,4 @@ public class AssignClient extends JFrame{
 
 
     }
-    
-
-
-
-    
 }

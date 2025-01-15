@@ -15,18 +15,16 @@ public class AppTest {
     @Test public void runApp() throws InterruptedException {
         CountDownLatch latch = new CountDownLatch(1);
         SwingUtilities.invokeLater(() -> {
-            try {
-                Login login = new Login();
-                ClientList clientList = new ClientList();
-                AssignClient assignClient = new AssignClient();
-
-                Field btnField = Login.class.getDeclaredField("btnLogin"); // Change this to the button you want to listen from
-                btnField.setAccessible(true);
-                JButton btn = (JButton) btnField.get(login);
-                btn.addActionListener(e -> latch.countDown());
-            } catch(Exception e) {
-                e.printStackTrace();
-            }
+            // Login login = new Login();
+            // ClientList cl = new ClientList();
+            // AssignClient ac = new AssignClient();
+            TestFrame tf = new TestFrame();
+            tf.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                    latch.countDown(); // Release the latch when the window is closed
+                }
+            });
         });
         latch.await();
     }
