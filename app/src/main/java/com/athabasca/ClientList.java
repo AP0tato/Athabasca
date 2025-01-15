@@ -17,7 +17,7 @@ import java.awt.event.ActionListener;
 public class ClientList extends JFrame {
     ClientList(){
         setLayout(new GridBagLayout());
-        GridBagUtlity gbc = new GridBagUtlity(0, 0);
+        GridBagUtil gbc = new GridBagUtil(0, 0);
         FormattedPanel pnlActions = new FormattedPanel();
         DefaultTableModel model = new DefaultTableModel();
         JTable tblClients = new JTable(model);

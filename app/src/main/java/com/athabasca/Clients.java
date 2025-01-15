@@ -13,6 +13,8 @@ public class Clients {
         clients = new ArrayList<Client>();
         DatabaseUtil db = new DatabaseUtil();
         db.setRef("client");
+        try { Thread.sleep(100); }
+        catch(InterruptedException e) { System.err.println("Error sleeping: " + e.getMessage()); }
         if (db.getData() != null) {
             try {
                 Map<String, Map<String, Object>> loadedData = (Map<String, Map<String, Object>>) db.getData();
