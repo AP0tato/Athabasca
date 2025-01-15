@@ -11,7 +11,6 @@ import com.google.firebase.FirebaseApp;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.function.Consumer;
 
 public class DatabaseUtil
 {
@@ -49,7 +48,7 @@ public class DatabaseUtil
         }
     }
 
-    public void setRef(String pathToData, Consumer<Object> callback) { 
+    public void setRef(String pathToData) { 
         ref = database.getReference().child(pathToData); 
 
         if(ref != null)
@@ -58,7 +57,7 @@ public class DatabaseUtil
             {
                 @Override
                 public void onDataChange(DataSnapshot snapshot) {
-                    data = snapshot.getValue();
+                    fknWokr(snapshot.getValue());
                 }
 
                 @Override
@@ -67,6 +66,10 @@ public class DatabaseUtil
                 }
             });
         }
+    }
+
+    private void fknWokr(Object e) {
+        this.data = e;
     }
 
     public String getRef() { 
