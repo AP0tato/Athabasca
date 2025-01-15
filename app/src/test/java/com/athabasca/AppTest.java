@@ -16,7 +16,7 @@ public class AppTest {
         CountDownLatch latch = new CountDownLatch(1);
         SwingUtilities.invokeLater(() -> {
             // Login login = new Login();
-            // ClientList cl = new ClientList();
+            ClientList cl = new ClientList();
             // AssignClient ac = new AssignClient();
             TestFrame tf = new TestFrame();
             tf.addWindowListener(new java.awt.event.WindowAdapter() {
