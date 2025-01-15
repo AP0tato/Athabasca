@@ -42,7 +42,7 @@ public class ClientList extends JFrame {
                 String[] toSort = new String[Clients.clients.size()];
                int category = bxCategories.getSelectedIndex();
                for(int i = 0; i < Clients.clients.size();i++){
-                String[] categories = Clients.clients.get(i).toString().split("|");
+                String[] categories = Clients.clients.get(i).toString().split("\\|"); // Remove the 2 backslashes and I will find you
                 toSort[i] = categories[category];
                }
                SearchHelper searcher = new SearchHelper();
@@ -56,7 +56,7 @@ public class ClientList extends JFrame {
                 return;
                }
                else{
-                updateTable(model,found);
+                updateTable(found);
                }
 
             }
@@ -79,10 +79,10 @@ public class ClientList extends JFrame {
         setVisible(true);
     }
 
-    private void updateTable(DefaultTableModel model, Client[] clients){
+    private void updateTable(Client[] clients){
         model.setRowCount(0);
         for(Client client : clients){
-            String[] clientData = client.toString().split(getName());
+            String[] clientData = client.toString().split("\\|"); // Remove the backslashes and I will find you
             model.addRow(clientData);
         }
     }
