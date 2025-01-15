@@ -1,5 +1,7 @@
 package com.athabasca;
 
+import java.util.ArrayList;
+
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
@@ -9,11 +11,7 @@ public class App
         SwingUtilities.invokeLater(() -> {
             // TestFrame tf = new TestFrame();
             // Login login = new Login();
-            // ClientList cl = new ClientList();
-            Clients clients = new Clients();
-            Clients.loadClients((loadedClients) -> {
-                System.out.println("Loaded clients: " + loadedClients);
-            });
+            ClientList cl = new ClientList();
         });
     }
 }
