@@ -15,14 +15,10 @@ public class AppTest {
     @Test public void runApp() throws InterruptedException {
         CountDownLatch latch = new CountDownLatch(1);
         SwingUtilities.invokeLater(() -> {
-            try {
-                Login login = new Login();
-                // ClientList cl = new ClientList();
-                // AssignClient ac = new AssignClient();
-                TestFrame tf = new TestFrame();
-            } catch(Exception e) {
-                e.printStackTrace();
-            }
+            Login login = new Login();
+            // ClientList cl = new ClientList();
+            // AssignClient ac = new AssignClient();
+            // TestFrame tf = new TestFrame();
         });
         latch.await();
     }
