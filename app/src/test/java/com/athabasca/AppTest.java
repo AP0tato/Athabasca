@@ -17,13 +17,9 @@ public class AppTest {
         SwingUtilities.invokeLater(() -> {
             try {
                 Login login = new Login();
-                new ClientList();
-                new AssignClient();
-
-                Field btnField = Login.class.getDeclaredField("btnLogin"); // Change this to the button you want to listen from
-                btnField.setAccessible(true);
-                JButton btn = (JButton) btnField.get(login);
-                btn.addActionListener(e -> latch.countDown());
+                // ClientList cl = new ClientList();
+                // AssignClient ac = new AssignClient();
+                TestFrame tf = new TestFrame();
             } catch(Exception e) {
                 e.printStackTrace();
             }

@@ -5,10 +5,11 @@ import java.util.Map;
 
 //THIS CLASS NEEDS PROPER IMPLEMENTATION
 public class Clients {
-    public static ArrayList<Client> clients = new ArrayList<Client>();
+    public static ArrayList<Client> clients;
 
     public static void loadClients()
     {
+        clients = new ArrayList<Client>();
         DatabaseUtil db = new DatabaseUtil();
         db.setRef("client");
 
