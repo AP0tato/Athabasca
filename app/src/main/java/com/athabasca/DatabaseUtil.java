@@ -26,7 +26,7 @@ public class DatabaseUtil
         try 
         {
             // Load the service account key JSON file
-            FileInputStream serviceAccount = new FileInputStream(System.getProperty("user.dir")+"/app/src/main/resources/serviceAccountKey.json");
+            FileInputStream serviceAccount = new FileInputStream(System.getProperty("user.dir")+"/src/main/resources/serviceAccountKey.json");
 
             // Configure Firebase options
             options = FirebaseOptions.builder()

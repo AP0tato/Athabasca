@@ -24,6 +24,8 @@ dependencies {
 
     // The database
     implementation("com.google.firebase:firebase-admin:9.4.3")
+
+    implementation("org.jdatepicker:jdatepicker:1.3.4")
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
