@@ -2,10 +2,10 @@ package com.athabasca;
 import java.awt.GridBagConstraints;
 
 // A utility class extending GridBagConstraints to simplify its usage in layouts
-public class GridBagUtlity extends GridBagConstraints {
+public class GridBagUtil extends GridBagConstraints {
 
     // Constructor to initialize gridx and gridy values
-    GridBagUtlity(int x, int y) {
+    GridBagUtil(int x, int y) {
         gridx = x; // Set initial x-coordinate
         gridy = y; // Set initial y-coordinate
     }

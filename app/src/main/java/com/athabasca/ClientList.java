@@ -18,7 +18,7 @@ import java.util.Arrays;
 public class ClientList extends JFrame {
     ClientList(){
         setLayout(new GridBagLayout());
-        GridBagUtlity gbc = new GridBagUtlity(0, 0);
+        GridBagUtil gbc = new GridBagUtil(0, 0);
         FormattedPanel pnlActions = new FormattedPanel();
         DefaultTableModel model = new DefaultTableModel();
         JTable tblClients = new JTable(model);
@@ -64,8 +64,9 @@ public class ClientList extends JFrame {
         pnlActions.addElements(elemsAction);
 
         model.setColumnIdentifiers(Client.Categories);
+        System.out.println(Clients.clients.size());
         System.out.println(Clients.clients.toArray(new Client[Clients.clients.size()]));
-        //updateTable(model, Clients.clients.toArray(new Client[Clients.clients.size()]));
+        updateTable(model, Clients.clients.toArray(new Client[Clients.clients.size()]));
 
 
 

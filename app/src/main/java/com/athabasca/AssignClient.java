@@ -14,7 +14,7 @@ public class AssignClient extends JFrame{
     AssignClient(){
         setLayout(new GridBagLayout());
         FormattedPanel panel = new FormattedPanel();
-        GridBagUtlity constraints = new GridBagUtlity(0, 0);
+        GridBagUtil constraints = new GridBagUtil(0, 0);
         Dimension dimflds = new Dimension(100,20);
 
         JTextField idInput = new GeneralInput(20,dimflds);

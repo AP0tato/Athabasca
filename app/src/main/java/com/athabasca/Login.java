@@ -17,7 +17,7 @@ public class Login extends JFrame
 {
     Login(){
         setLayout(new GridBagLayout());
-        GridBagUtlity gbc = new GridBagUtlity(0, 0);
+        GridBagUtil gbc = new GridBagUtil(0, 0);
         FormattedPanel pnl = new FormattedPanel();
         Dimension dimflds = new Dimension(100,20);
 
