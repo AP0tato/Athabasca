@@ -14,16 +14,19 @@ public class Dashboard extends JFrame {
         setLayout(new GridBagLayout());
         GridBagUtil gbc = new GridBagUtil(0, 0);
         FormattedPanel pnl = new FormattedPanel();
-        JFrame[] adminWindows = {new ClientList(), new AssignClient()//, new AddClient()
-        };
         JFrame[] toUse;
-        JFrame[] repWindows = {new ClientList(), new CheckAssignments()};
         JButton[] buttons;
 
         if(admin){
-            toUse = adminWindows;
-        } else {
-            toUse = repWindows;
+            toUse = new JFrame[3];
+            toUse[0] = new ClientList();
+            toUse[1] = new AssignClient();
+            toUse[2] = new AddClient();
+        }
+        else {
+            toUse = new JFrame[2];
+            toUse[0] = new ClientList();
+            toUse[1] = new CheckAssignments(); 
         }
         buttons = new JButton[toUse.length];
         for(int i = 0;i<toUse.length; i++){
@@ -35,6 +38,7 @@ public class Dashboard extends JFrame {
                 }
                 
             });
+            buttons[i] = btnNew;
         }
 
         JComponent[][] elements = {buttons};

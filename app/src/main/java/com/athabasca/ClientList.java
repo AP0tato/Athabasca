@@ -21,15 +21,22 @@ public class ClientList extends JFrame {
         setLayout(new GridBagLayout());
         GridBagUtil gbc = new GridBagUtil(0, 0);
         FormattedPanel pnlActions = new FormattedPanel();
-        model = new DefaultTableModel();
+        model = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
         JTable tblClients = new JTable(model);
         JScrollPane scr = new JScrollPane(tblClients);
         scr.setSize(new Dimension(500,500));
         JPanel pnl = new JPanel();
         pnl.setLayout(new GridBagLayout());
 
+
         JComboBox<String> bxCategories = new JComboBox<String>(Client.Categories);
         GeneralInput fldSearch = new GeneralInput(20, new Dimension(100,20));
+        JButton btnRefresh = new JButton("Refresh");
 
         JButton btnSearch = new JButton("Search");
 
@@ -41,7 +48,7 @@ public class ClientList extends JFrame {
                 String[] toSort = new String[Clients.clients.size()];
                int category = bxCategories.getSelectedIndex();
                for(int i = 0; i < Clients.clients.size();i++){
-                String[] categories = Clients.clients.get(i).toString().split("\\|"); // Remove the 2 backslashes and I will find you
+                String[] categories = Clients.clients.get(i).toString().split("\\|"); // Remove the 2 backslashes and I will find you <--- "Alright, I wont" - Seysha Puttagunta 
                 toSort[i] = categories[category];
                }
                SearchHelper searcher = new SearchHelper();
@@ -68,9 +75,20 @@ public class ClientList extends JFrame {
 
         Clients.loadClients(this::callback);
 
+        btnRefresh.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                updateTable(Clients.clients.toArray(new Client[Clients.clients.size()]));
+            }
+            
+        });
+
         add(new JLabel("Client List"),gbc);
         gbc.nextY();
         add(pnlActions,gbc);
+        gbc.nextY();
+        add(btnRefresh,gbc);
         gbc.nextY();
         add(scr, gbc);
         //ScalePanel pnlScale = new ScalePanel(pnl,1.5);
