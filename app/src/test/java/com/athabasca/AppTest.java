@@ -12,7 +12,7 @@ public class AppTest {
             try {
                 AddClient addClient = new AddClient();
                 addClient.setVisible(true); // Make sure the AddClient window is visible
-                latch.countDown(); // Count down the latch to indicate the UI is ready
+                latch.countDown(); // Count down the latch to indicate the UI is ready  
             } catch (Exception e) {
                 e.printStackTrace();
             }

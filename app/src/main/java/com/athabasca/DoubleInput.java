@@ -7,11 +7,13 @@ import javax.swing.*;
 public class DoubleInput extends JTextField{
     double max;
     int decimals;
-    DoubleInput(Long max, Dimension dim, int decimals){
+    boolean allowDecimal;
+    DoubleInput(Long max, Dimension dim, int decimals, boolean allowDecimal) {
         addDecimalNumberInputValidation(this);
         this.max = max;
         this.decimals = decimals;
         setPreferredSize(dim);
+        this.allowDecimal = allowDecimal;
     }
 
     // This method is responsible for addDecimalNumberInputValidation.
@@ -33,7 +35,7 @@ public class DoubleInput extends JTextField{
 
                         if (futureValue <= max) { // Limit input to values less than 30 million
                             // Allow decimal point if there isn't already one in the text field
-                            if (k.getKeyChar() == '.') {
+                            if (k.getKeyChar() == '.' && allowDecimal) {
                                 textField.setEditable(textField.getText().indexOf('.') == -1);
                             }
                             // Allow only digits and backspace for valid numeric input
