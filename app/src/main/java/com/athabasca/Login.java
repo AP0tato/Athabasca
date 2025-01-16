@@ -50,8 +50,8 @@ public class Login extends JFrame
                 if(token!=null)
                 {
                     JOptionPane.showMessageDialog(null, "Login Successful!");
-                    Session s = new Session(uname, token);
-                    if(s.getPermission() == 1)
+                    new Session(uname, token);
+                    if(Session.getPermission() == 1)
                     {
                         new Dashboard(true);
                     }
