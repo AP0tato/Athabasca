@@ -43,4 +43,8 @@ public class AssignClient extends JFrame{
 
 
     }
+    @Override
+    public String toString() {
+        return "Assign Client";
+    }
 }
