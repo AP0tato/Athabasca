@@ -39,7 +39,7 @@ public class Client {
     }
     @Override
     public String toString() {
-        return firstName + "|" + lastName + "|" + phoneNumber + "|" + address + "|" + dateJoined;
+        return firstName + "|" + lastName + "|" + phoneNumber + "|" + address + "|" + dateJoined+"|"+email;
     }
 
 
