@@ -29,7 +29,7 @@ public class Login extends JFrame
 
         JButton btnLogin = new JButton("Login");
 
-        JComponent[][] elements = {{new JLabel("Role: "),bxRoles},{new JLabel("Username: "),flduname},{new JLabel("Password: "),fldPass}};
+        JComponent[][] elements = {{new JLabel("Role: ")},{new JLabel("Username: "),flduname},{new JLabel("Password: "),fldPass}};
 
         pnl.addElements(elements);
 
@@ -47,11 +47,11 @@ public class Login extends JFrame
                 if(loginSuccessful){
                     //handle successful login
                     JOptionPane.showMessageDialog(null, "Login Successful!");
-                    if(Session..equals("Admin")){}
+                    if(Session.getPermission() == 1){}
                             new Dashboard(true);
                             setVisible(false);
                     }
-                    else if(role.equals("Rep")){
+                    else if(Session.getPermission() == 0){
                         new Dashboard(false);
                         setVisible(false);
                     }

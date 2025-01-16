@@ -53,63 +53,63 @@ public class Session
     /**
      * @return String return the token
      */
-    public String getToken() {
+    public static String getToken() {
         return token;
     }
 
     /**
      * @return int return the PERMISSION
      */
-    public int getPermission() {
+    public static int getPermission() {
         return PERMISSION;
     }
 
     /**
      * @return String return the f_name
      */
-    public String getF_name() {
+    public static String getF_name() {
         return f_name;
     }
 
     /**
      * @param f_name the f_name to set
      */
-    public void setF_name(String f_name) {
-        this.f_name = f_name;
+    public static void setF_name(String F_name) {
+        f_name = F_name;
     }
 
     /**
      * @return String return the l_name
      */
-    public String getL_name() {
+    public static String getL_name() {
         return l_name;
     }
 
     /**
      * @param l_name the l_name to set
      */
-    public void setL_name(String l_name) {
-        this.l_name = l_name;
+    public static void setL_name(String L_name) {
+        l_name = L_name;
     }
 
     /**
      * @return String return the email
      */
-    public String getEmail() {
+    public static String getEmail() {
         return email;
     }
 
     /**
      * @param email the email to set
      */
-    public void setEmail(String email) {
-        this.email = email;
+    public static void setEmail(String Email) {
+        email = Email;
     }
 
     /**
      * @return Map<Integer, String> return the assigned
      */
-    public Map<Integer, String> getAssigned() {
+    public static Map<Integer, String> getAssigned() {
         return assigned;
     }
 }
