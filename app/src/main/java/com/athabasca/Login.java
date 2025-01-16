@@ -36,7 +36,7 @@ public class Login extends JFrame
                 String uname = flduname.getText().trim();
                 char[] pword = fldPass.getPassword();
 
-                uname.replaceAll("\\.", "\\");
+                uname.replaceAll("\\.", "\\\\");
 
                 AuthService as = new AuthService();
                 String password = "";

@@ -10,6 +10,7 @@ public class AuthService {
 
     public AuthService()
     {
+        new DatabaseUtil();
         auth = FirebaseAuth.getInstance();
     }
 
