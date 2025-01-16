@@ -24,8 +24,11 @@ public class DatabaseUtil {
                 .setDatabaseUrl(DatabaseUtil.URL)
                 .build();
 
-            // Initialize Firebase app
-            FirebaseApp.initializeApp(options);
+            if(FirebaseApp.getInstance()==null)
+            {
+                // Initialize Firebase app
+                FirebaseApp.initializeApp(options);
+            }
 
             // Get a reference to the database
             database = FirebaseDatabase.getInstance();
