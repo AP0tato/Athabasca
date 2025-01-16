@@ -46,22 +46,41 @@ public class Login extends JFrame
                 login_info.put("UNAME", uname);
                 login_info.put("PWORD", pword);
 
-                //process the login data
-                boolean loginSuccessful = authenticateUser(login_info);
+                AuthService as = new AuthService();
+                String password = "";
+                for(char i : pword){
+                    password += i;
+                }
+                String token = as.createUserAndToken(uname, password);
+                if(token!=null)
+                {
+                    Session s = new Session(uname, token);
+                    
+                }
 
-                if(loginSuccessful){
-                    //handle successful login
-                    JOptionPane.showMessageDialog(null, "Login Successful!");
-                    if(role.equals("Admin")){}
-                            new Dashboard(true);
-                    }
-                    else if(role.equals("Rep")){
-                        new Dashboard(false);
-                    }
-                    else {
-                        // Handle login failure
-                        JOptionPane.showMessageDialog(null, "Invalid Username or Password.", "Login Failed", JOptionPane.ERROR_MESSAGE);
-                    }
+                //process the login data
+                // boolean loginSuccessful = authenticateUser(login_info);
+
+                // if(loginSuccessful){
+                //     //handle successful login
+                //     AuthService as = new AuthService();
+                //     String password = "";
+                //     for(char i : pword){
+                //         password += i;
+                //     }
+                //     String token = as.createUserAndToken(uname, password);
+                //     Session s = new Session(uname, token);
+                //     JOptionPane.showMessageDialog(null, "Login Successful!");
+                //     if(role.equals("Admin")){}
+                //             new Dashboard(true);
+                //     }
+                //     else if(role.equals("Rep")){
+                //         new Dashboard(false);
+                //     }
+                //     else {
+                //         // Handle login failure
+                //         JOptionPane.showMessageDialog(null, "Invalid Username or Password.", "Login Failed", JOptionPane.ERROR_MESSAGE);
+                //     }
                 }
 
                 private boolean authenticateUser(HashMap<String, Object> login_info) {
