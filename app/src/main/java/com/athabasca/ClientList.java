@@ -36,7 +36,7 @@ public class ClientList extends JFrame {
 
         JComboBox<String> bxCategories = new JComboBox<String>(Client.Categories);
         GeneralInput fldSearch = new GeneralInput(20, new Dimension(100,20));
-        JButton btnRefresh = new JButton("Refresh");
+        JButton btnRefresh = new JButton("Clear Search/Refresh");
 
         JButton btnSearch = new JButton("Search");
 

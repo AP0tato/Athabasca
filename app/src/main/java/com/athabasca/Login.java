@@ -21,9 +21,6 @@ public class Login extends JFrame
         FormattedPanel pnl = new FormattedPanel();
         Dimension dimflds = new Dimension(100,20);
 
-        String[] roles = {"Admin", "Rep"};
-
-        JComboBox<String> bxRoles = new JComboBox<String>(roles);
 
         GeneralInput flduname = new GeneralInput(20, dimflds);
 
@@ -32,17 +29,15 @@ public class Login extends JFrame
 
         JButton btnLogin = new JButton("Login");
 
-        JComponent[][] elements = {{new JLabel("Role: "),bxRoles},{new JLabel("Username: "),flduname},{new JLabel("Password: "),fldPass}};
+        JComponent[][] elements = {{new JLabel("Role: ")},{new JLabel("Username: "),flduname},{new JLabel("Password: "),fldPass}};
 
         pnl.addElements(elements);
 
         btnLogin.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 HashMap<String,Object> login_info = new HashMap<String,Object>();
-                String role = bxRoles.getSelectedItem().toString();
                 String uname = flduname.getText().trim();
                 char[] pword = fldPass.getPassword();
-                login_info.put("ROLE",role);
                 login_info.put("UNAME", uname);
                 login_info.put("PWORD", pword);
 
@@ -61,26 +56,19 @@ public class Login extends JFrame
                 //process the login data
                 // boolean loginSuccessful = authenticateUser(login_info);
 
-                // if(loginSuccessful){
-                //     //handle successful login
-                //     AuthService as = new AuthService();
-                //     String password = "";
-                //     for(char i : pword){
-                //         password += i;
-                //     }
-                //     String token = as.createUserAndToken(uname, password);
-                //     Session s = new Session(uname, token);
-                //     JOptionPane.showMessageDialog(null, "Login Successful!");
-                //     if(role.equals("Admin")){}
-                //             new Dashboard(true);
-                //     }
-                //     else if(role.equals("Rep")){
-                //         new Dashboard(false);
-                //     }
-                //     else {
-                //         // Handle login failure
-                //         JOptionPane.showMessageDialog(null, "Invalid Username or Password.", "Login Failed", JOptionPane.ERROR_MESSAGE);
-                //     }
+                if(loginSuccessful){
+                    //handle successful login
+                    JOptionPane.showMessageDialog(null, "Login Successful!");
+                    if(role.equals("Admin")){}
+                            new Dashboard(true);
+                    }
+                    else if(role.equals("Rep")){
+                        new Dashboard(false);
+                    }
+                    else {
+                        // Handle login failure
+                        JOptionPane.showMessageDialog(null, "Invalid Username or Password.", "Login Failed", JOptionPane.ERROR_MESSAGE);
+                    }
                 }
 
                 private boolean authenticateUser(HashMap<String, Object> login_info) {
