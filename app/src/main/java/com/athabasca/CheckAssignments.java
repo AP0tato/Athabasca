@@ -1,6 +1,8 @@
 package com.athabasca;
 import java.awt.Dimension;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -26,7 +28,8 @@ public class CheckAssignments extends JFrame {
         JScrollPane scr = new JScrollPane(tblClients);
         scr.setSize(new Dimension(500,500));
         model.setColumnIdentifiers(Client.Categories);
-
+        updateTable();
+        btnRefresh.addActionListener(new ActionListener() {public void actionPerformed(ActionEvent e) {updateTable();}});
         add(new JLabel("Check your assignements"),gbc);
         gbc.nextY();
         add(btnRefresh,gbc);
@@ -45,10 +48,17 @@ public class CheckAssignments extends JFrame {
             String clientEmail = Session.getAssigned().get(i);
             String[] toSort = new String[Clients.clients.size()];
             for(int j = 0; j < Clients.clients.size();j++){
-                // toSort[j] = Clients.clients.get(j).get
+                toSort[j] = Clients.clients.get(j).getEmail();
             }
-            // String[] clientData = client.toString().split("\\|"); // Remove the backslashes and I will find you
-            // model.addRow(clientData);
+            SearchHelper searcher = new SearchHelper();
+            int[] found = searcher.originalIndicesBinary(toSort,clientEmail);
+            for(int j :found){
+                Client client = Clients.clients.get(j);
+                String[] clientData = client.toString().split("\\|"); // Remove the backslashes and I will find you
+                model.addRow(clientData);
+            }
+
+            
         }
     }
 }
