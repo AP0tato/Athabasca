@@ -85,6 +85,7 @@ public class ClientList extends JFrame {
             model.addRow(clientData);
         }
     }
+<<<<<<< Updated upstream
 
     private void callback(ArrayList<Client> clients) {
         model.setRowCount(0);
@@ -97,5 +98,10 @@ public class ClientList extends JFrame {
                 client.getDateJoined()
             });
         }
+=======
+    @Override
+    public String toString() {
+        return "Client List";
+>>>>>>> Stashed changes
     }
 }
