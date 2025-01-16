@@ -7,7 +7,7 @@ import javax.swing.*;
 public class DoubleInput extends JTextField{
     double max;
     int decimals;
-    DoubleInput(double max, Dimension dim, int decimals){
+    DoubleInput(Long max, Dimension dim, int decimals){
         addDecimalNumberInputValidation(this);
         this.max = max;
         this.decimals = decimals;
