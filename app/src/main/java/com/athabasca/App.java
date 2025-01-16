@@ -2,13 +2,17 @@ package com.athabasca;
 
 import javax.swing.SwingUtilities;
 
-public class App 
-{
+public class App {
     public static void main(String[] args) {
+        System.out.println("App main method started");
         SwingUtilities.invokeLater(() -> {
-            // TestFrame tf = new TestFrame();
-            // Login login = new Login();
-            ClientList cl = new ClientList();
+            try {
+                System.out.println("Creating Login window");
+                Login login = new Login();
+                System.out.println("Login window created");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         });
     }
 }

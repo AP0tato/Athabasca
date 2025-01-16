@@ -39,3 +39,17 @@ application {
     // Define the main class for the application.
     mainClass = "com.athabasca.App"
 }
+
+tasks.jar {
+    manifest {
+        attributes(
+            "Main-Class" to application.mainClass.get()
+        )
+    }
+    from({
+        configurations.runtimeClasspath.get().filter { it.exists() }.map { if (it.isDirectory) it else zipTree(it) }
+    }) {
+        exclude("META-INF/*.SF", "META-INF/*.DSA", "META-INF/*.RSA")
+    }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}

@@ -11,3 +11,6 @@ build
 
 # Ignore log file
 *.log
+
+# Ignore bin file
+bin
