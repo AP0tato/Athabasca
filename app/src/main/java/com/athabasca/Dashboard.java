@@ -25,9 +25,16 @@ public class Dashboard extends JFrame {
         } else {
             toUse = repWindows;
         }
-
+        buttons = new JButton[toUse.length];
         for(int i = 0;i<toUse.length; i++){
-            
+            JButton btnNew = new JButton(toUse[i].toString());
+            final int inner_i = i;
+            btnNew.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    toUse[inner_i].setVisible(true);
+                }
+                
+            });
         }
 
         JComponent[][] elements = {buttons};
