@@ -42,6 +42,7 @@ public class Dashboard extends JFrame {
         add(new JLabel("Admin Dashboard"),gbc);
         gbc.nextY();
         add(pnl,gbc);
+        System.out.println("Got to a point");
         pack();
         setVisible(true);
     }

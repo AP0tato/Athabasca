@@ -39,9 +39,6 @@ public class AssignClient extends JFrame{
         });
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setVisible(true);
-
-
     }
     @Override
     public String toString() {

@@ -52,12 +52,11 @@ public class Login extends JFrame
                 if(loginSuccessful){
                     //handle successful login
                     JOptionPane.showMessageDialog(null, "Login Successful!");
-                    //redirect to the appropriate dashboard based on role
                     if(role.equals("Admin")){}
-                        //Open Admin Dashboard
+                            new Dashboard(true);
                     }
                     else if(role.equals("Rep")){
-                        //Open Rep dashboard
+                        new Dashboard(false);
                     }
                     else {
                         // Handle login failure
@@ -72,6 +71,7 @@ public class Login extends JFrame
                     // Replace this with actual authentication logic
                     // For example, check against a database or an authentication service
                     if ("admin".equals(uname) && "password".equals(new String(pword))) {
+                        new Dashboard(true);
                         return true;
                     }
                     return false;

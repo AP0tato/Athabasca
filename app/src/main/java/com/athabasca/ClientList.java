@@ -75,7 +75,6 @@ public class ClientList extends JFrame {
         add(scr, gbc);
         //ScalePanel pnlScale = new ScalePanel(pnl,1.5);
         pack();
-        setVisible(true);
     }
 
     private void updateTable(Client[] clients){
@@ -85,23 +84,15 @@ public class ClientList extends JFrame {
             model.addRow(clientData);
         }
     }
-<<<<<<< Updated upstream
 
     private void callback(ArrayList<Client> clients) {
         model.setRowCount(0);
         for (Client client : clients) {
-            model.addRow(new Object[]{
-                client.getFirstName(),
-                client.getLastName(),
-                client.getPhoneNumber(),
-                client.getAddress(),
-                client.getDateJoined()
-            });
-        }
-=======
+            model.addRow( client.toString().split("\\|")
+            );
+        }}
     @Override
     public String toString() {
         return "Client List";
->>>>>>> Stashed changes
     }
 }
