@@ -12,7 +12,6 @@ public class DoubleInput extends JTextField{
         this.max = max;
         this.decimals = decimals;
         setPreferredSize(dim);
-        setText("0.00");
     }
 
     // This method is responsible for addDecimalNumberInputValidation.
