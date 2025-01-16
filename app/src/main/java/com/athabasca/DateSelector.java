@@ -8,7 +8,6 @@ import javax.swing.JFrame;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
-import com.athabasca.DateLabelFormatter;
 
 public class DateSelector {
     void GUI() {

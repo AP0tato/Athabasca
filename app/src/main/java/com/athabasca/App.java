@@ -8,7 +8,7 @@ public class App {
         SwingUtilities.invokeLater(() -> {
             try {
                 System.out.println("Creating Login window");
-                Login login = new Login();
+                new Login();
                 System.out.println("Login window created");
             } catch (Exception e) {
                 e.printStackTrace();
