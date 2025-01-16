@@ -8,45 +8,22 @@ public class Session
      * 0 = lowest, employees
      * 1 = admins
      */
-    private int PERMISSION = -1;
-    private String f_name;
-    private String l_name;
-    private String email;
-    private String token;
-    private Map<Integer, String> assigned;
-    private DatabaseUtil db;
+    private static int PERMISSION = -1;
+    private static String f_name;
+    private static String l_name;
+    private static String email;
+    private static String token;
+    private static Map<Integer, String> assigned;
+    private static DatabaseUtil db;
 
-    @SuppressWarnings("unchecked")
     public Session(String email, String token)
     {
         db = new DatabaseUtil();
-        db.setRef("employee", data -> {
-            if(data != null)
-            {
-                try {
-                    Map<String, Map<String, Object>> loadedData = (Map<String, Map<String, Object>>) data;
-                    for(Map.Entry<String, Map<String, Object>> entry : loadedData.entrySet())
-                    {
-                        if(entry.getValue().get("email").equals(email))
-                        {
-                            this.f_name = (String) entry.getValue().get("f_name");
-                            this.l_name = (String) entry.getValue().get("l_name");
-                            this.email = (String) entry.getValue().get("email");
-                            this.PERMISSION = (int) entry.getValue().get("permission");
-                            this.assigned = (Map<Integer, String>) entry.getValue().get("assigned");
-                            break;
-                        }
-                    }
-                } catch(ClassCastException e) {
-                    System.err.println("Error casting data: " + e.getMessage());
-                    e.printStackTrace();
-                }
-            }
-        });
+        update();
     }
 
     @SuppressWarnings("unchecked")
-    public void update()
+    public static void update()
     {
         db.setRef("employee", data -> {
             if(data != null)
@@ -57,11 +34,11 @@ public class Session
                     {
                         if(entry.getValue().get("email").equals(email))
                         {
-                            this.f_name = (String) entry.getValue().get("f_name");
-                            this.l_name = (String) entry.getValue().get("l_name");
-                            this.email = (String) entry.getValue().get("email");
-                            this.PERMISSION = (int) entry.getValue().get("permission");
-                            this.assigned = (Map<Integer, String>) entry.getValue().get("assigned");
+                            f_name = (String) entry.getValue().get("f_name");
+                            l_name = (String) entry.getValue().get("l_name");
+                            email = (String) entry.getValue().get("email");
+                            PERMISSION = (int) entry.getValue().get("permission");
+                            assigned = (Map<Integer, String>) entry.getValue().get("assigned");
                             break;
                         }
                     }
@@ -83,7 +60,7 @@ public class Session
     /**
      * @return int return the PERMISSION
      */
-    public int getPermissin() {
+    public int getPermission() {
         return PERMISSION;
     }
 
