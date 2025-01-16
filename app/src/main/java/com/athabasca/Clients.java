@@ -23,7 +23,8 @@ public class Clients {
                             (String) entry.getValue().get("l_name"),
                             (Long) entry.getValue().get("p_number"),
                             (String) entry.getValue().get("address"),
-                            (String) entry.getValue().get("date_joined")
+                            (String) entry.getValue().get("date_joined"),
+                            (String) entry.getKey()
                         ));
                     }
                     System.out.println("Clients loaded: " + clients);
