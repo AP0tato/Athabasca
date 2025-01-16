@@ -11,12 +11,12 @@ import java.util.function.Consumer;
 
 public class DatabaseUtil {
     public static final String URL = "https://finalproject12-1fd07-default-rtdb.firebaseio.com";
-    private FirebaseDatabase database;
+    private static FirebaseDatabase database;
 
     public DatabaseUtil() {
         try {
             // Load the service account key JSON file
-            FileInputStream serviceAccount = new FileInputStream(System.getProperty("user.dir") + "/app/src/main/resources/serviceAccountKey.json");
+            FileInputStream serviceAccount = new FileInputStream(System.getProperty("user.dir") + "/src/main/resources/serviceAccountKey.json");
 
             // Configure Firebase options
             FirebaseOptions options = FirebaseOptions.builder()
@@ -24,14 +24,14 @@ public class DatabaseUtil {
                 .setDatabaseUrl(DatabaseUtil.URL)
                 .build();
 
-            if(FirebaseApp.getInstance()==null)
+            if(FirebaseApp.getApps().size()==0)
             {
                 // Initialize Firebase app
                 FirebaseApp.initializeApp(options);
             }
 
             // Get a reference to the database
-            database = FirebaseDatabase.getInstance();
+            DatabaseUtil.database = FirebaseDatabase.getInstance();
         } catch (IOException e) {
             e.printStackTrace();
         }

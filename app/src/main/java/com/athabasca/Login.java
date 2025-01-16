@@ -1,12 +1,10 @@
 package com.athabasca;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
-import java.util.HashMap;
 
 import java.awt.Dimension;
 import java.awt.GridBagLayout;
@@ -35,45 +33,33 @@ public class Login extends JFrame
 
         btnLogin.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                HashMap<String,Object> login_info = new HashMap<String,Object>();
                 String uname = flduname.getText().trim();
                 char[] pword = fldPass.getPassword();
-                login_info.put("UNAME", uname);
-                login_info.put("PWORD", pword);
 
-                //process the login data
-                boolean loginSuccessful = authenticateUser(login_info);
+                uname.replaceAll("\\.", "\\\\");
 
-                if(loginSuccessful){
-                    //handle successful login
+                AuthService as = new AuthService();
+                String password = "";
+                for(char i : pword){
+                    password += i;
+                }
+                String token = as.createUserAndToken(uname, password);
+                if(token!=null)
+                {
                     JOptionPane.showMessageDialog(null, "Login Successful!");
-                    if(Session.getPermission() == 1){}
-                            new Dashboard(true);
-                            setVisible(false);
+                    new Session(uname, token);
+                    if(Session.getPermission() == 1)
+                    {
+                        new Dashboard(true);
                     }
-                    else if(Session.getPermission() == 0){
+                    else
+                    {
                         new Dashboard(false);
-                        setVisible(false);
-                    }
-                    else {
-                        // Handle login failure
-                        JOptionPane.showMessageDialog(null, "Invalid Username or Password.", "Login Failed", JOptionPane.ERROR_MESSAGE);
                     }
                 }
-
-                private boolean authenticateUser(HashMap<String, Object> login_info) {
-                    String uname = (String) login_info.get("UNAME");
-                    char[] pword = (char[]) login_info.get("PWORD");
-            
-                    // Replace this with actual authentication logic
-                    // For example, check against a database or an authentication service
-                    if ("admin".equals(uname) && "password".equals(new String(pword))) {
-                        new Dashboard(true);
-                        return true;
-                    }
-                    return false;
+                else
+                    JOptionPane.showMessageDialog(null, "Invalid Username or Password.", "Login Failed", JOptionPane.ERROR_MESSAGE);
             }
-            
         });
 
         add(new JLabel("Login"),gbc);
