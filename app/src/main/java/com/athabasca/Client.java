@@ -10,7 +10,7 @@ public class Client {
     private String email;
     
     public static String[] Categories = {"First Name","Last Name", "Phone number", "Address", "Date Joined","Email"};
-    Client(String firstName, String lastName, Long phoneNumber, String address, String dateJoined,String email){
+    Client(String firstName, String lastName, Long phoneNumber, String address, String dateJoined, String email){
         this.firstName = firstName;
         this.address = address;
         this.lastName = lastName;
