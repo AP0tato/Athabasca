@@ -1,13 +1,54 @@
 package com.athabasca;
+import java.awt.Dimension;
+import java.awt.GridBagLayout;
+
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 
 public class CheckAssignments extends JFrame {
+    DefaultTableModel model;
     CheckAssignments(){
+        setLayout(new GridBagLayout());
+        GridBagUtil gbc = new GridBagUtil(0, 0);
+        JButton btnRefresh = new JButton("Refresh");
+        model = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        JTable tblClients = new JTable(model);
+        JScrollPane scr = new JScrollPane(tblClients);
+        scr.setSize(new Dimension(500,500));
+        model.setColumnIdentifiers(Client.Categories);
+
+        add(new JLabel("Check your assignements"),gbc);
+        gbc.nextY();
+        add(btnRefresh,gbc);
+        gbc.nextY();
+        add(scr,gbc);
         
     }
     @Override
     public String toString() {
         return "Check Assignments";
+    }
+    private void updateTable(){
+        model.setRowCount(0);
+        Session.update();
+        for(int i = 0; i < Session.getAssigned().size(); i++){
+            String clientEmail = Session.getAssigned().get(i);
+            String[] toSort = new String[Clients.clients.size()];
+            for(int j = 0; j < Clients.clients.size();j++){
+                toSort[j] = Clients.clients.get(j).get
+            }
+            String[] clientData = client.toString().split("\\|"); // Remove the backslashes and I will find you
+            model.addRow(clientData);
+        }
     }
 }

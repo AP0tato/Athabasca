@@ -7,14 +7,16 @@ public class Client {
     private String firstName;
     private String lastName;
     private String dateJoined;
+    private String email;
     
-    public static String[] Categories = {"First Name","Last Name", "Phone number", "Address", "Date Joined"};
-    Client(String firstName, String lastName, Long phoneNumber, String address, String dateJoined){
+    public static String[] Categories = {"First Name","Last Name", "Phone number", "Address", "Date Joined","Email"};
+    Client(String firstName, String lastName, Long phoneNumber, String address, String dateJoined,String email){
         this.firstName = firstName;
         this.address = address;
         this.lastName = lastName;
         this.dateJoined = dateJoined;
         this.phoneNumber = phoneNumber;
+        this.email = email;
     }
 
     public String getAddress() {
@@ -32,7 +34,9 @@ public class Client {
     public Long getPhoneNumber() {
         return phoneNumber;
     }
-
+    public String getEmail() {
+        return email;
+    }
     @Override
     public String toString() {
         return firstName + "|" + lastName + "|" + phoneNumber + "|" + address + "|" + dateJoined;
