@@ -21,9 +21,6 @@ public class Login extends JFrame
         FormattedPanel pnl = new FormattedPanel();
         Dimension dimflds = new Dimension(100,20);
 
-        String[] roles = {"Admin", "Rep"};
-
-        JComboBox<String> bxRoles = new JComboBox<String>(roles);
 
         GeneralInput flduname = new GeneralInput(20, dimflds);
 
@@ -39,10 +36,8 @@ public class Login extends JFrame
         btnLogin.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 HashMap<String,Object> login_info = new HashMap<String,Object>();
-                String role = bxRoles.getSelectedItem().toString();
                 String uname = flduname.getText().trim();
                 char[] pword = fldPass.getPassword();
-                login_info.put("ROLE",role);
                 login_info.put("UNAME", uname);
                 login_info.put("PWORD", pword);
 
@@ -52,11 +47,13 @@ public class Login extends JFrame
                 if(loginSuccessful){
                     //handle successful login
                     JOptionPane.showMessageDialog(null, "Login Successful!");
-                    if(role.equals("Admin")){}
+                    if(Session..equals("Admin")){}
                             new Dashboard(true);
+                            setVisible(false);
                     }
                     else if(role.equals("Rep")){
                         new Dashboard(false);
+                        setVisible(false);
                     }
                     else {
                         // Handle login failure
