@@ -35,11 +35,10 @@ public class Login extends JFrame
 
         btnLogin.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                HashMap<String,Object> login_info = new HashMap<String,Object>();
                 String uname = flduname.getText().trim();
                 char[] pword = fldPass.getPassword();
-                login_info.put("UNAME", uname);
-                login_info.put("PWORD", pword);
+
+                uname.replaceAll("\\.", "\\");
 
                 AuthService as = new AuthService();
                 String password = "";
