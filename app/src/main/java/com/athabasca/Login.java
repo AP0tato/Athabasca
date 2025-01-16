@@ -49,41 +49,20 @@ public class Login extends JFrame
                 String token = as.createUserAndToken(uname, password);
                 if(token!=null)
                 {
-                    Session s = new Session(uname, token);
-                    
-                }
-
-                //process the login data
-                // boolean loginSuccessful = authenticateUser(login_info);
-
-                if(loginSuccessful){
-                    //handle successful login
                     JOptionPane.showMessageDialog(null, "Login Successful!");
-                    if(role.equals("Admin")){}
-                            new Dashboard(true);
+                    Session s = new Session(uname, token);
+                    if(s.getPermission() == 1)
+                    {
+                        new Dashboard(true);
                     }
-                    else if(role.equals("Rep")){
+                    else
+                    {
                         new Dashboard(false);
                     }
-                    else {
-                        // Handle login failure
-                        JOptionPane.showMessageDialog(null, "Invalid Username or Password.", "Login Failed", JOptionPane.ERROR_MESSAGE);
-                    }
                 }
-
-                private boolean authenticateUser(HashMap<String, Object> login_info) {
-                    String uname = (String) login_info.get("UNAME");
-                    char[] pword = (char[]) login_info.get("PWORD");
-            
-                    // Replace this with actual authentication logic
-                    // For example, check against a database or an authentication service
-                    if ("admin".equals(uname) && "password".equals(new String(pword))) {
-                        new Dashboard(true);
-                        return true;
-                    }
-                    return false;
+                else
+                    JOptionPane.showMessageDialog(null, "Invalid Username or Password.", "Login Failed", JOptionPane.ERROR_MESSAGE);
             }
-            
         });
 
         add(new JLabel("Login"),gbc);
