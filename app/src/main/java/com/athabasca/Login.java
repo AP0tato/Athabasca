@@ -36,14 +36,12 @@ public class Login extends JFrame
                 String uname = flduname.getText().trim();
                 char[] pword = fldPass.getPassword();
 
-                uname.replaceAll("\\.", "\\\\");
-
                 AuthService as = new AuthService();
                 String password = "";
                 for(char i : pword){
                     password += i;
                 }
-                String token = as.createUserAndToken(uname, password);
+                String token = as.loginUserAndToken(uname, password);
                 if(token!=null)
                 {
                     JOptionPane.showMessageDialog(null, "Login Successful!");

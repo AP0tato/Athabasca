@@ -45,10 +45,10 @@ public class CheckAssignments extends JFrame {
             String clientEmail = Session.getAssigned().get(i);
             String[] toSort = new String[Clients.clients.size()];
             for(int j = 0; j < Clients.clients.size();j++){
-                toSort[j] = Clients.clients.get(j).get
+                // toSort[j] = Clients.clients.get(j).get
             }
-            String[] clientData = client.toString().split("\\|"); // Remove the backslashes and I will find you
-            model.addRow(clientData);
+            // String[] clientData = client.toString().split("\\|"); // Remove the backslashes and I will find you
+            // model.addRow(clientData);
         }
     }
 }

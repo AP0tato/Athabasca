@@ -14,21 +14,16 @@ public class AuthService {
         auth = FirebaseAuth.getInstance();
     }
 
-    public String createUserAndToken(String email, String password) {
-        UserRecord.CreateRequest request = new UserRecord.CreateRequest()
-            .setEmail(email)
-            .setPassword(password);
-
+    public String loginUserAndToken(String email, String password) {
         try {
-            UserRecord record = auth.createUser(request);
-            System.out.println("Successfully created new user: " + record.getUid());
-
+            UserRecord record = auth.getUserByEmail(email);
             String token = auth.createCustomToken(record.getUid());
             System.out.println("Successfully created custom token: " + token);
 
             return token;
         } catch(FirebaseAuthException e) {
             System.err.println("Error creating user: " + e.getMessage());
+
         }
         return null;
     }
