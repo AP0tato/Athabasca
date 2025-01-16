@@ -6,9 +6,11 @@ import java.awt.event.KeyEvent;
 import javax.swing.*;
 public class DoubleInput extends JTextField{
     double max;
-    DoubleInput(double max, Dimension dim){
+    int decimals;
+    DoubleInput(double max, Dimension dim, int decimals){
         addDecimalNumberInputValidation(this);
         this.max = max;
+        this.decimals = decimals;
         setPreferredSize(dim);
         setText("0.00");
     }
@@ -44,7 +46,7 @@ public class DoubleInput extends JTextField{
                             System.out.println(textField.getText().indexOf('.') == -1);
                             String nextValue = textField.getText() + String.valueOf(k.getKeyChar());
                             if ((nextValue.split("\\.").length > 1)) {
-                                if (nextValue.split("\\.")[1].length() > 2) {
+                                if (nextValue.split("\\.")[1].length() > decimals) {
                                     textField.setEditable(false);
                                 }
                             }
