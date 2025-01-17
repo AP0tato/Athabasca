@@ -61,8 +61,6 @@ public class CheckAssignments extends JFrame {
                 String[] clientData = client.toString().split("\\|"); // Remove the backslashes and I will find you
                 model.addRow(clientData);
             }
-
-            
         }
     }
 }

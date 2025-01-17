@@ -19,41 +19,10 @@ public class Session
     private static List<String> assigned;
     private static DatabaseUtil db;
 
-    @SuppressWarnings("unchecked")
     public Session(String email, String token)
     {
         db = new DatabaseUtil();
         Session.email = email;
-        db.setRef("employee", data -> {
-            if(data != null)
-            {
-                try {
-                    Map<String, Map<String, Object>> loadedData = (Map<String, Map<String, Object>>) data;
-                    for(Map.Entry<String, Map<String, Object>> entry : loadedData.entrySet())
-                    {
-                        if(entry.getKey().equals(email.replaceAll("\\.", "\\\\")))
-                        {
-                            f_name = (String) entry.getValue().get("f_name");
-                            l_name = (String) entry.getValue().get("l_name");
-                            // PERMISSION = ((Long) entry.getValue().get("permission")).intValue();
-                            Object permissionObj = entry.getValue().get("permission");
-                            if (permissionObj instanceof Long) {
-                                Session.PERMISSION = ((Long) permissionObj).intValue();
-                            } else if (permissionObj instanceof Integer) {
-                                Session.PERMISSION = (Integer) permissionObj;
-                            } else {
-                                throw new ClassCastException("Unexpected type for permission: " + permissionObj.getClass().getName());
-                            }
-                            assigned = (List<String>) entry.getValue().get("assigned");
-                            break;
-                        }
-                    }
-                } catch(ClassCastException e) {
-                    System.err.println("Error casting data: " + e.getMessage());
-                    e.printStackTrace();
-                }
-            }
-        });
     }
 
     @SuppressWarnings("unchecked")
@@ -73,9 +42,9 @@ public class Session
                             // PERMISSION = ((Long) entry.getValue().get("permission")).intValue();
                             Object permissionObj = entry.getValue().get("permission");
                             if (permissionObj instanceof Long) {
-                                Session.PERMISSION = ((Long) permissionObj).intValue();
+                                PERMISSION = ((Long) permissionObj).intValue();
                             } else if (permissionObj instanceof Integer) {
-                                Session.PERMISSION = (Integer) permissionObj;
+                                PERMISSION = (Integer) permissionObj;
                             } else {
                                 throw new ClassCastException("Unexpected type for permission: " + permissionObj.getClass().getName());
                             }

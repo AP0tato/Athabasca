@@ -10,6 +10,8 @@ import java.awt.Dimension;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Login extends JFrame
 {
@@ -46,6 +48,7 @@ public class Login extends JFrame
                 {
                     JOptionPane.showMessageDialog(null, "Login Successful!");
                     new Session(uname, token);
+                    Session.update(Login.this::thing);
                     System.out.println("Permission: " + Session.getPermission());
                     if(Session.getPermission() == 1)
                     {
@@ -69,5 +72,9 @@ public class Login extends JFrame
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
+    }
+
+    private void thing(ArrayList<String> callback){
+        System.out.println("Callback: " + callback);
     }
 }
