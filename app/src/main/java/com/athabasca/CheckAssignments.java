@@ -47,8 +47,8 @@ public class CheckAssignments extends JFrame {
     private void updateTable(ArrayList<String> callback){
         model.setRowCount(0);
         System.out.println(Session.getAssigned());
-        for(int i = 0; i < Session.getAssigned().size(); i++){
-            String clientEmail = Session.getAssigned().get(i);
+        for(int i = 0; i < callback.size(); i++){
+            String clientEmail = callback.get(i);
             String[] toSort = new String[Clients.clients.size()];
             for(int j = 0; j < Clients.clients.size();j++){
                 toSort[j] = Clients.clients.get(j).getEmail();
