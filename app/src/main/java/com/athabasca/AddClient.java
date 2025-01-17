@@ -1,9 +1,11 @@
 package com.athabasca;
 
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.Properties;
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -11,25 +13,29 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 
 public class AddClient extends JFrame {
+    private File selectedFile = null; // Class-level variable to store the selected file
     AddClient() {
         // Set the layout for the frame
         setLayout(new GridBagLayout());
         
         // Create a formatted panel and set constraints
-        FormattedPanel panel = new FormattedPanel();
+        FormattedPanel pnl = new FormattedPanel();
         GridBagUtil constraints = new GridBagUtil(0, 0);
         Dimension dimflds = new Dimension(100, 20);
 
         // Create text fields for client information
         JTextField Fname = new TextInput(15, dimflds);
         JTextField Lname = new TextInput(15, dimflds);
-        JTextField phone = new DoubleInput( new Long("10000000000"), dimflds,-1, false);
+        JTextField phone = new TextInput(15, dimflds);
         JTextField address = new GeneralInput(15, dimflds);
+        JTextField email = new TextInput(25, dimflds);
         
         // Create the date picker model and properties
         UtilDateModel model = new UtilDateModel();
@@ -42,65 +48,102 @@ public class AddClient extends JFrame {
         JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
         JDatePickerImpl datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
 
-        JLabel title1 = new JLabel("Add Client by Entering Information Below");
-        panel.add(title1, constraints);
-        add(title1, constraints);
         // Create a 2D array of components to add to the panel
         JComponent[][] elements = {
-            { new JLabel("First Name: "), Fname, },
+            { new JLabel("First Name: "), Fname },
             { new JLabel("Last Name: "), Lname },
             { new JLabel("Phone #: "), phone },
             { new JLabel("Address: "), address },
-            { new JLabel("Date Joined: "), datePicker }, // Replace dateJoined text field with datePicker
-            {  }
+            {new JLabel("Email: "), email},
+            { new JLabel("Date Joined: "), datePicker }// Replace dateJoined text field with datePicker
+            
         };
-        constraints.nextY();
         
         // Add elements to the panel
-        panel.addElements(elements);
-        add(panel, constraints);
+        pnl.addElements(elements);
+        add(pnl, constraints);
 
+        // Increment the grid position for the next set of components
+        constraints.nextY();
+        FormattedPanel pnl2 = new FormattedPanel();
         // Add a label for adding clients by CSV 
         JLabel byCSV = new JLabel("Or Add Clients By CSV ");
         constraints.nextY();
+        System.out.println("byCSVLabel y: "+constraints.gridy);
         add(byCSV, constraints);
 
-
-        //Add 
-        JButton submit = new JButton("Submit");
         // Add a button to open the file chooser
         JButton openFileChooserButton = new JButton("Open");
-        // file selected display
+        // Add a submit button beside the open button
+        JButton submit = new JButton("Submit");        
+        // File selected display beside the buttons
         JTextField csvInput = new GeneralInput(25, dimflds);
+        csvInput.setEditable(false);
+
+
+        JLabel status = new JLabel();
+
+        JComponent[][] elements2 ={
+            {openFileChooserButton, submit, csvInput},
+            {status}
+        };
+        pnl2.addElements(elements2);
+        constraints.nextY();
+        System.out.println("ByCSV y: "+constraints.gridy);
+
+        add(pnl2, constraints);
+
         
 
-        JComponent[][] elements2 = {{submit, openFileChooserButton, csvInput}};
-        constraints.nextY();
-        //panel.addElements(elements2);
-        add(panel, constraints);
-
-
-       
 
         // Add an action listener to the button to open the file chooser
         openFileChooserButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 JFileChooser fileChooser = new JFileChooser();
+                // Add a file filter to only allow CSV files
+                FileNameExtensionFilter filter = new FileNameExtensionFilter("CSV Files", "csv");
+                fileChooser.setFileFilter(filter);
                 int returnValue = fileChooser.showOpenDialog(null);
                 if (returnValue == JFileChooser.APPROVE_OPTION) {
                     // Handle the selected file
-                    java.io.File selectedFile = fileChooser.getSelectedFile();
-                    System.out.println("Selected file: " + selectedFile.getAbsolutePath());
-                    // You can add code here to read and process the CSV file
-                    csvInput.setText(selectedFile.toString());
-
+                    selectedFile = fileChooser.getSelectedFile();
+                    if (selectedFile.getName().toLowerCase().endsWith(".csv")) {
+                        System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+                        csvInput.setText(selectedFile.toString());
+                    } else {
+                        System.out.println("Selected file is not a CSV file");
+                        csvInput.setText("");
+                    }
                 }
             }
         });
 
+        submit.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Add code here to read and process the CSV file
+                System.out.println("Processing CSV file: " + csvInput.getText());
+                if(Fname.getText().equals(null)||Lname.getText().equals(null)||phone.getText().equals(null)||address.getText().equals(null)||email.getText().equals(null)){
+                    status.setText("Please fill all fields");
+                    
+                }else{
+                    long phoneNum = Long.parseLong(phone.getText());
+                    Client newClient = new Client(Fname.getText(), Lname.getText(), phoneNum, address.getText(), datePicker.getJFormattedTextField().getText(), email.getText());
+                    
+                }
+
+                returnSelectedFile();
+
+            }
+        });
+
+       
 
         // Pack the frame to fit the components
         pack();
+        setVisible(true);
+    }
+    private String returnSelectedFile() {
+        return selectedFile.toString();
     }
 
     @Override

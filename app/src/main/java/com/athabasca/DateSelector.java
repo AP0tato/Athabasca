@@ -34,8 +34,4 @@ public class DateSelector {
         datePicker.setBounds(50, 50, 200, 30);
         conn.add(datePicker);
     }
-
-    public static void main(String[] args) {
-        new DateSelector().GUI();
-    }
 }
