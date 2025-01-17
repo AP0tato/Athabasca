@@ -50,16 +50,16 @@ public class Login extends JFrame
                     new Session(uname, token);
                     Session.update(Login.this::thing);
                     System.out.println("Permission: " + Session.getPermission());
-                    if(Session.getPermission() == 1)
-                    {
-                        new Dashboard(true);
+                    new Session(uname, token);
+                    Session.update(result -> {
+                        System.out.println("Permission: " + Session.getPermission());
+                        if (Session.getPermission() == 1) {
+                            new Dashboard(true);
+                        } else {
+                            new Dashboard(false);
+                        }
                         setVisible(false);
-                    }
-                    else
-                    {
-                        new Dashboard(false);
-                        setVisible(false);
-                    }
+                    });
                 }
                 else
                     JOptionPane.showMessageDialog(null, "Invalid Username or Password.", "Login Failed", JOptionPane.ERROR_MESSAGE);

@@ -56,6 +56,7 @@ public class Session
                     System.err.println("Error casting data: " + e.getMessage());
                     e.printStackTrace();
                 }
+                callback.accept(null);
             }
         });
     }
