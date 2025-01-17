@@ -9,8 +9,6 @@ public class App {
             try {
                 System.out.println("Creating Login window");
                 new Login();
-                //new Dashboard(false);
-                // new Dashboard(true);
                 System.out.println("Login window created");
             } catch (Exception e) {
                 e.printStackTrace();
