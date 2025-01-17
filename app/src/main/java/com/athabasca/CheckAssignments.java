@@ -3,6 +3,7 @@ import java.awt.Dimension;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -28,8 +29,8 @@ public class CheckAssignments extends JFrame {
         JScrollPane scr = new JScrollPane(tblClients);
         scr.setSize(new Dimension(500,500));
         model.setColumnIdentifiers(Client.Categories);
-        updateTable();
-        btnRefresh.addActionListener(new ActionListener() {public void actionPerformed(ActionEvent e) {updateTable();}});
+        Session.update(this::updateTable);
+        btnRefresh.addActionListener(new ActionListener() {public void actionPerformed(ActionEvent e) {Session.update(CheckAssignments.this::updateTable);}});
         add(new JLabel("Check your assignements"),gbc);
         gbc.nextY();
         add(btnRefresh,gbc);
@@ -41,9 +42,8 @@ public class CheckAssignments extends JFrame {
     public String toString() {
         return "Check Assignments";
     }
-    private void updateTable(){
+    private void updateTable(ArrayList<String> callback){
         model.setRowCount(0);
-        Session.update();
         for(int i = 0; i < Session.getAssigned().size(); i++){
             String clientEmail = Session.getAssigned().get(i);
             String[] toSort = new String[Clients.clients.size()];

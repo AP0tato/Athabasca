@@ -1,5 +1,8 @@
 package com.athabasca;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 
 public class Session 
 {
@@ -13,17 +16,48 @@ public class Session
     private static String l_name;
     private static String email;
     private static String token;
-    private static Map<Integer, String> assigned;
+    private static List<String> assigned;
     private static DatabaseUtil db;
 
+    @SuppressWarnings("unchecked")
     public Session(String email, String token)
     {
         db = new DatabaseUtil();
-        update();
+        Session.email = email;
+        db.setRef("employee", data -> {
+            if(data != null)
+            {
+                try {
+                    Map<String, Map<String, Object>> loadedData = (Map<String, Map<String, Object>>) data;
+                    for(Map.Entry<String, Map<String, Object>> entry : loadedData.entrySet())
+                    {
+                        if(entry.getKey().equals(email.replaceAll("\\.", "\\\\")))
+                        {
+                            f_name = (String) entry.getValue().get("f_name");
+                            l_name = (String) entry.getValue().get("l_name");
+                            // PERMISSION = ((Long) entry.getValue().get("permission")).intValue();
+                            Object permissionObj = entry.getValue().get("permission");
+                            if (permissionObj instanceof Long) {
+                                PERMISSION = ((Long) permissionObj).intValue();
+                            } else if (permissionObj instanceof Integer) {
+                                PERMISSION = (Integer) permissionObj;
+                            } else {
+                                throw new ClassCastException("Unexpected type for permission: " + permissionObj.getClass().getName());
+                            }
+                            assigned = (List<String>) entry.getValue().get("assigned");
+                            break;
+                        }
+                    }
+                } catch(ClassCastException e) {
+                    System.err.println("Error casting data: " + e.getMessage());
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     @SuppressWarnings("unchecked")
-    public static void update()
+    public static void update(Consumer<ArrayList<String>> callback)
     {
         db.setRef("employee", data -> {
             if(data != null)
@@ -32,13 +66,20 @@ public class Session
                     Map<String, Map<String, Object>> loadedData = (Map<String, Map<String, Object>>) data;
                     for(Map.Entry<String, Map<String, Object>> entry : loadedData.entrySet())
                     {
-                        if(entry.getValue().get("email").equals(email))
+                        if(entry.getKey().equals(email.replaceAll("\\.", "\\\\")))
                         {
                             f_name = (String) entry.getValue().get("f_name");
                             l_name = (String) entry.getValue().get("l_name");
-                            email = (String) entry.getValue().get("email");
-                            PERMISSION = (int) entry.getValue().get("permission");
-                            assigned = (Map<Integer, String>) entry.getValue().get("assigned");
+                            // PERMISSION = ((Long) entry.getValue().get("permission")).intValue();
+                            Object permissionObj = entry.getValue().get("permission");
+                            if (permissionObj instanceof Long) {
+                                PERMISSION = ((Long) permissionObj).intValue();
+                            } else if (permissionObj instanceof Integer) {
+                                PERMISSION = (Integer) permissionObj;
+                            } else {
+                                throw new ClassCastException("Unexpected type for permission: " + permissionObj.getClass().getName());
+                            }
+                            assigned = (List<String>) entry.getValue().get("assigned");
                             break;
                         }
                     }
@@ -109,7 +150,7 @@ public class Session
     /**
      * @return Map<Integer, String> return the assigned
      */
-    public static Map<Integer, String> getAssigned() {
+    public static List<String> getAssigned() {
         return assigned;
     }
 }
