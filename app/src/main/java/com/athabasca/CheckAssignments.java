@@ -25,6 +25,7 @@ public class CheckAssignments extends JFrame {
                 return false;
             }
         };
+        
         JTable tblClients = new JTable(model);
         JScrollPane scr = new JScrollPane(tblClients);
         scr.setSize(new Dimension(500,500));
@@ -36,6 +37,7 @@ public class CheckAssignments extends JFrame {
         add(btnRefresh,gbc);
         gbc.nextY();
         add(scr,gbc);
+        pack();
         
     }
     @Override
@@ -44,8 +46,10 @@ public class CheckAssignments extends JFrame {
     }
     private void updateTable(ArrayList<String> callback){
         model.setRowCount(0);
-        for(int i = 0; i < Session.getAssigned().size(); i++){
-            String clientEmail = Session.getAssigned().get(i);
+        System.out.println("UpdatingTable");
+        System.out.println(Session.getAssigned());
+        for(int i = 0; i < callback.size(); i++){
+            String clientEmail = callback.get(i);
             String[] toSort = new String[Clients.clients.size()];
             for(int j = 0; j < Clients.clients.size();j++){
                 toSort[j] = Clients.clients.get(j).getEmail();

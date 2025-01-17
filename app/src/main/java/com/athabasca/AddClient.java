@@ -146,5 +146,8 @@ public class AddClient extends JFrame {
         return selectedFile.toString();
     }
 
-    
+    @Override
+    public String toString() {
+        return "Add Client";
+    }
 }

@@ -38,9 +38,9 @@ public class Session
                             // PERMISSION = ((Long) entry.getValue().get("permission")).intValue();
                             Object permissionObj = entry.getValue().get("permission");
                             if (permissionObj instanceof Long) {
-                                PERMISSION = ((Long) permissionObj).intValue();
+                                Session.PERMISSION = ((Long) permissionObj).intValue();
                             } else if (permissionObj instanceof Integer) {
-                                PERMISSION = (Integer) permissionObj;
+                                Session.PERMISSION = (Integer) permissionObj;
                             } else {
                                 throw new ClassCastException("Unexpected type for permission: " + permissionObj.getClass().getName());
                             }
@@ -73,9 +73,9 @@ public class Session
                             // PERMISSION = ((Long) entry.getValue().get("permission")).intValue();
                             Object permissionObj = entry.getValue().get("permission");
                             if (permissionObj instanceof Long) {
-                                PERMISSION = ((Long) permissionObj).intValue();
+                                Session.PERMISSION = ((Long) permissionObj).intValue();
                             } else if (permissionObj instanceof Integer) {
-                                PERMISSION = (Integer) permissionObj;
+                                Session.PERMISSION = (Integer) permissionObj;
                             } else {
                                 throw new ClassCastException("Unexpected type for permission: " + permissionObj.getClass().getName());
                             }

@@ -43,7 +43,11 @@ public class Dashboard extends JFrame {
 
         JComponent[][] elements = {buttons};
         pnl.addElements(elements);
-        add(new JLabel("Admin Dashboard"),gbc);
+        if(admin){
+            add(new JLabel("Admin Dashboard"),gbc);
+        } else {
+            add(new JLabel("Rep Dashboard"),gbc);
+        }
         gbc.nextY();
         add(pnl,gbc);
         System.out.println("Got to a point");
