@@ -1,7 +1,6 @@
 package com.athabasca;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -24,18 +23,10 @@ public class FileHelper
         return list;
     }
 
-    public static void writeLine(String file, String line, String header) throws IOException
-    {
-        File f = new File(file);
-        boolean fileExists = f.exists()&&!f.isDirectory();
-        
+    public static void writeLine(String file, String line) throws IOException
+    {   
         try(BufferedWriter bw = new BufferedWriter(new FileWriter(file, true)))
         {
-            if(!fileExists)
-            {
-                bw.write(header);
-                bw.newLine();
-            }
             bw.write(line);
             bw.newLine();
         }
