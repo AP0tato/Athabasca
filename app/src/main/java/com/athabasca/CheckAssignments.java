@@ -44,6 +44,7 @@ public class CheckAssignments extends JFrame {
     }
     private void updateTable(ArrayList<String> callback){
         model.setRowCount(0);
+<<<<<<< Updated upstream
         for(int i = 0; i < Session.getAssigned().size(); i++){
             String clientEmail = Session.getAssigned().get(i);
             String[] toSort = new String[Clients.clients.size()];
@@ -57,8 +58,25 @@ public class CheckAssignments extends JFrame {
                 String[] clientData = client.toString().split("\\|"); // Remove the backslashes and I will find you
                 model.addRow(clientData);
             }
+=======
+        Session.update();
+        System.out.println(Session.getAssigned());
+        // for(int i = 0; i < Session.getAssigned().size(); i++){
+        //     String clientEmail = Session.getAssigned().get(i);
+        //     String[] toSort = new String[Clients.clients.size()];
+        //     for(int j = 0; j < Clients.clients.size();j++){
+        //         toSort[j] = Clients.clients.get(j).getEmail();
+        //     }
+        //     SearchHelper searcher = new SearchHelper();
+        //     int[] found = searcher.originalIndicesBinary(toSort,clientEmail);
+        //     for(int j :found){
+        //         Client client = Clients.clients.get(j);
+        //         String[] clientData = client.toString().split("\\|"); // Remove the backslashes and I will find you
+        //         model.addRow(clientData);
+        //     }
+>>>>>>> Stashed changes
 
             
-        }
+        // }
     }
 }
