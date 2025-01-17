@@ -17,17 +17,17 @@ public class Login extends JFrame
         setLayout(new GridBagLayout());
         GridBagUtil gbc = new GridBagUtil(0, 0);
         FormattedPanel pnl = new FormattedPanel();
-        Dimension dimflds = new Dimension(100,20);
+        Dimension dimflds = new Dimension(400,20);
 
 
-        GeneralInput flduname = new GeneralInput(20, dimflds);
+        GeneralInput flduname = new GeneralInput(200, dimflds);
 
         JPasswordField fldPass = new JPasswordField();
         fldPass.setPreferredSize(dimflds);
 
         JButton btnLogin = new JButton("Login");
 
-        JComponent[][] elements = {{new JLabel("Role: ")},{new JLabel("Username: "),flduname},{new JLabel("Password: "),fldPass}};
+        JComponent[][] elements = {{new JLabel("Username: "),flduname},{new JLabel("Password: "),fldPass}};
 
         pnl.addElements(elements);
 
@@ -46,6 +46,7 @@ public class Login extends JFrame
                 {
                     JOptionPane.showMessageDialog(null, "Login Successful!");
                     new Session(uname, token);
+                    System.out.println("Permission: " + Session.getPermission());
                     if(Session.getPermission() == 1)
                     {
                         new Dashboard(true);
