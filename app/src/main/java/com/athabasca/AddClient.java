@@ -103,11 +103,6 @@ public class AddClient extends JFrame {
         pack();
     }
 
-    public static void main(String[] args) {
-        // Create and display the AddClient frame
-        new AddClient().setVisible(true);
-    }
-
     @Override
     public String toString() {
         return "Add Client";
