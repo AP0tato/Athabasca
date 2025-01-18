@@ -31,9 +31,10 @@ public class ClientList extends JFrame {
         };
         JTable tblClients = new JTable(model);
         JScrollPane scr = new JScrollPane(tblClients);
-        scr.setSize(new Dimension(500,500));
+        scr.setSize(new Dimension(500,400));
         JPanel pnl = new JPanel();
         pnl.setLayout(new GridBagLayout());
+        tblClients.setPreferredScrollableViewportSize(new Dimension(1000, 400));
 
 
         JComboBox<String> bxCategories = new JComboBox<String>(Client.Categories);

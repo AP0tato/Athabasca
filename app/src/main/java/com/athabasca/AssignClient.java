@@ -19,8 +19,8 @@ public class AssignClient extends JFrame{
         GridBagUtil constraints = new GridBagUtil(0, 0);
         Dimension dimflds = new Dimension(100,20);
 
-        JTextField idInput = new GeneralInput(20,dimflds);
-        JTextField assignment = new GeneralInput(20,dimflds);
+        JTextField idInput = new GeneralInput(Integer.MAX_VALUE,dimflds);
+        JTextField assignment = new GeneralInput(Integer.MAX_VALUE,dimflds);
 
         JComponent[][] elements = {{new JLabel("Rep: "), idInput}, {new JLabel("Assignment: "), assignment}};
         panel.addElements(elements);
