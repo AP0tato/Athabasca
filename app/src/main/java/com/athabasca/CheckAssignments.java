@@ -42,7 +42,6 @@ public class CheckAssignments extends JFrame {
                 return c;
             }
         };
-        //tblClients.getColumnModel().getColumn(6).setCellRenderer(new ButtonRenderer());
         tblClients.setPreferredScrollableViewportSize(new Dimension(1000, 400));
         tblClients.addMouseMotionListener(new MouseMotionAdapter() {           
             public void mouseMoved(MouseEvent e) {
@@ -58,6 +57,7 @@ public class CheckAssignments extends JFrame {
         columnIdentifiers[Client.Categories.length] = "completed";
         model.setColumnIdentifiers(columnIdentifiers);
         Session.update(this::updateTable);
+        tblClients.getColumnModel().getColumn(6).setCellRenderer(new ButtonRenderer());
         btnRefresh.addActionListener(new ActionListener() {@Override public void actionPerformed(ActionEvent e) {Session.update(CheckAssignments.this::updateTable);}});
         add(new JLabel("Check your assignements"),gbc);
         gbc.nextY();
