@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.Properties;
+import java.util.regex.Pattern;
+
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
@@ -121,11 +123,18 @@ public class AddClient extends JFrame {
         submit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // Add code here to read and process the CSV file
+                Pattern.matches("^[\\d\\w]+@(\\w\\.\\w)+$", email.getText());        
                 System.out.println("Processing CSV file: " + csvInput.getText());
-                if(Fname.getText().equals(null)||Lname.getText().equals(null)||phone.getText().equals(null)||address.getText().equals(null)||email.getText().equals(null)){
+                if( Fname.getText().equals(null)||
+                    Lname.getText().equals(null)||
+                    phone.getText().equals(null)||
+                    address.getText().equals(null)||
+                    email.getText().equals(null)
+                        
+                ){
                     status.setText("Please fill all fields");
                     
-                }else{
+                }else if(Pattern.matches("^[\\d\\w]+@(\\w\\.\\w)+$", email.getText())){
                     long phoneNum = Long.parseLong(phone.getText());
                     Client newClient = new Client(Fname.getText(), Lname.getText(), phoneNum, address.getText(), datePicker.getJFormattedTextField().getText(), email.getText());
                     
