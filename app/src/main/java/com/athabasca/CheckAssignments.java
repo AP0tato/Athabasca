@@ -78,7 +78,7 @@ public class CheckAssignments extends JFrame {
         System.out.println("Assigned Clients: " + assignedClients);
         for (String clientEmail : assignedClients) {
             for (Client client : Clients.clients) {
-                if (client.getEmail().equals(clientEmail)) {
+                if (client.getEmail().equals(clientEmail.replaceAll("\\\\", "\\."))) {
                     JButton btn = new JButton();
                     btn.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
