@@ -3,8 +3,6 @@ import java.awt.Dimension;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -13,7 +11,6 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import com.google.api.client.util.Data;
 public class AssignClient extends JFrame{
     AssignClient(){
         setTitle("Client Assignement");
