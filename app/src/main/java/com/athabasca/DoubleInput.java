@@ -32,6 +32,9 @@ public class DoubleInput extends JTextField{
                         // Try to parse the current text plus the new key pressed as a double (decimal
                         // number)
                         double futureValue = Double.parseDouble(textField.getText() + String.valueOf(k.getKeyChar()));
+                        if((textField.getText() + String.valueOf(k.getKeyChar())).contains(".") && !allowDecimal){
+                            textField.setEditable(false);
+                        }
 
                         if (futureValue <= max) { // Limit input to values less than 30 million
                             // Allow decimal point if there isn't already one in the text field

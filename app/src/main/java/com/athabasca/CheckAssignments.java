@@ -13,7 +13,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
+
 import java.awt.event.MouseEvent;
+
+import javax.swing.JCheckBox;
 
 
 public class CheckAssignments extends JFrame {
@@ -24,10 +27,15 @@ public class CheckAssignments extends JFrame {
         setLayout(new GridBagLayout());
         GridBagUtil gbc = new GridBagUtil(0, 0);
         JButton btnRefresh = new JButton("Refresh");
-        model = new DefaultTableModel(){
+        model = new DefaultTableModel()
+        {
             @Override
             public boolean isCellEditable(int row, int column) {
-                return false;
+                if(column == 6){
+                    return true;
+                } else {
+                    return false;
+                }
             }
         };
         tblClients = new JTable(model) {
@@ -58,6 +66,7 @@ public class CheckAssignments extends JFrame {
         model.setColumnIdentifiers(columnIdentifiers);
         Session.update(this::updateTable);
         tblClients.getColumnModel().getColumn(6).setCellRenderer(new ButtonRenderer());
+        tblClients.getColumnModel().getColumn(6).setCellEditor(new ButtonEditor(new JCheckBox(), tblClients));
         btnRefresh.addActionListener(new ActionListener() {@Override public void actionPerformed(ActionEvent e) {Session.update(CheckAssignments.this::updateTable);}});
         add(new JLabel("Check your assignements"),gbc);
         gbc.nextY();
@@ -79,13 +88,6 @@ public class CheckAssignments extends JFrame {
         for (String clientEmail : assignedClients) {
             for (Client client : Clients.clients) {
                 if (client.getEmail().equals(clientEmail.replaceAll("\\\\", "\\."))) {
-                    JButton btn = new JButton();
-                    btn.addActionListener(new ActionListener() {
-                        public void actionPerformed(ActionEvent e) {
-                            //Remove the client from the assignments list for this rep
-                        }
-                        
-                    });
                     model.addRow(new Object[]{
                         client.getFirstName(),
                         client.getLastName(),
@@ -93,7 +95,7 @@ public class CheckAssignments extends JFrame {
                         client.getAddress(),
                         client.getDateJoined(),
                         client.getEmail().replaceAll("\\\\", "\\."),
-                        btn
+                        new JButton("Complete")
                     });
                 }
             }

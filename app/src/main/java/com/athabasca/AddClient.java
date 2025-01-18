@@ -40,9 +40,9 @@ public class AddClient extends JFrame {
         // Create text fields for client information
         JTextField Fname = new TextInput(15, dimflds);
         JTextField Lname = new TextInput(15, dimflds);
-        JTextField phone = new TextInput(15, dimflds);
-        JTextField address = new GeneralInput(15, dimflds);
-        JTextField email = new TextInput(Integer.MAX_VALUE, dimflds);
+        JTextField phone = new DoubleInput(Long.valueOf("9999999999"), dimflds,0,false);
+        JTextField address = new GeneralInput(Integer.MAX_VALUE, dimflds);
+        JTextField email = new Input(Integer.MAX_VALUE, dimflds);
         
         // Create the date picker model and properties
         UtilDateModel model = new UtilDateModel();
