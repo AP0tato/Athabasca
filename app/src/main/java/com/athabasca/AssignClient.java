@@ -4,6 +4,7 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -11,6 +12,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+
+import com.google.api.client.util.Data;
 public class AssignClient extends JFrame{
     AssignClient(){
         setTitle("Client Assignement");
@@ -33,11 +36,12 @@ public class AssignClient extends JFrame{
 
         assign.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-                HashMap <String,String> assignementSender = new HashMap<String,String>();
                 String id = idInput.getText();
                 String assign = assignment.getText();
-                assignementSender.put("Rep email: ", id);
-                assignementSender.put("Client email: ", assign);
+                DatabaseUtil db = new DatabaseUtil();
+                db.writeData("employee/"+id+"/assigned", assign, data -> {
+                    System.out.println("Data written? " + data);
+                });
             }
         });
         pack();
