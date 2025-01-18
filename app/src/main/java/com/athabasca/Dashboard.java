@@ -13,7 +13,7 @@ import javax.swing.JComponent;
 
 public class Dashboard extends JFrame {
     Dashboard(Boolean admin){
-        setTitle("Dashboard");;
+        setTitle("Dashboard");
         setLayout(new GridBagLayout());
         GridBagUtil gbc = new GridBagUtil(0, 0);
         FormattedPanel pnl = new FormattedPanel();
