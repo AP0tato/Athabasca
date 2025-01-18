@@ -15,6 +15,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class CheckAssignments extends JFrame {
     DefaultTableModel model;
+    JTable tblClients;
     @SuppressWarnings("Convert2Lambda")
     CheckAssignments(){
         setLayout(new GridBagLayout());
@@ -26,8 +27,9 @@ public class CheckAssignments extends JFrame {
                 return false;
             }
         };
-        
-        JTable tblClients = new JTable(model);
+    
+        tblClients = new JTable(model);
+        tblClients.setPreferredScrollableViewportSize(new Dimension(1000, 400));
         JScrollPane scr = new JScrollPane(tblClients);
         scr.setSize(new Dimension(500,500));
         model.setColumnIdentifiers(Client.Categories);
@@ -62,6 +64,9 @@ public class CheckAssignments extends JFrame {
                     });
                 }
             }
+        }
+        for(int i = 0; i < model.getColumnCount(); i++){
+            tblClients.getColumnModel().getColumn(i).setPreferredWidth(100);
         }
     }
 }
