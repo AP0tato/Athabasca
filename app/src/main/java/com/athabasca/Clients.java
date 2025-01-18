@@ -24,7 +24,7 @@ public class Clients {
                             (Long) entry.getValue().get("p_number"),
                             (String) entry.getValue().get("address"),
                             (String) entry.getValue().get("date_joined"),
-                            (String) entry.getKey()
+                            (String) entry.getKey().replaceAll("\\\\", "\\.")
                         ));
                     }
                     System.out.println("Clients loaded: " + clients);
