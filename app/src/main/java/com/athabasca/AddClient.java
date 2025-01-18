@@ -37,7 +37,7 @@ public class AddClient extends JFrame {
         JTextField Lname = new TextInput(15, dimflds);
         JTextField phone = new TextInput(15, dimflds);
         JTextField address = new GeneralInput(15, dimflds);
-        JTextField email = new TextInput(35, dimflds);
+        JTextField email = new TextInput(Integer.MAX_VALUE, dimflds);
         
         // Create the date picker model and properties
         UtilDateModel model = new UtilDateModel();
