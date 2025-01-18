@@ -8,6 +8,7 @@ import javax.swing.table.TableCellEditor;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -58,10 +59,19 @@ class ButtonEditor extends DefaultCellEditor {
         int column = table.getSelectedColumn();
 
         // Perform a unique action based on the row or column
-        String rowData = table.getValueAt(row, 0).toString();
+        String rowData = table.getValueAt(row, 5).toString();
         System.out.println("Button clicked in row " + row + ", column " + column + ": " + rowData);
 
-        // Example: Show a dialog with the row data
-        JOptionPane.showMessageDialog(button, "Button clicked for " + rowData);
+        DatabaseUtil db = new DatabaseUtil();
+        List<String> list = Session.getAssigned();
+        list.remove(0);
+        db.writeData("employee/"+Session.getEmail().replaceAll("\\.", "\\\\")+"/assigned", list, data -> {
+            System.out.println("Data written? " + data);
+            Session.update(e -> {
+                for(byte i = 0; i < 6; i++) {
+                    table.setValueAt("", row, i);
+                }
+            });
+        });
     }
 }
