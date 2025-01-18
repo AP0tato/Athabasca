@@ -28,7 +28,7 @@ public class Session
     @SuppressWarnings("unchecked")
     public static void update(Consumer<ArrayList<String>> callback)
     {
-        db.setRef("employee", data -> {
+        db.readData("employee", data -> {
             if(data != null)
             {
                 try {

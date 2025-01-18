@@ -129,66 +129,29 @@ public class AddClient extends JFrame {
         submit.addActionListener(new ActionListener(){
             @SuppressWarnings("override")
             public void actionPerformed(ActionEvent e){
-                if( Fname.getText() == null||
-                        Lname.getText() == null||
-                        phone.getText() == null||
-                    address.getText() == null||
-                    email.getText() == null){
-                    status.setText("Please fill all fields");
-                    
-                }else if(Pattern.matches("^[\\w.%+-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$", email.getText())||!csvInput.getText().equals("")){
-                    DatabaseUtil db = new DatabaseUtil();
-                    if(csvInput.getText().equals("")){
-                        long phoneNum = Long.parseLong(phone.getText());
-                        Client newClient = new Client(Fname.getText(), Lname.getText(), phoneNum, address.getText(), datePicker.getJFormattedTextField().getText(), email.getText());
-                        Map<String,Map<String, Object>> map = new HashMap<>();
-                        map.put(newClient.getEmail(), new HashMap<String, Object>() {{
-                            put("f_name", newClient.getFirstName());
-                            put("l_name", newClient.getLastName());
-                            put("p_number", newClient.getPhoneNumber());
-                            put("address", newClient.getAddress());
-                            put("date_joined", newClient.getDateJoined());
-                        }});
-                        //This isn't working. Fix it please (It's not adding to the database, also close the window once you added a client)
-                        db.writeData("clients", map, data -> {
-                            if(data){
-                                status.setText("Client added successfully");
-                            }else{
-                                status.setText("Error adding client");
-                            }
-                        });
-                        Clients.addClient(newClient);
-                    }
-                    else
-                    {
-                        try {
-                            List<String> s = FileHelper.readFile(csvInput.getText());
-                            for(String line : s){
-                                String[] data = line.split("\\|");
-                                long phoneNum = Long.parseLong(data[2]);
-                                Client newClient = new Client(data[0], data[1], phoneNum, data[3], data[4], data[5]);
-                                Map<String,Map<String, Object>> map = new HashMap<String,Map<String, Object>>();
-                                map.put(newClient.getEmail(), new HashMap<String, Object>() {{
-                                    put("f_name", newClient.getFirstName());
-                                    put("l_name", newClient.getLastName());
-                                    put("p_number", newClient.getPhoneNumber());
-                                    put("address", newClient.getAddress());
-                                    put("date_joined", newClient.getDateJoined());
-                                }});
-                                db.writeData("clients", map, data2 -> {
-                                    if(data2){
-                                        status.setText("Client added successfully");
-                                    }else{
-                                        status.setText("Error adding client");
-                                    }
-                                });
-                                Clients.addClient(newClient);
-                            }
-                            
-                        } catch(IOException b) {
-                            System.err.println("Error reading file: " + b.getMessage());
+                DatabaseUtil db = new DatabaseUtil();
+                if(Pattern.matches("^[\\w.%+-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$", email.getText())){
+                    long phoneNum = Long.parseLong(phone.getText());
+                    Client newClient = new Client(Fname.getText(), Lname.getText(), phoneNum, address.getText(), datePicker.getJFormattedTextField().getText(), email.getText());
+                    Map<String,Map<String, Object>> map = new HashMap<>();
+                    map.put(newClient.getEmail().replaceAll("\\.", "\\\\"), new HashMap<String, Object>() {{
+                        put("f_name", newClient.getFirstName());
+                        put("l_name", newClient.getLastName());
+                        put("p_number", newClient.getPhoneNumber());
+                        put("address", newClient.getAddress());
+                        put("date_joined", newClient.getDateJoined());
+                    }});
+                    db.appendData("client", map, data -> {
+                        if(data){
+                            status.setText("Client added successfully");
+                        }else{
+                            status.setText("Error adding client");
                         }
-                    }
+                    });
+                    Clients.addClient(newClient);
+                }
+                else{
+                    status.setText("Invalid Input");
                 }
             }
         });
@@ -197,8 +160,37 @@ public class AddClient extends JFrame {
         submit2.addActionListener(new ActionListener() {
             @SuppressWarnings("override")
             public void actionPerformed(ActionEvent e) {
-                returnSelectedFile();
-
+                DatabaseUtil db = new DatabaseUtil();
+                String file = returnSelectedFile();
+                Map<String,Map<String, Object>> map = new HashMap<String,Map<String, Object>>();
+                try {
+                    List<String> s = FileHelper.readFile(file);
+                    for(String line : s){
+                        String[] data = (String[])line.split(",");
+                        long phoneNum = Long.parseLong(data[2]);
+                        Client newClient = new Client(data[0], data[1], phoneNum, data[3], data[4], data[5]);
+                        map.put(newClient.getEmail().replaceAll("\\.", "\\\\"), new HashMap<String, Object>() {{
+                            put("f_name", newClient.getFirstName());
+                            put("l_name", newClient.getLastName());
+                            put("p_number", newClient.getPhoneNumber());
+                            put("address", newClient.getAddress());
+                            put("date_joined", newClient.getDateJoined());
+                        }});
+                    }
+                    db.appendData("client", map, data2 -> {
+                        if(data2){
+                            status.setText("Client added successfully");
+                        }else{
+                            status.setText("Error adding client");
+                        }
+                    });
+                    Clients.loadClients(a -> {
+                        System.out.println("Clients loaded");
+                    });
+                    
+                } catch(IOException b) {
+                    System.err.println("Error reading file: " + b.getMessage());
+                }
             }
         });
 

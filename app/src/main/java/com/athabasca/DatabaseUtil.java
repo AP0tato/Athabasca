@@ -7,6 +7,10 @@ import com.google.auth.oauth2.GoogleCredentials;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
 
 public class DatabaseUtil {
@@ -37,7 +41,7 @@ public class DatabaseUtil {
         }
     }
 
-    public void setRef(String path, Consumer<Object> callback) {
+    public void readData(String path, Consumer<Object> callback) {
         DatabaseReference ref = database.getReference(path);
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -50,6 +54,23 @@ public class DatabaseUtil {
             public void onCancelled(DatabaseError error) {
                 System.err.println("Error retrieving data: " + error.getMessage());
                 callback.accept(null);
+            }
+        });
+    }
+
+    @SuppressWarnings("unchecked")
+    public void appendData(String path, Object data, Consumer<Boolean> callback) {
+        DatabaseReference ref = database.getReference(path);
+        ref.updateChildren((Map<String,Object>) data, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(DatabaseError error, DatabaseReference ref) {
+                if (error != null) {
+                    System.err.println("Error appending data: " + error.getMessage());
+                    callback.accept(false);
+                } else {
+                    System.out.println("Data appended successfully to path: " + path);
+                    callback.accept(true);
+                }
             }
         });
     }

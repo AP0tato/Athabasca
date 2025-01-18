@@ -23,11 +23,8 @@ public class AssignClient extends JFrame{
 
         JTextField idInput = new GeneralInput(Integer.MAX_VALUE,dimflds);
         JTextField assignment = new GeneralInput(Integer.MAX_VALUE,dimflds);
-        JLabel status = new JLabel("");
 
-        JComponent[][] elements = { {new JLabel("Rep: "), idInput},
-                                    {new JLabel("Assignment: "), assignment},
-                                    {status}};
+        JComponent[][] elements = {{new JLabel("Rep: "), idInput}, {new JLabel("Assignment: "), assignment}};
         panel.addElements(elements);
         panel.setBorder(new EmptyBorder(25, 25, 0, 25));
         add(panel, constraints);
@@ -46,7 +43,6 @@ public class AssignClient extends JFrame{
                 if(!(Pattern.matches("^[\\w\\\\%+-]+@[\\w\\\\-]+\\\\[a-zA-Z]{2,6}$", id)&&Pattern.matches("^[\\w\\\\%+-]+@[\\w\\\\-]+\\\\[a-zA-Z]{2,6}$", assign)))
                 {
                     System.out.println("Invalid input");
-                    status.setText("Error: Invalid input");
                     return;
                 }
 
@@ -61,7 +57,6 @@ public class AssignClient extends JFrame{
                         }
                         catch(Exception b) {
                             System.out.println(b.getMessage()+"\n"+b.getStackTrace());
-                            status.setText("Error: Employee not found");
                         }
                     }
                 });

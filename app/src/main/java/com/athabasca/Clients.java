@@ -10,7 +10,7 @@ public class Clients {
     public static void loadClients(Consumer<ArrayList<Client>> callback) {
         clients = new ArrayList<>();
         DatabaseUtil db = new DatabaseUtil();
-        db.setRef("client", data -> {
+        db.readData("client", data -> {
             if (data != null) {
                 System.out.println("Data received in callback: " + data);
                 try {
