@@ -5,6 +5,11 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.regex.Pattern;
 
@@ -129,10 +134,59 @@ public class AddClient extends JFrame {
                 ){
                     status.setText("Please fill all fields");
                     
-                }else if(Pattern.matches("^[\\d\\w]+@(\\w\\.\\w)+$", email.getText())){
-                    long phoneNum = Long.parseLong(phone.getText());
-                    Client newClient = new Client(Fname.getText(), Lname.getText(), phoneNum, address.getText(), datePicker.getJFormattedTextField().getText(), email.getText());
-                    
+                }else if(Pattern.matches("^[\\w.%+-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$", email.getText())||!csvInput.getText().equals("")){
+                    DatabaseUtil db = new DatabaseUtil();
+                    if(csvInput.getText().equals("")){
+                        long phoneNum = Long.parseLong(phone.getText());
+                        Client newClient = new Client(Fname.getText(), Lname.getText(), phoneNum, address.getText(), datePicker.getJFormattedTextField().getText(), email.getText());
+                        Map<String,Map<String, Object>> map = new HashMap<String,Map<String, Object>>();
+                        map.put(newClient.getEmail(), new HashMap<String, Object>() {{
+                            put("f_name", newClient.getFirstName());
+                            put("l_name", newClient.getLastName());
+                            put("p_number", newClient.getPhoneNumber());
+                            put("address", newClient.getAddress());
+                            put("date_joined", newClient.getDateJoined());
+                        }});
+
+                        db.writeData("clients", map, data -> {
+                            if(data){
+                                status.setText("Client added successfully");
+                            }else{
+                                status.setText("Error adding client");
+                            }
+                        });
+                        Clients.addClient(newClient);
+                    }
+                    else
+                    {
+                        try {
+                            List<String> s = FileHelper.readFile(csvInput.getText());
+                            for(String line : s){
+                                String[] data = line.split("\\|");
+                                long phoneNum = Long.parseLong(data[2]);
+                                Client newClient = new Client(data[0], data[1], phoneNum, data[3], data[4], data[5]);
+                                Map<String,Map<String, Object>> map = new HashMap<String,Map<String, Object>>();
+                                map.put(newClient.getEmail(), new HashMap<String, Object>() {{
+                                    put("f_name", newClient.getFirstName());
+                                    put("l_name", newClient.getLastName());
+                                    put("p_number", newClient.getPhoneNumber());
+                                    put("address", newClient.getAddress());
+                                    put("date_joined", newClient.getDateJoined());
+                                }});
+                                db.writeData("clients", map, data2 -> {
+                                    if(data2){
+                                        status.setText("Client added successfully");
+                                    }else{
+                                        status.setText("Error adding client");
+                                    }
+                                });
+                                Clients.addClient(newClient);
+                            }
+                            
+                        } catch(IOException b) {
+                            System.err.println("Error reading file: " + b.getMessage());
+                        }
+                    }
                 }
             }
         });

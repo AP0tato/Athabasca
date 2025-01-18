@@ -39,4 +39,6 @@ public class Clients {
             }
         });
     }
+
+    public static void addClient(Client c) { clients.add(c); }
 }
