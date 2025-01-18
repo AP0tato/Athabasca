@@ -31,6 +31,7 @@ public class AddClient extends JFrame {
         setTitle("Add Client");
         // Set the layout for the frame
         setLayout(new GridBagLayout());
+        setPreferredSize(new Dimension(400, 300));
         
         // Create a formatted panel and set constraints
         FormattedPanel pnl = new FormattedPanel();
@@ -89,17 +90,20 @@ public class AddClient extends JFrame {
         csvInput.setEditable(false);
 
 
-        JLabel status = new JLabel();
 
         JComponent[][] elements2 ={
             {openFileChooserButton, submit2, csvInput},
-            {status}
+            {}
         };
         pnl2.addElements(elements2);
         constraints.nextY();
         System.out.println("ByCSV y: "+constraints.gridy);
 
         add(pnl2, constraints);
+
+        JLabel status = new JLabel();
+        constraints.nextY();
+        add(status, constraints);
 
         // Add an action listener to the button to open the file chooser
         openFileChooserButton.addActionListener(new ActionListener() {
@@ -162,38 +166,42 @@ public class AddClient extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 DatabaseUtil db = new DatabaseUtil();
                 String file = returnSelectedFile();
-                Map<String,Map<String, Object>> map = new HashMap<String,Map<String, Object>>();
+                Map<String, Map<String, Object>> map = new HashMap<>();
                 try {
                     List<String> s = FileHelper.readFile(file);
-                    for(String line : s){
-                        String[] data = (String[])line.split(",");
-                        long phoneNum = Long.parseLong(data[2]);
-                        Client newClient = new Client(data[0], data[1], phoneNum, data[3], data[4], data[5]);
-                        map.put(newClient.getEmail().replaceAll("\\.", "\\\\"), new HashMap<String, Object>() {{
-                            put("f_name", newClient.getFirstName());
-                            put("l_name", newClient.getLastName());
-                            put("p_number", newClient.getPhoneNumber());
-                            put("address", newClient.getAddress());
-                            put("date_joined", newClient.getDateJoined());
-                        }});
+                    for (String line : s) {
+                        String[] data = line.split(",");
+                        if (data.length == 6) { // Ensure the CSV line has the correct number of fields
+                            long phoneNum = Long.parseLong(data[2]);
+                            Client newClient = new Client(data[0], data[1], phoneNum, data[3], data[4], data[5]);
+                            map.put(newClient.getEmail().replaceAll("\\.", "\\\\"), new HashMap<String, Object>() {{
+                                put("f_name", newClient.getFirstName());
+                                put("l_name", newClient.getLastName());
+                                put("p_number", newClient.getPhoneNumber());
+                                put("address", newClient.getAddress());
+                                put("date_joined", newClient.getDateJoined());
+                            }});
+                        } else {
+                            System.err.println("Invalid CSV format: " + line);
+                        }
                     }
                     db.appendData("client", map, data2 -> {
-                        if(data2){
-                            status.setText("Client added successfully");
-                        }else{
-                            status.setText("Error adding client");
+                        if (data2) {
+                            status.setText("Clients added successfully from CSV");
+                        } else {
+                            status.setText("Error adding clients from CSV");
                         }
                     });
                     Clients.loadClients(a -> {
                         System.out.println("Clients loaded");
                     });
-                    
-                } catch(IOException b) {
+                } catch (IOException b) {
                     System.err.println("Error reading file: " + b.getMessage());
+                } catch (NumberFormatException nfe) {
+                    System.err.println("Invalid number format in CSV: " + nfe.getMessage());
                 }
             }
         });
-
         // Pack the frame to fit the components
         pack();
     }
