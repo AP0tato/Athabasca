@@ -44,22 +44,21 @@ public class CheckAssignments extends JFrame {
     public String toString() {
         return "Check Assignments";
     }
-    private void updateTable(ArrayList<String> callback){
+    private void updateTable(ArrayList<String> assignedClients) {
         model.setRowCount(0);
-        System.out.println("UpdatingTable");
-        System.out.println(Session.getAssigned());
-        for(int i = 0; i < callback.size(); i++){
-            String clientEmail = callback.get(i);
-            String[] toSort = new String[Clients.clients.size()];
-            for(int j = 0; j < Clients.clients.size();j++){
-                toSort[j] = Clients.clients.get(j).getEmail();
-            }
-            SearchHelper searcher = new SearchHelper();
-            int[] found = searcher.originalIndicesBinary(toSort,clientEmail);
-            for(int j :found){
-                Client client = Clients.clients.get(j);
-                String[] clientData = client.toString().split("\\|"); // Remove the backslashes and I will find you
-                model.addRow(clientData);
+        System.out.println("Updating Table");
+        System.out.println("Assigned Clients: " + assignedClients);
+        for (String clientEmail : assignedClients) {
+            for (Client client : Clients.clients) {
+                if (client.getEmail().equals(clientEmail)) {
+                    model.addRow(new Object[]{
+                        client.getFirstName(),
+                        client.getLastName(),
+                        client.getPhoneNumber(),
+                        client.getAddress(),
+                        client.getDateJoined()
+                    });
+                }
             }
         }
     }

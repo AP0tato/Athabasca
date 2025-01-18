@@ -16,7 +16,7 @@ public class Session
     private static String l_name;
     private static String email;
     private static String token;
-    private static List<String> assigned;
+    private static ArrayList<String> assigned;
     private static DatabaseUtil db;
 
     public Session(String email, String token)
@@ -48,7 +48,7 @@ public class Session
                             } else {
                                 throw new ClassCastException("Unexpected type for permission: " + permissionObj.getClass().getName());
                             }
-                            assigned = (List<String>) entry.getValue().get("assigned");
+                            assigned = (ArrayList<String>) entry.getValue().get("assigned");
                             break;
                         }
                     }
@@ -56,7 +56,7 @@ public class Session
                     System.err.println("Error casting data: " + e.getMessage());
                     e.printStackTrace();
                 }
-                callback.accept(null);
+                callback.accept(assigned);
             }
         });
     }
