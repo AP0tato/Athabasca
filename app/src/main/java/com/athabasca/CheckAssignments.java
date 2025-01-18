@@ -83,7 +83,6 @@ public class CheckAssignments extends JFrame {
     private void updateTable(ArrayList<String> assignedClients) {
         model.setRowCount(0);
         System.out.println("Updating Table");
-        assignedClients.remove(0);
         System.out.println("Assigned Clients: " + assignedClients);
         for (String clientEmail : assignedClients) {
             for (Client client : Clients.clients) {
