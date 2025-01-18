@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
@@ -60,6 +61,10 @@ public class AssignClient extends JFrame{
                 });
             }
         });
+        JOptionPane.showMessageDialog(null, "Assigned Client!");
+        setVisible(false);
+        idInput.setText("");
+        assignment.setText("");
         pack();
     }
     @Override

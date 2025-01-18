@@ -45,7 +45,7 @@ public class CheckAssignments extends JFrame {
                 if (c instanceof javax.swing.JComponent) {
                     javax.swing.JComponent jc = (javax.swing.JComponent) c;
                     Object value = getValueAt(row, column);
-                    jc.setToolTipText(value == null ? "" : value.toString());
+                    jc.setToolTipText("Completed");
                 }
                 return c;
             }
@@ -66,7 +66,7 @@ public class CheckAssignments extends JFrame {
         model.setColumnIdentifiers(columnIdentifiers);
         Session.update(this::updateTable);
         tblClients.getColumnModel().getColumn(6).setCellRenderer(new ButtonRenderer());
-        tblClients.getColumnModel().getColumn(6).setCellEditor(new ButtonEditor(new JCheckBox(), tblClients));
+        tblClients.getColumnModel().getColumn(6).setCellEditor(new ButtonEditor(new JCheckBox(),model, tblClients));
         btnRefresh.addActionListener(new ActionListener() {@Override public void actionPerformed(ActionEvent e) {Session.update(CheckAssignments.this::updateTable);}});
         add(new JLabel("Check your assignements"),gbc);
         gbc.nextY();

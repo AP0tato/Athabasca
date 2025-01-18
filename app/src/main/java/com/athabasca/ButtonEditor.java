@@ -4,10 +4,13 @@ import java.awt.Component;
 
 import javax.swing.DefaultCellEditor;
 import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableModel;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -19,10 +22,12 @@ class ButtonEditor extends DefaultCellEditor {
     private String label;
     private boolean isPushed;
     private JTable table; // Reference to the table for context
+    private DefaultTableModel model;
 
-    public ButtonEditor(JCheckBox checkBox, JTable table) {
+    public ButtonEditor(JCheckBox checkBox,DefaultTableModel model, JTable table) {
         super(checkBox);
         this.table = table;
+        this.model = model;
         button = new JButton();
         button.setOpaque(true);
         button.addActionListener(new ActionListener() {
@@ -73,5 +78,26 @@ class ButtonEditor extends DefaultCellEditor {
                 }
             });
         });
+       updateTable(Session.getAssigned());
+    }
+    private void updateTable(List<String> assignedClients) {
+        model.setRowCount(0);
+        System.out.println("Updating Table");
+        System.out.println("Assigned Clients: " + assignedClients);
+        for (String clientEmail : assignedClients) {
+            for (Client client : Clients.clients) {
+                if (client.getEmail().equals(clientEmail.replaceAll("\\\\", "\\."))) {
+                    model.addRow(new Object[]{
+                        client.getFirstName(),
+                        client.getLastName(),
+                        client.getPhoneNumber(),
+                        client.getAddress(),
+                        client.getDateJoined(),
+                        client.getEmail().replaceAll("\\\\", "\\."),
+                        new JButton("Complete")
+                    });
+                }
+            }
+        }
     }
 }
