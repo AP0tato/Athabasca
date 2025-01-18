@@ -53,4 +53,20 @@ public class DatabaseUtil {
             }
         });
     }
+
+    public void writeData(String path, Object data, Consumer<Boolean> callback) {
+        DatabaseReference ref = database.getReference(path);
+        ref.setValue(data, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(DatabaseError error, DatabaseReference ref) {
+                if (error != null) {
+                    System.err.println("Error writing data: " + error.getMessage());
+                    callback.accept(false);
+                } else {
+                    System.out.println("Data written successfully to path: " + path);
+                    callback.accept(true);
+                }
+            }
+        });
+    }
 }
