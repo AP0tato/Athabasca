@@ -54,10 +54,11 @@ public class Login extends JFrame
                         System.out.println("Permission: " + Session.getPermission());
                         if (Session.getPermission() == 1) {
                             new Dashboard(true);
-                        } else {
+                            setVisible(false);
+                        } else{
                             new Dashboard(false);
+                            setVisible(false);
                         }
-                        setVisible(false);
                     });
                 }
                 else

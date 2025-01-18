@@ -42,7 +42,7 @@ public class CheckAssignments extends JFrame {
                 return c;
             }
         };
-        tblClients.getColumnModel().getColumn(6).setCellRenderer(new ButtonRenderer());
+        //tblClients.getColumnModel().getColumn(6).setCellRenderer(new ButtonRenderer());
         tblClients.setPreferredScrollableViewportSize(new Dimension(1000, 400));
         tblClients.addMouseMotionListener(new MouseMotionAdapter() {           
             public void mouseMoved(MouseEvent e) {
