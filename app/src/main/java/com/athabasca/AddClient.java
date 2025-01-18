@@ -6,7 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +26,7 @@ import org.jdatepicker.impl.UtilDateModel;
 
 public class AddClient extends JFrame {
     private File selectedFile = null; // Class-level variable to store the selected file
+    @SuppressWarnings("Convert2Lambda")
     AddClient() {
         setTitle("Add Client");
         // Set the layout for the frame
@@ -42,7 +42,7 @@ public class AddClient extends JFrame {
         JTextField Lname = new TextInput(15, dimflds);
         JTextField phone = new DoubleInput(Long.valueOf("9999999999"), dimflds,0,false);
         JTextField address = new GeneralInput(Integer.MAX_VALUE, dimflds);
-        JTextField email = new Input(Integer.MAX_VALUE, dimflds);
+        JTextField email = new GeneralInput(Integer.MAX_VALUE, dimflds);
         
         // Create the date picker model and properties
         UtilDateModel model = new UtilDateModel();
@@ -103,6 +103,7 @@ public class AddClient extends JFrame {
 
         // Add an action listener to the button to open the file chooser
         openFileChooserButton.addActionListener(new ActionListener() {
+            @SuppressWarnings("override")
             public void actionPerformed(ActionEvent e) {
                 JFileChooser fileChooser = new JFileChooser();
                 // Add a file filter to only allow CSV files
@@ -126,12 +127,13 @@ public class AddClient extends JFrame {
         });
 
         submit.addActionListener(new ActionListener(){
+            @SuppressWarnings("override")
             public void actionPerformed(ActionEvent e){
-                if( Fname.getText().equals(null)||
-                    Lname.getText().equals(null)||
-                    phone.getText().equals(null)||
-                    address.getText().equals(null)||
-                    email.getText().equals(null)){
+                if( Fname.getText() == null||
+                        Lname.getText() == null||
+                        phone.getText() == null||
+                    address.getText() == null||
+                    email.getText() == null){
                     status.setText("Please fill all fields");
                     
                 }else if(Pattern.matches("^[\\w.%+-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$", email.getText())||!csvInput.getText().equals("")){
@@ -139,7 +141,7 @@ public class AddClient extends JFrame {
                     if(csvInput.getText().equals("")){
                         long phoneNum = Long.parseLong(phone.getText());
                         Client newClient = new Client(Fname.getText(), Lname.getText(), phoneNum, address.getText(), datePicker.getJFormattedTextField().getText(), email.getText());
-                        Map<String,Map<String, Object>> map = new HashMap<String,Map<String, Object>>();
+                        Map<String,Map<String, Object>> map = new HashMap<>();
                         map.put(newClient.getEmail(), new HashMap<String, Object>() {{
                             put("f_name", newClient.getFirstName());
                             put("l_name", newClient.getLastName());
@@ -147,7 +149,7 @@ public class AddClient extends JFrame {
                             put("address", newClient.getAddress());
                             put("date_joined", newClient.getDateJoined());
                         }});
-
+                        //This isn't working. Fix it please (It's not adding to the database, also close the window once you added a client)
                         db.writeData("clients", map, data -> {
                             if(data){
                                 status.setText("Client added successfully");
@@ -193,6 +195,7 @@ public class AddClient extends JFrame {
 
 
         submit2.addActionListener(new ActionListener() {
+            @SuppressWarnings("override")
             public void actionPerformed(ActionEvent e) {
                 returnSelectedFile();
 
