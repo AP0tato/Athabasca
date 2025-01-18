@@ -18,6 +18,7 @@ import java.util.ArrayList;
 public class ClientList extends JFrame {
     private DefaultTableModel model;
     ClientList(){
+        setTitle("Client List");
         setLayout(new GridBagLayout());
         GridBagUtil gbc = new GridBagUtil(0, 0);
         FormattedPanel pnlActions = new FormattedPanel();

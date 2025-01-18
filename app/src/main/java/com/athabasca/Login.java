@@ -15,6 +15,7 @@ import java.util.ArrayList;
 public class Login extends JFrame
 {
     Login(){
+        setTitle("Login");
         setLayout(new GridBagLayout());
         GridBagUtil gbc = new GridBagUtil(0, 0);
         FormattedPanel pnl = new FormattedPanel();

@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 public class AssignClient extends JFrame{
     AssignClient(){
+        setTitle("Client Assignement");
         setLayout(new GridBagLayout());
         FormattedPanel panel = new FormattedPanel();
         GridBagUtil constraints = new GridBagUtil(0, 0);

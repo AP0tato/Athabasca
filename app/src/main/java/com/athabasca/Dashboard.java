@@ -11,6 +11,7 @@ import javax.swing.JComponent;
 
 public class Dashboard extends JFrame {
     Dashboard(Boolean admin){
+        setTitle("Dashboard");;
         setLayout(new GridBagLayout());
         GridBagUtil gbc = new GridBagUtil(0, 0);
         FormattedPanel pnl = new FormattedPanel();
@@ -52,6 +53,7 @@ public class Dashboard extends JFrame {
         add(pnl,gbc);
         System.out.println("Got to a point");
         pack();
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
     }
 }

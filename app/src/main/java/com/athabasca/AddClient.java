@@ -22,6 +22,7 @@ import org.jdatepicker.impl.UtilDateModel;
 public class AddClient extends JFrame {
     private File selectedFile = null; // Class-level variable to store the selected file
     AddClient() {
+        setTitle("Add Client");
         // Set the layout for the frame
         setLayout(new GridBagLayout());
         
@@ -140,7 +141,6 @@ public class AddClient extends JFrame {
 
         // Pack the frame to fit the components
         pack();
-        setVisible(true);
     }
     private String returnSelectedFile() {
         return selectedFile.toString();
