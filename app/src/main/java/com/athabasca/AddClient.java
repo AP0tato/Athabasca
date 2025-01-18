@@ -115,8 +115,10 @@ public class AddClient extends JFrame {
                     if (selectedFile.getName().toLowerCase().endsWith(".csv")) {
                         System.out.println("Selected file: " + selectedFile.getAbsolutePath());
                         csvInput.setText(selectedFile.toString());
+                        status.setText("");
                     } else {
-                        System.out.println("Selected file is not a CSV file");
+                        status.setText("Selected file is not a CSV file");
+                        //System.out.println("Selected file is not a CSV file");
                         csvInput.setText("");
                     }
                 }
@@ -129,9 +131,7 @@ public class AddClient extends JFrame {
                     Lname.getText().equals(null)||
                     phone.getText().equals(null)||
                     address.getText().equals(null)||
-                    email.getText().equals(null)
-                        
-                ){
+                    email.getText().equals(null)){
                     status.setText("Please fill all fields");
                     
                 }else if(Pattern.matches("^[\\w.%+-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$", email.getText())||!csvInput.getText().equals("")){
