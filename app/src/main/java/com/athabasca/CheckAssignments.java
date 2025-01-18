@@ -15,6 +15,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class CheckAssignments extends JFrame {
     DefaultTableModel model;
+    @SuppressWarnings("Convert2Lambda")
     CheckAssignments(){
         setLayout(new GridBagLayout());
         GridBagUtil gbc = new GridBagUtil(0, 0);
@@ -31,7 +32,7 @@ public class CheckAssignments extends JFrame {
         scr.setSize(new Dimension(500,500));
         model.setColumnIdentifiers(Client.Categories);
         Session.update(this::updateTable);
-        btnRefresh.addActionListener(new ActionListener() {public void actionPerformed(ActionEvent e) {Session.update(CheckAssignments.this::updateTable);}});
+        btnRefresh.addActionListener(new ActionListener() {@Override public void actionPerformed(ActionEvent e) {Session.update(CheckAssignments.this::updateTable);}});
         add(new JLabel("Check your assignements"),gbc);
         gbc.nextY();
         add(btnRefresh,gbc);
@@ -56,7 +57,8 @@ public class CheckAssignments extends JFrame {
                         client.getLastName(),
                         client.getPhoneNumber(),
                         client.getAddress(),
-                        client.getDateJoined()
+                        client.getDateJoined(),
+                        client.getEmail()
                     });
                 }
             }

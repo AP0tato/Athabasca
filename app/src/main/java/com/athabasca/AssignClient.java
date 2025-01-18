@@ -1,9 +1,9 @@
 package com.athabasca;
-import java.awt.event.ActionListener;
-import java.util.HashMap;
-import java.awt.event.ActionEvent;
 import java.awt.Dimension;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.HashMap;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -36,8 +36,8 @@ public class AssignClient extends JFrame{
                 HashMap <String,String> assignementSender = new HashMap<String,String>();
                 String id = idInput.getText();
                 String assign = assignment.getText();
-                assignementSender.put("Rep", id);
-                assignementSender.put("Client", assign);
+                assignementSender.put("Rep email: ", id);
+                assignementSender.put("Client email: ", assign);
             }
         });
         pack();
