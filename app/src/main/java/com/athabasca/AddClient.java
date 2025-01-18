@@ -37,7 +37,7 @@ public class AddClient extends JFrame {
         JTextField Lname = new TextInput(15, dimflds);
         JTextField phone = new TextInput(15, dimflds);
         JTextField address = new GeneralInput(15, dimflds);
-        JTextField email = new TextInput(25, dimflds);
+        JTextField email = new TextInput(35, dimflds);
         
         // Create the date picker model and properties
         UtilDateModel model = new UtilDateModel();
@@ -49,7 +49,7 @@ public class AddClient extends JFrame {
         // Create the date panel and date picker
         JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
         JDatePickerImpl datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
-
+        JButton submit = new JButton("Submit");
         // Create a 2D array of components to add to the panel
         JComponent[][] elements = {
             { new JLabel("First Name: "), Fname },
@@ -57,9 +57,10 @@ public class AddClient extends JFrame {
             { new JLabel("Phone #: "), phone },
             { new JLabel("Address: "), address },
             {new JLabel("Email: "), email},
-            { new JLabel("Date Joined: "), datePicker }// Replace dateJoined text field with datePicker
-            
+            { new JLabel("Date Joined: "), datePicker },// Replace dateJoined text field with datePicker
+            {submit}
         };
+        
         
         // Add elements to the panel
         pnl.addElements(elements);
@@ -77,7 +78,7 @@ public class AddClient extends JFrame {
         // Add a button to open the file chooser
         JButton openFileChooserButton = new JButton("Open");
         // Add a submit button beside the open button
-        JButton submit = new JButton("Submit");        
+        JButton submit2 = new JButton("Submit");        
         // File selected display beside the buttons
         JTextField csvInput = new GeneralInput(25, dimflds);
         csvInput.setEditable(false);
@@ -94,9 +95,6 @@ public class AddClient extends JFrame {
         System.out.println("ByCSV y: "+constraints.gridy);
 
         add(pnl2, constraints);
-
-        
-
 
         // Add an action listener to the button to open the file chooser
         openFileChooserButton.addActionListener(new ActionListener() {
@@ -120,11 +118,8 @@ public class AddClient extends JFrame {
             }
         });
 
-        submit.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                // Add code here to read and process the CSV file
-                Pattern.matches("^[\\d\\w]+@(\\w\\.\\w)+$", email.getText());        
-                System.out.println("Processing CSV file: " + csvInput.getText());
+        submit.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
                 if( Fname.getText().equals(null)||
                     Lname.getText().equals(null)||
                     phone.getText().equals(null)||
@@ -139,7 +134,12 @@ public class AddClient extends JFrame {
                     Client newClient = new Client(Fname.getText(), Lname.getText(), phoneNum, address.getText(), datePicker.getJFormattedTextField().getText(), email.getText());
                     
                 }
+            }
+        });
 
+
+        submit2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
                 returnSelectedFile();
 
             }
