@@ -5,6 +5,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
+import javax.swing.border.EmptyBorder;
 
 import java.awt.Dimension;
 import java.awt.GridBagLayout;
@@ -65,7 +66,12 @@ public class Login extends JFrame
             }
         });
 
-        add(new JLabel("Login"),gbc);
+        btnLogin.setBorder(new EmptyBorder(0, 0, 25, 0));
+        pnl.setBorder(new EmptyBorder(0, 25, 0, 25));
+
+        add(new JLabel("Login") {{
+            setBorder(new EmptyBorder(25, 0, 0, 0));
+        }},gbc);
         gbc.nextY();
         add(pnl,gbc);
         gbc.nextY();
