@@ -3,6 +3,9 @@ import java.awt.Dimension;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -33,11 +36,22 @@ public class AssignClient extends JFrame{
 
         assign.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-                String id = idInput.getText();
-                String assign = assignment.getText();
+                String id = idInput.getText().replaceAll("\\.", "\\\\");
+                String assign = assignment.getText().replaceAll("\\.", "\\\\");
                 DatabaseUtil db = new DatabaseUtil();
-                db.writeData("employee/"+id+"/assigned", assign, data -> {
-                    System.out.println("Data written? " + data);
+                db.readEmployee(id, data -> {
+                    if(data != null){
+                        try {
+                            ArrayList<String> f = (ArrayList<String>) data;
+                            f.add(assign);
+                            db.writeData("employee/"+id+"/assigned", f, data2 -> {
+                                System.out.println("Data written? " + data2);
+                            });
+                        }
+                        catch(Exception b) {
+                            System.out.println(b.getMessage()+"\n"+b.getStackTrace());
+                        }
+                    }
                 });
             }
         });

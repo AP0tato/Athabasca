@@ -69,4 +69,21 @@ public class DatabaseUtil {
             }
         });
     }
+
+    public void readEmployee(String employee, Consumer<Object> callback) {
+        DatabaseReference ref = database.getReference("employee/"+employee+"/assigned");
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                Object data = snapshot.getValue();
+                callback.accept(data);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                System.err.println("Error retrieving data: " + error.getMessage());
+                callback.accept(null);
+            }
+        });
+    }
 }

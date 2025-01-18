@@ -145,8 +145,6 @@ public class AddClient extends JFrame {
             }
         });
 
-       
-
         // Pack the frame to fit the components
         pack();
     }
