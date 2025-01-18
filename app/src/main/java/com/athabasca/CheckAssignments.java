@@ -60,7 +60,7 @@ public class CheckAssignments extends JFrame {
                         client.getPhoneNumber(),
                         client.getAddress(),
                         client.getDateJoined(),
-                        client.getEmail()
+                        client.getEmail().replaceAll("\\\\", "\\.")
                     });
                 }
             }
