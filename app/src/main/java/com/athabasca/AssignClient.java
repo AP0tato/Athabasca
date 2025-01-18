@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -39,6 +40,13 @@ public class AssignClient extends JFrame{
                 String id = idInput.getText().replaceAll("\\.", "\\\\");
                 String assign = assignment.getText().replaceAll("\\.", "\\\\");
                 DatabaseUtil db = new DatabaseUtil();
+
+                if(!(Pattern.matches("^[\\w\\\\%+-]+@[\\w\\\\-]+\\\\[a-zA-Z]{2,6}$", id)&&Pattern.matches("^[\\w\\\\%+-]+@[\\w\\\\-]+\\\\[a-zA-Z]{2,6}$", assign)))
+                {
+                    System.out.println("Invalid input");
+                    return;
+                }
+
                 db.readEmployee(id, data -> {
                     if(data != null){
                         try {
