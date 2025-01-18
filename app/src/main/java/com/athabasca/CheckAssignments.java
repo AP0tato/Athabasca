@@ -32,7 +32,10 @@ public class CheckAssignments extends JFrame {
         tblClients.setPreferredScrollableViewportSize(new Dimension(1000, 400));
         JScrollPane scr = new JScrollPane(tblClients);
         scr.setSize(new Dimension(500,500));
-        model.setColumnIdentifiers(Client.Categories);
+        String[] columnIdentifiers = new String[Client.Categories.length + 1];
+        System.arraycopy(Client.Categories, 0, columnIdentifiers, 0, Client.Categories.length);
+        columnIdentifiers[Client.Categories.length] = "completed";
+        model.setColumnIdentifiers(columnIdentifiers);
         Session.update(this::updateTable);
         btnRefresh.addActionListener(new ActionListener() {@Override public void actionPerformed(ActionEvent e) {Session.update(CheckAssignments.this::updateTable);}});
         add(new JLabel("Check your assignements"),gbc);
@@ -54,13 +57,21 @@ public class CheckAssignments extends JFrame {
         for (String clientEmail : assignedClients) {
             for (Client client : Clients.clients) {
                 if (client.getEmail().equals(clientEmail)) {
+                    JButton btn = new JButton();
+                    btn.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                            //Remove the client from the assignments list for this rep
+                        }
+                        
+                    });
                     model.addRow(new Object[]{
                         client.getFirstName(),
                         client.getLastName(),
                         client.getPhoneNumber(),
                         client.getAddress(),
                         client.getDateJoined(),
-                        client.getEmail().replaceAll("\\\\", "\\.")
+                        client.getEmail().replaceAll("\\\\", "\\."),
+                        btn
                     });
                 }
             }
