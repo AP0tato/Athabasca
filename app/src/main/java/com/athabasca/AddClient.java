@@ -96,9 +96,6 @@ public class AddClient extends JFrame {
 
         add(pnl2, constraints);
 
-        
-
-
         // Add an action listener to the button to open the file chooser
         openFileChooserButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
