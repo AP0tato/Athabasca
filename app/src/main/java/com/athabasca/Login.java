@@ -48,7 +48,6 @@ public class Login extends JFrame
                     JOptionPane.showMessageDialog(null, "Login Successful!");
                     new Session(uname, token);
                     Session.update(Login.this::thing);
-                    System.out.println("Permission: " + Session.getPermission());
                     new Session(uname, token);
                     Session.update(result -> {
                         System.out.println("Permission: " + Session.getPermission());
