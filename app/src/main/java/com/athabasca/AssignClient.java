@@ -37,6 +37,7 @@ public class AssignClient extends JFrame{
         add(assign, constraints);
 
         assign.addActionListener(new ActionListener(){
+            @SuppressWarnings("unchecked")
             public void actionPerformed(ActionEvent e){
                 String id = idInput.getText().replaceAll("\\.", "\\\\");
                 String assign = assignment.getText().replaceAll("\\.", "\\\\");
