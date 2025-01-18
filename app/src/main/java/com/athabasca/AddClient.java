@@ -37,7 +37,7 @@ public class AddClient extends JFrame {
         JTextField Lname = new TextInput(15, dimflds);
         JTextField phone = new TextInput(15, dimflds);
         JTextField address = new GeneralInput(15, dimflds);
-        JTextField email = new TextInput(35, dimflds);
+        JTextField email = new TextInput(Integer.MAX_VALUE, dimflds);
         
         // Create the date picker model and properties
         UtilDateModel model = new UtilDateModel();
@@ -49,7 +49,7 @@ public class AddClient extends JFrame {
         // Create the date panel and date picker
         JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
         JDatePickerImpl datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
-        JButton submit = new JButton("Submit");
+        JButton submit = new JButton("Submit Information");
         // Create a 2D array of components to add to the panel
         JComponent[][] elements = {
             { new JLabel("First Name: "), Fname },
@@ -87,7 +87,7 @@ public class AddClient extends JFrame {
         JLabel status = new JLabel();
 
         JComponent[][] elements2 ={
-            {openFileChooserButton, submit, csvInput},
+            {openFileChooserButton, submit2, csvInput},
             {status}
         };
         pnl2.addElements(elements2);
