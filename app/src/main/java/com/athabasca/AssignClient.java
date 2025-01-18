@@ -47,17 +47,15 @@ public class AssignClient extends JFrame{
                 }
 
                 db.readEmployee(id, data -> {
-                    if(data != null){
-                        try {
-                            ArrayList<String> f = (ArrayList<String>) data;
-                            f.add(assign);
-                            db.writeData("employee/"+id+"/assigned", f, data2 -> {
-                                System.out.println("Data written? " + data2);
-                            });
-                        }
-                        catch(Exception b) {
-                            System.out.println(b.getMessage()+"\n"+b.getStackTrace());
-                        }
+                    try {
+                        ArrayList<String> f = data!=null?((ArrayList<String>) data):new ArrayList<>();
+                        f.add(assign);
+                        db.writeData("employee/"+id+"/assigned", f, data2 -> {
+                            System.out.println("Data written? " + data2);
+                        });
+                    }
+                    catch(Exception b) {
+                        System.out.println(b.getMessage()+"\n"+b.getStackTrace());
                     }
                 });
             }
