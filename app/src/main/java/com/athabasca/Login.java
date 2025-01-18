@@ -66,7 +66,6 @@ public class Login extends JFrame
             }
         });
 
-        btnLogin.setBorder(new EmptyBorder(0, 0, 25, 0));
         pnl.setBorder(new EmptyBorder(0, 25, 0, 25));
 
         add(new JLabel("Login") {{

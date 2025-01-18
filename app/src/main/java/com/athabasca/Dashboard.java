@@ -1,6 +1,8 @@
 package com.athabasca;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.border.EmptyBorder;
+
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -49,6 +51,7 @@ public class Dashboard extends JFrame {
         } else {
             add(new JLabel("Rep Dashboard"),gbc);
         }
+        pnl.setBorder(new EmptyBorder(25, 25, 25, 25));
         gbc.nextY();
         add(pnl,gbc);
         System.out.println("Got to a point");

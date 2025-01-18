@@ -10,6 +10,7 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 public class AssignClient extends JFrame{
     AssignClient(){
         setTitle("Client Assignement");
@@ -23,6 +24,7 @@ public class AssignClient extends JFrame{
 
         JComponent[][] elements = {{new JLabel("Rep: "), idInput}, {new JLabel("Assignment: "), assignment}};
         panel.addElements(elements);
+        panel.setBorder(new EmptyBorder(25, 25, 0, 25));
         add(panel, constraints);
 
         JButton assign = new JButton("Assign");

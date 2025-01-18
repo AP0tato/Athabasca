@@ -7,6 +7,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import java.awt.Dimension;
@@ -85,7 +86,9 @@ public class ClientList extends JFrame {
             
         });
 
-        add(new JLabel("Client List"),gbc);
+        pnlActions.setBorder(new EmptyBorder(0, 25, 0, 25));
+
+        add(new JLabel("Client List"){{setBorder(new EmptyBorder(25, 25, 0, 25));}},gbc);
         gbc.nextY();
         add(pnlActions,gbc);
         gbc.nextY();
