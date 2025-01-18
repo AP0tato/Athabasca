@@ -14,6 +14,8 @@ import java.awt.Dimension;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 import java.util.ArrayList;
 
 public class ClientList extends JFrame {
@@ -29,13 +31,31 @@ public class ClientList extends JFrame {
                 return false;
             }
         };
-        JTable tblClients = new JTable(model);
+        JTable tblClients = new JTable(model) {
+            @Override
+            public java.awt.Component prepareRenderer(javax.swing.table.TableCellRenderer renderer, int row, int column) {
+                java.awt.Component c = super.prepareRenderer(renderer, row, column);
+                if (c instanceof javax.swing.JComponent) {
+                    javax.swing.JComponent jc = (javax.swing.JComponent) c;
+                    Object value = getValueAt(row, column);
+                    jc.setToolTipText(value == null ? "" : value.toString());
+                }
+                return c;
+            }
+        };
         JScrollPane scr = new JScrollPane(tblClients);
         scr.setSize(new Dimension(500,400));
         JPanel pnl = new JPanel();
         pnl.setLayout(new GridBagLayout());
         tblClients.setPreferredScrollableViewportSize(new Dimension(1000, 400));
-
+        tblClients.addMouseMotionListener(new MouseMotionAdapter() {
+            
+            public void mouseMoved(MouseEvent e) {
+                int row = tblClients.rowAtPoint(e.getPoint());
+                int column = tblClients.columnAtPoint(e.getPoint());
+            }
+        });
+           
 
         JComboBox<String> bxCategories = new JComboBox<String>(Client.Categories);
         GeneralInput fldSearch = new GeneralInput(200, new Dimension(100,20));
@@ -44,7 +64,7 @@ public class ClientList extends JFrame {
         JButton btnSearch = new JButton("Search");
 
         JComponent[][] elemsAction = {{new JLabel("Search: "),new JLabel("by:"),bxCategories, fldSearch,btnSearch}};
-
+        
         btnSearch.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 Client[] found;

@@ -3,6 +3,7 @@ import java.awt.Dimension;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseMotionAdapter;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -11,6 +12,8 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+import java.awt.event.MouseEvent;
 
 
 public class CheckAssignments extends JFrame {
@@ -27,9 +30,27 @@ public class CheckAssignments extends JFrame {
                 return false;
             }
         };
-    
-        tblClients = new JTable(model);
+        tblClients = new JTable(model) {
+            @Override
+            public java.awt.Component prepareRenderer(javax.swing.table.TableCellRenderer renderer, int row, int column) {
+                java.awt.Component c = super.prepareRenderer(renderer, row, column);
+                if (c instanceof javax.swing.JComponent) {
+                    javax.swing.JComponent jc = (javax.swing.JComponent) c;
+                    Object value = getValueAt(row, column);
+                    jc.setToolTipText(value == null ? "" : value.toString());
+                }
+                return c;
+            }
+        };
+        tblClients.getColumnModel().getColumn(6).setCellRenderer(new ButtonRenderer());
         tblClients.setPreferredScrollableViewportSize(new Dimension(1000, 400));
+        tblClients.addMouseMotionListener(new MouseMotionAdapter() {           
+            public void mouseMoved(MouseEvent e) {
+                int row = tblClients.rowAtPoint(e.getPoint());
+                int column = tblClients.columnAtPoint(e.getPoint());
+            }
+        });
+        
         JScrollPane scr = new JScrollPane(tblClients);
         scr.setSize(new Dimension(500,500));
         String[] columnIdentifiers = new String[Client.Categories.length + 1];
