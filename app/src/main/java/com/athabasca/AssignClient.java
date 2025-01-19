@@ -25,7 +25,7 @@ public class AssignClient extends JFrame{
         JTextField idInput = new GeneralInput(Integer.MAX_VALUE,dimflds);
         JTextField assignment = new GeneralInput(Integer.MAX_VALUE,dimflds);
 
-        JComponent[][] elements = {{new JLabel("Rep: "), idInput}, {new JLabel("Assignment: "), assignment}};
+        JComponent[][] elements = {{new JLabel("Rep Email: "), idInput}, {new JLabel("Assignment Email: "), assignment}};
         panel.addElements(elements);
         panel.setBorder(new EmptyBorder(25, 25, 0, 25));
         add(panel, constraints);
@@ -43,7 +43,7 @@ public class AssignClient extends JFrame{
 
                 if(!(Pattern.matches("^[\\w\\\\%+-]+@[\\w\\\\-]+\\\\[a-zA-Z]{2,6}$", id)&&Pattern.matches("^[\\w\\\\%+-]+@[\\w\\\\-]+\\\\[a-zA-Z]{2,6}$", assign)))
                 {
-                    System.out.println("Invalid input");
+                    JOptionPane.showMessageDialog(null, "Invalid inputs", "Assignement Failed", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
 
@@ -59,12 +59,13 @@ public class AssignClient extends JFrame{
                         System.out.println(b.getMessage()+"\n"+b.getStackTrace());
                     }
                 });
+                JOptionPane.showMessageDialog(null, "Assigned Client!");
+                setVisible(false);
+                idInput.setText("");
+                assignment.setText("");
             }
         });
-        JOptionPane.showMessageDialog(null, "Assigned Client!");
-        setVisible(false);
-        idInput.setText("");
-        assignment.setText("");
+        
         pack();
     }
     @Override
