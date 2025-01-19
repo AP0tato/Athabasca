@@ -11,21 +11,21 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.regex.Pattern;
-
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
-
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 
 public class AddClient extends JFrame {
     private File selectedFile = null; // Class-level variable to store the selected file
+
     @SuppressWarnings("Convert2Lambda")
     AddClient() {
         setTitle("Add Client");
@@ -41,7 +41,7 @@ public class AddClient extends JFrame {
         // Create text fields for client information
         JTextField Fname = new TextInput(15, dimflds);
         JTextField Lname = new TextInput(15, dimflds);
-        JTextField phone = new DoubleInput(Long.valueOf("9999999999"), dimflds,0,false);
+        JTextField phone = new DoubleInput(Long.valueOf("9999999999"), dimflds, 0, false);
         JTextField address = new GeneralInput(Integer.MAX_VALUE, dimflds);
         JTextField email = new GeneralInput(Integer.MAX_VALUE, dimflds);
         
@@ -62,11 +62,10 @@ public class AddClient extends JFrame {
             { new JLabel("Last Name: "), Lname },
             { new JLabel("Phone #: "), phone },
             { new JLabel("Address: "), address },
-            {new JLabel("Email: "), email},
-            { new JLabel("Date Joined: "), datePicker },// Replace dateJoined text field with datePicker
-            {submit}
+            { new JLabel("Email: "), email },
+            { new JLabel("Date Joined: "), datePicker },
+            { submit }
         };
-        
         
         // Add elements to the panel
         pnl.addElements(elements);
@@ -78,26 +77,24 @@ public class AddClient extends JFrame {
         // Add a label for adding clients by CSV 
         JLabel byCSV = new JLabel("Or Add Clients By CSV ");
         constraints.nextY();
-        System.out.println("byCSVLabel y: "+constraints.gridy);
+        System.out.println("byCSVLabel y: " + constraints.gridy);
         add(byCSV, constraints);
 
         // Add a button to open the file chooser
         JButton openFileChooserButton = new JButton("Open");
         // Add a submit button beside the open button
-        JButton submit2 = new JButton("Submit");        
+        JButton submit2 = new JButton("Submit");
         // File selected display beside the buttons
         JTextField csvInput = new GeneralInput(25, dimflds);
         csvInput.setEditable(false);
 
-
-
-        JComponent[][] elements2 ={
-            {openFileChooserButton, submit2, csvInput},
+        JComponent[][] elements2 = {
+            { openFileChooserButton, submit2, csvInput },
             {}
         };
         pnl2.addElements(elements2);
         constraints.nextY();
-        System.out.println("ByCSV y: "+constraints.gridy);
+        System.out.println("ByCSV y: " + constraints.gridy);
 
         add(pnl2, constraints);
 
@@ -123,21 +120,55 @@ public class AddClient extends JFrame {
                         status.setText("");
                     } else {
                         status.setText("Selected file is not a CSV file");
-                        //System.out.println("Selected file is not a CSV file");
                         csvInput.setText("");
                     }
                 }
             }
         });
 
-        submit.addActionListener(new ActionListener(){
+        submit.addActionListener(new ActionListener() {
             @SuppressWarnings("override")
-            public void actionPerformed(ActionEvent e){
+            public void actionPerformed(ActionEvent e) {
                 DatabaseUtil db = new DatabaseUtil();
-                if(Pattern.matches("^[\\w.%+-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$", email.getText())){
+                if(Fname.getText().isEmpty()){
+                    status.setText("First name is required");
+                    return;
+                }
+
+                if(Lname.getText().isEmpty()){
+                    status.setText("Last name is required");
+                    return;
+                }
+
+                if(phone.getText().isEmpty()){
+                    status.setText("Phone number is required");
+                    return;
+                }
+
+                if(address.getText().isEmpty()){
+                    status.setText("Address is required");
+                    return;
+                }
+
+                if(email.getText().isEmpty()){
+                    status.setText("Email is required");
+                    return;
+                }
+
+                if (!Pattern.matches("^[\\w.%+-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$", email.getText())) {
+                    status.setText("Invalid email");
+                    return;
+                }
+
+                if(datePicker.getJFormattedTextField().getText().isEmpty()){
+                    status.setText("Date Joined is required");
+                    return;
+                }
+
+                if (Pattern.matches("^[\\w.%+-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$", email.getText())) {
                     long phoneNum = Long.parseLong(phone.getText());
                     Client newClient = new Client(Fname.getText(), Lname.getText(), phoneNum, address.getText(), datePicker.getJFormattedTextField().getText(), email.getText());
-                    Map<String,Map<String, Object>> map = new HashMap<>();
+                    Map<String, Map<String, Object>> map = new HashMap<>();
                     map.put(newClient.getEmail().replaceAll("\\.", "\\\\"), new HashMap<String, Object>() {{
                         put("f_name", newClient.getFirstName());
                         put("l_name", newClient.getLastName());
@@ -146,20 +177,26 @@ public class AddClient extends JFrame {
                         put("date_joined", newClient.getDateJoined());
                     }});
                     db.appendData("client", map, data -> {
-                        if(data){
+                        if (data) {
+                            Fname.setText("");
+                            Lname.setText("");
+                            phone.setText("");
+                            address.setText("");
+                            email.setText("");
+                            datePicker.getJFormattedTextField().setText("");
                             status.setText("Client added successfully");
-                        }else{
+                            JOptionPane.showMessageDialog(null, "Client Added!");
+                            dispose(); // Close the window
+                        } else {
                             status.setText("Error adding client");
                         }
                     });
                     Clients.addClient(newClient);
-                }
-                else{
+                } else {
                     status.setText("Invalid Input");
                 }
             }
         });
-
 
         submit2.addActionListener(new ActionListener() {
             @SuppressWarnings("override")
@@ -188,6 +225,8 @@ public class AddClient extends JFrame {
                     db.appendData("client", map, data2 -> {
                         if (data2) {
                             status.setText("Clients added successfully from CSV");
+                            JOptionPane.showMessageDialog(null, "Clients Added!");
+                            dispose(); // Close the window
                         } else {
                             status.setText("Error adding clients from CSV");
                         }
@@ -202,11 +241,13 @@ public class AddClient extends JFrame {
                 }
             }
         });
+
         // Pack the frame to fit the components
         pack();
     }
+
     private String returnSelectedFile() {
-        return selectedFile.toString();
+        return selectedFile != null ? selectedFile.toString() : "No file selected";
     }
 
     @Override

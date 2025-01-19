@@ -3,7 +3,10 @@ import java.awt.Dimension;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 import javax.swing.JButton;
@@ -47,16 +50,32 @@ public class AssignClient extends JFrame{
                     return;
                 }
 
-                db.readEmployee(id, data -> {
+
+                db.readData("employee", a -> {
                     try {
-                        ArrayList<String> f = data!=null?((ArrayList<String>) data):new ArrayList<>();
-                        f.add(assign);
-                        db.writeData("employee/"+id+"/assigned", f, data2 -> {
-                            System.out.println("Data written? " + data2);
-                        });
-                    }
-                    catch(Exception b) {
-                        System.out.println(b.getMessage()+"\n"+b.getStackTrace());
+                        Map<String, Map<String, Object>> loadedData = (Map<String, Map<String, Object>>) a;
+                        for (Map.Entry<String, Map<String, Object>> entry : loadedData.entrySet()) {
+                            if(entry.getKey().equals(id)) {
+                                for(Client c : Clients.clients) {
+                                    if(c.getEmail().equals(assign)) {
+                                        db.readEmployee(id, data -> {
+                                            try {
+                                                ArrayList<String> f = data!=null?((ArrayList<String>) data):new ArrayList<>();
+                                                f.add(assign);
+                                                db.writeData("employee/"+id+"/assigned", f, data2 -> {
+                                                    System.out.println("Data written? " + data2);
+                                                });
+                                            }
+                                            catch(Exception b) {
+                                                System.out.println(b.getMessage()+"\n"+b.getStackTrace());
+                                            }
+                                        });
+                                    }
+                                }
+                            }
+                        }
+                    } catch(Exception b) {
+                        System.err.println(b.getMessage());
                     }
                 });
                 JOptionPane.showMessageDialog(null, "Assigned Client!");
