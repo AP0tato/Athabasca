@@ -130,6 +130,41 @@ public class AddClient extends JFrame {
             @SuppressWarnings("override")
             public void actionPerformed(ActionEvent e) {
                 DatabaseUtil db = new DatabaseUtil();
+                if(Fname.getText().isEmpty()){
+                    status.setText("First name is required");
+                    return;
+                }
+
+                if(Lname.getText().isEmpty()){
+                    status.setText("Last name is required");
+                    return;
+                }
+
+                if(phone.getText().isEmpty()){
+                    status.setText("Phone number is required");
+                    return;
+                }
+
+                if(address.getText().isEmpty()){
+                    status.setText("Address is required");
+                    return;
+                }
+
+                if(email.getText().isEmpty()){
+                    status.setText("Email is required");
+                    return;
+                }
+
+                if (!Pattern.matches("^[\\w.%+-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$", email.getText())) {
+                    status.setText("Invalid email");
+                    return;
+                }
+
+                if(datePicker.getJFormattedTextField().getText().isEmpty()){
+                    status.setText("Date Joined is required");
+                    return;
+                }
+
                 if (Pattern.matches("^[\\w.%+-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$", email.getText())) {
                     long phoneNum = Long.parseLong(phone.getText());
                     Client newClient = new Client(Fname.getText(), Lname.getText(), phoneNum, address.getText(), datePicker.getJFormattedTextField().getText(), email.getText());
