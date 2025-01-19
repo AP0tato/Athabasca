@@ -50,6 +50,7 @@ public class ClientList extends JFrame {
         tblClients.setPreferredScrollableViewportSize(new Dimension(1000, 400));
         tblClients.addMouseMotionListener(new MouseMotionAdapter() {
             
+            @SuppressWarnings("unused")
             public void mouseMoved(MouseEvent e) {
                 int row = tblClients.rowAtPoint(e.getPoint());
                 int column = tblClients.columnAtPoint(e.getPoint());

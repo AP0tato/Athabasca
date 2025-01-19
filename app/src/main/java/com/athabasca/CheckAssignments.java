@@ -12,7 +12,6 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
 
 import java.awt.event.MouseEvent;
 
@@ -44,6 +43,7 @@ public class CheckAssignments extends JFrame {
                 java.awt.Component c = super.prepareRenderer(renderer, row, column);
                 if (c instanceof javax.swing.JComponent) {
                     javax.swing.JComponent jc = (javax.swing.JComponent) c;
+                    @SuppressWarnings("unused")
                     Object value = getValueAt(row, column);
                     jc.setToolTipText("Completed");
                 }
@@ -52,6 +52,7 @@ public class CheckAssignments extends JFrame {
         };
         tblClients.setPreferredScrollableViewportSize(new Dimension(1000, 400));
         tblClients.addMouseMotionListener(new MouseMotionAdapter() {           
+            @SuppressWarnings("unused")
             public void mouseMoved(MouseEvent e) {
                 int row = tblClients.rowAtPoint(e.getPoint());
                 int column = tblClients.columnAtPoint(e.getPoint());

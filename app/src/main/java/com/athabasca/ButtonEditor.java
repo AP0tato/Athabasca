@@ -3,23 +3,19 @@ package com.athabasca;
 import java.awt.Component;
 
 import javax.swing.DefaultCellEditor;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableModel;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellEditor;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JOptionPane;
 import javax.swing.JTable;
 class ButtonEditor extends DefaultCellEditor {
     private JButton button;
     private String label;
+    @SuppressWarnings("unused")
     private boolean isPushed;
     private JTable table; // Reference to the table for context
     private DefaultTableModel model;
