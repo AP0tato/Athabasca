@@ -5,6 +5,9 @@ import com.google.firebase.FirebaseOptions;
 import com.google.firebase.database.*;
 import com.google.auth.oauth2.GoogleCredentials;
 
+import java.io.InputStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Map;
@@ -21,7 +24,11 @@ public class DatabaseUtil {
     public DatabaseUtil() {
         try {
             // Load the service account key JSON file from the project directory
-            FileInputStream serviceAccount = new FileInputStream(System.getProperty("user.dir") + "/app/src/main/resources/serviceAccountKey.json");
+            Path pathAbsolute = Paths.get(System.getProperty("user.dir")+"/app/src/main/resources/serviceAccountKey.json");
+            Path pathBase = Paths.get(System.getProperty("user.dir"));
+            Path pathRelative = pathBase.relativize(pathAbsolute);
+            // Load the service account key JSON file from the project directory
+            FileInputStream serviceAccount = new FileInputStream(pathRelative.toString());
 
             // Set up Firebase options using the service account credentials and database URL
             FirebaseOptions options = FirebaseOptions.builder()
