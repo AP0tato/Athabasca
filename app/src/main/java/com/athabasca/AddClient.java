@@ -130,7 +130,7 @@ public class AddClient extends JFrame {
             @SuppressWarnings("override")
             public void actionPerformed(ActionEvent e) {
                 DatabaseUtil db = new DatabaseUtil();
-        
+                
                 // Validation: Ensure required fields are not empty
                 if (Fname.getText().isEmpty()) {
                     status.setText("First name is required");
@@ -157,6 +157,7 @@ public class AddClient extends JFrame {
                     return;
                 }
         
+                // Validate the email format using regex
                 if (!Pattern.matches("^[\\w.%+-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$", email.getText())) {
                     status.setText("Invalid email format");
                     return;
@@ -167,6 +168,7 @@ public class AddClient extends JFrame {
                     return;
                 }
         
+                // Convert the phone number to a long
                 long phoneNum = Long.parseLong(phone.getText());
                 String emailInput = email.getText().toLowerCase();
         
@@ -205,6 +207,7 @@ public class AddClient extends JFrame {
                     emailInput
                 );
         
+                // Prepare the data to add to the database
                 Map<String, Map<String, Object>> map = new HashMap<>();
                 map.put(newClient.getEmail().replaceAll("\\.", "\\\\"), new HashMap<String, Object>() {{
                     put("f_name", newClient.getFirstName());
@@ -214,8 +217,10 @@ public class AddClient extends JFrame {
                     put("date_joined", newClient.getDateJoined());
                 }});
         
+                // Append the data to the database
                 db.appendData("client", map, data -> {
                     if (data) {
+                        // Clear the form fields on success
                         Fname.setText("");
                         Lname.setText("");
                         phone.setText("");
@@ -234,17 +239,18 @@ public class AddClient extends JFrame {
                 Clients.addClient(newClient);
             }
         });
-
+        
         submit2.addActionListener(new ActionListener() {
             @SuppressWarnings("override")
             public void actionPerformed(ActionEvent e) {
                 DatabaseUtil db = new DatabaseUtil();
-                String file = returnSelectedFile();
+                String file = returnSelectedFile(); // Get the selected file
                 Map<String, Map<String, Object>> map = new HashMap<>();
                 try {
+                    // Read data from the file
                     List<String> s = FileHelper.readFile(file);
                     for (String line : s) {
-                        String[] data = line.split(",");
+                        String[] data = line.split(","); // Split CSV line into fields
                         if (data.length == 6) { // Ensure the CSV line has the correct number of fields
                             long phoneNum = Long.parseLong(data[2]);
                             Client newClient = new Client(data[0], data[1], phoneNum, data[3], data[4], data[5]);
@@ -256,9 +262,11 @@ public class AddClient extends JFrame {
                                 put("date_joined", newClient.getDateJoined());
                             }});
                         } else {
+                            // Log an error if the CSV line format is invalid
                             System.err.println("Invalid CSV format: " + line);
                         }
                     }
+                    // Append the data to the database
                     db.appendData("client", map, data2 -> {
                         if (data2) {
                             status.setText("Clients added successfully from CSV");
@@ -268,27 +276,33 @@ public class AddClient extends JFrame {
                             status.setText("Error adding clients from CSV");
                         }
                     });
+                    // Reload clients into memory
                     Clients.loadClients(a -> {
                         System.out.println("Clients loaded");
                     });
                 } catch (IOException b) {
+                    // Handle file reading errors
                     System.err.println("Error reading file: " + b.getMessage());
                 } catch (NumberFormatException nfe) {
+                    // Handle number formatting errors
                     System.err.println("Invalid number format in CSV: " + nfe.getMessage());
                 }
             }
         });
-
+        
         // Pack the frame to fit the components
         pack();
+        }
+        
+        // Returns the selected file path or a default message if no file is selected
+        private String returnSelectedFile() {
+            return selectedFile != null ? selectedFile.toString() : "No file selected";
+        }
+        
+        // Overrides the toString method to return a string representation of the class
+        @Override
+        public String toString() {
+            return "Add Client";
+        }
     }
-
-    private String returnSelectedFile() {
-        return selectedFile != null ? selectedFile.toString() : "No file selected";
-    }
-
-    @Override
-    public String toString() {
-        return "Add Client";
-    }
-}
+        

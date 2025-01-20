@@ -63,7 +63,7 @@ public class ClientList extends JFrame {
         JButton btnRefresh = new JButton("Clear Search/Refresh");
 
         JButton btnSearch = new JButton("Search");
-        JLabel lblError = new JLabel("ass");
+        JLabel lblError = new JLabel("");
 
         JComponent[][] elemsAction = {{new JLabel("Search: "),new JLabel("by:"),bxCategories, fldSearch,btnSearch}};
         
