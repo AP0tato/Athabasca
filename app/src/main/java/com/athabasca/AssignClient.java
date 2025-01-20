@@ -55,7 +55,7 @@ public class AssignClient extends JFrame{
                         for (Map.Entry<String, Map<String, Object>> entry : loadedData.entrySet()) {
                             if(entry.getKey().equals(id)) {
                                 for(Client c : Clients.clients) {
-                                    if(c.getEmail().equals(assign)) {
+                                    if(c.getEmail().replaceAll("\\.", "\\\\").equals(assign)) {
                                         db.readEmployee(id, data -> {
                                             try {
                                                 ArrayList<String> f = data!=null?((ArrayList<String>) data):new ArrayList<>();
