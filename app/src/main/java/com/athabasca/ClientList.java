@@ -63,31 +63,34 @@ public class ClientList extends JFrame {
         JButton btnRefresh = new JButton("Clear Search/Refresh");
 
         JButton btnSearch = new JButton("Search");
+        JLabel lblError = new JLabel("ass");
 
         JComponent[][] elemsAction = {{new JLabel("Search: "),new JLabel("by:"),bxCategories, fldSearch,btnSearch}};
         
         btnSearch.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                lblError.setText("");
                 Client[] found;
                 String[] toSort = new String[Clients.clients.size()];
-               int category = bxCategories.getSelectedIndex();
-               for(int i = 0; i < Clients.clients.size();i++){
-                String[] categories = Clients.clients.get(i).toString().split("\\|"); // Remove the 2 backslashes and I will find you <--- "Alright, I wont" - Seysha Puttagunta 
-                toSort[i] = categories[category];
-               }
-               SearchHelper searcher = new SearchHelper();
-               int[] indices = searcher.originalIndicesBinary(toSort, fldSearch.getText().trim());
-               found = new Client[indices.length];
-               for(int i = 0; i < found.length;i++){
-                found[i] = Clients.clients.get(indices[i]);
-               }
-               if(found.length == 0){
-                fldSearch.setText("No client found");
-                return;
-               }
-               else{
-                updateTable(found);
-               }
+                int category = bxCategories.getSelectedIndex();
+                for(int i = 0; i < Clients.clients.size();i++){
+                    String[] categories = Clients.clients.get(i).toString().split("\\|"); // Remove the 2 backslashes and I will find you <--- "Alright, I wont" - Seysha Puttagunta 
+                    toSort[i] = categories[category];
+                }
+                SearchHelper searcher = new SearchHelper();
+                int[] indices = searcher.originalIndicesBinary(toSort, fldSearch.getText().trim());
+                found = new Client[indices.length];
+                for(int i = 0; i < found.length;i++){
+                    found[i] = Clients.clients.get(indices[i]);
+                }
+                if(found.length == 0){
+                    lblError.setText("No client found");
+                    return;
+                }
+                else{
+                    lblError.setText("");
+                    updateTable(found);
+                }
 
             }
             
@@ -117,6 +120,8 @@ public class ClientList extends JFrame {
         add(btnRefresh,gbc);
         gbc.nextY();
         add(scr, gbc);
+        gbc.nextY();
+        add(lblError, gbc);
         //ScalePanel pnlScale = new ScalePanel(pnl,1.5);
         pack();
     }
