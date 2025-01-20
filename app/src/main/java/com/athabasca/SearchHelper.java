@@ -8,13 +8,13 @@ public class SearchHelper
 {
     private int[] binarySearch(String[] toSearch, int left, int right, String key) {
         if (toSearch.length == 0) {
-            return null; // Key not found.
+            return new int[0]; // Key not found.
         }
         if (left> right){
-            return null;
+            return new int[0];
         }
         if(key == null ){
-            return null;
+            return new int[0];
         }
         int middle = (left+right)/ 2;
         
@@ -23,10 +23,7 @@ public class SearchHelper
         } else if (key.compareTo(toSearch[middle]) > 0) {
             return binarySearch(toSearch, middle+1,right ,key);
         } else {
-            
-            
-                return binarySearch(toSearch,left,middle-1, key);
-           
+            return binarySearch(toSearch,left,middle-1, key);
         }
     }
     private int[] collect(String[] toCollect, int index, String key, int offset){
@@ -46,26 +43,26 @@ public class SearchHelper
         return indexes;
     }
     public int[] originalIndicesBinary(String[] toSort, String key){
-                List<Map.Entry<String, Integer>> pairedList = new ArrayList<>();
-                for (int i = 0; i < toSort.length; i++) {
-                    pairedList.add(new AbstractMap.SimpleEntry<>(toSort[i].toLowerCase(), i));
-                }
+        List<Map.Entry<String, Integer>> pairedList = new ArrayList<>();
+        for (int i = 0; i < toSort.length; i++) {
+            pairedList.add(new AbstractMap.SimpleEntry<>(toSort[i].toLowerCase(), i));
+        }
 
-                pairedList = Heapsort.sort(pairedList);
+        pairedList = Heapsort.sort(pairedList);
 
-                String[] toSearch = new String[toSort.length];
-                for(int i = 0; i < toSort.length; i++){
-                    toSearch[i] = pairedList.get(i).getKey();
-                }
-                int[] foundIndexes = binarySearch(toSearch,0,toSearch.length-1, key);
-                if(foundIndexes == null){
-                    return null;
-                }
-                ArrayList<Integer> originalIndices = new ArrayList<>();
-                for (int index : foundIndexes) {
-                    originalIndices.add(pairedList.get(index).getValue());
-                }
-                // Convert the original indices list to an array.
-                return originalIndices.stream().mapToInt(i -> i).toArray();
+        String[] toSearch = new String[toSort.length];
+        for(int i = 0; i < toSort.length; i++){
+            toSearch[i] = pairedList.get(i).getKey();
+        }
+        int[] foundIndexes = binarySearch(toSearch,0,toSearch.length-1, key);
+        if(foundIndexes == null){
+            return new int[0];
+        }
+        ArrayList<Integer> originalIndices = new ArrayList<>();
+        for (int index : foundIndexes) {
+            originalIndices.add(pairedList.get(index).getValue());
+        }
+        // Convert the original indices list to an array.
+        return originalIndices.stream().mapToInt(i -> i).toArray();
     }
 }
