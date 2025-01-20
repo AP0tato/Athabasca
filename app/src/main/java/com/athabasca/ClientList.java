@@ -117,7 +117,6 @@ public class ClientList extends JFrame {
 
                 // If no clients were found, display an error message
                 if (found.length == 0) {
-                    lblError.setText("No client found");
                     return;
                 } else {
                     lblError.setText(""); // Clear the error message
