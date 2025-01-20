@@ -130,71 +130,108 @@ public class AddClient extends JFrame {
             @SuppressWarnings("override")
             public void actionPerformed(ActionEvent e) {
                 DatabaseUtil db = new DatabaseUtil();
-                if(Fname.getText().isEmpty()){
+        
+                // Validation: Ensure required fields are not empty
+                if (Fname.getText().isEmpty()) {
                     status.setText("First name is required");
                     return;
                 }
-
-                if(Lname.getText().isEmpty()){
+        
+                if (Lname.getText().isEmpty()) {
                     status.setText("Last name is required");
                     return;
                 }
-
-                if(phone.getText().isEmpty()){
+        
+                if (phone.getText().isEmpty()) {
                     status.setText("Phone number is required");
                     return;
                 }
-
-                if(address.getText().isEmpty()){
+        
+                if (address.getText().isEmpty()) {
                     status.setText("Address is required");
                     return;
                 }
-
-                if(email.getText().isEmpty()){
+        
+                if (email.getText().isEmpty()) {
                     status.setText("Email is required");
                     return;
                 }
-
+        
                 if (!Pattern.matches("^[\\w.%+-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$", email.getText())) {
-                    status.setText("Invalid email");
+                    status.setText("Invalid email format");
                     return;
                 }
-
-                if(datePicker.getJFormattedTextField().getText().isEmpty()){
+        
+                if (datePicker.getJFormattedTextField().getText().isEmpty()) {
                     status.setText("Date Joined is required");
                     return;
                 }
-
-                if (Pattern.matches("^[\\w.%+-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$", email.getText())) {
-                    long phoneNum = Long.parseLong(phone.getText());
-                    Client newClient = new Client(Fname.getText(), Lname.getText(), phoneNum, address.getText(), datePicker.getJFormattedTextField().getText(), email.getText());
-                    Map<String, Map<String, Object>> map = new HashMap<>();
-                    map.put(newClient.getEmail().replaceAll("\\.", "\\\\"), new HashMap<String, Object>() {{
-                        put("f_name", newClient.getFirstName());
-                        put("l_name", newClient.getLastName());
-                        put("p_number", newClient.getPhoneNumber());
-                        put("address", newClient.getAddress());
-                        put("date_joined", newClient.getDateJoined());
-                    }});
-                    db.appendData("client", map, data -> {
-                        if (data) {
-                            Fname.setText("");
-                            Lname.setText("");
-                            phone.setText("");
-                            address.setText("");
-                            email.setText("");
-                            datePicker.getJFormattedTextField().setText("");
-                            status.setText("Client added successfully");
-                            JOptionPane.showMessageDialog(null, "Client Added!");
-                            dispose(); // Close the window
-                        } else {
-                            status.setText("Error adding client");
-                        }
-                    });
-                    Clients.addClient(newClient);
-                } else {
-                    status.setText("Invalid Input");
+        
+                long phoneNum = Long.parseLong(phone.getText());
+                String emailInput = email.getText().toLowerCase();
+        
+                // Check for duplicates in the client list
+                for (Client existingClient : Clients.clients) {
+                    if (existingClient.getPhoneNumber() == phoneNum) {
+                        status.setText("Phone number already exists");
+                        JOptionPane.showMessageDialog(
+                            null,
+                            "The phone number already exists in the system. Please enter a unique phone number.",
+                            "Duplicate Entry",
+                            JOptionPane.ERROR_MESSAGE
+                        );
+                        return;
+                    }
+        
+                    if (existingClient.getEmail().equalsIgnoreCase(emailInput)) {
+                        status.setText("Email already exists");
+                        JOptionPane.showMessageDialog(
+                            null,
+                            "The email already exists in the system. Please enter a unique email.",
+                            "Duplicate Entry",
+                            JOptionPane.ERROR_MESSAGE
+                        );
+                        return;
+                    }
                 }
+        
+                // Create a new client and add to the database if no duplicates are found
+                Client newClient = new Client(
+                    Fname.getText(),
+                    Lname.getText(),
+                    phoneNum,
+                    address.getText(),
+                    datePicker.getJFormattedTextField().getText(),
+                    emailInput
+                );
+        
+                Map<String, Map<String, Object>> map = new HashMap<>();
+                map.put(newClient.getEmail().replaceAll("\\.", "\\\\"), new HashMap<String, Object>() {{
+                    put("f_name", newClient.getFirstName());
+                    put("l_name", newClient.getLastName());
+                    put("p_number", newClient.getPhoneNumber());
+                    put("address", newClient.getAddress());
+                    put("date_joined", newClient.getDateJoined());
+                }});
+        
+                db.appendData("client", map, data -> {
+                    if (data) {
+                        Fname.setText("");
+                        Lname.setText("");
+                        phone.setText("");
+                        address.setText("");
+                        email.setText("");
+                        datePicker.getJFormattedTextField().setText("");
+                        status.setText("Client added successfully");
+                        JOptionPane.showMessageDialog(null, "Client Added!");
+                        dispose(); // Close the window
+                    } else {
+                        status.setText("Error adding client");
+                    }
+                });
+        
+                // Add the client to the in-memory list
+                Clients.addClient(newClient);
             }
         });
 
