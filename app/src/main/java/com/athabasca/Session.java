@@ -26,20 +26,16 @@ public class Session
     }
 
     @SuppressWarnings("unchecked")
-    public static void update(Consumer<ArrayList<String>> callback)
-    {
+    public static void update(Consumer<ArrayList<String>> callback) {
         db.readData("employee", data -> {
-            if(data != null)
-            {
+            if (data != null) {
                 try {
                     Map<String, Map<String, Object>> loadedData = (Map<String, Map<String, Object>>) data;
-                    for(Map.Entry<String, Map<String, Object>> entry : loadedData.entrySet())
-                    {
-                        if(entry.getKey().equals(email.replaceAll("\\.", "\\\\")))
-                        {
+                    for (Map.Entry<String, Map<String, Object>> entry : loadedData.entrySet()) {
+                        if (entry.getKey().equals(email.replaceAll("\\.", "\\\\"))) {
                             f_name = (String) entry.getValue().get("f_name");
                             l_name = (String) entry.getValue().get("l_name");
-                            // PERMISSION = ((Long) entry.getValue().get("permission")).intValue();
+                            // Retrieve and cast the permission value
                             Object permissionObj = entry.getValue().get("permission");
                             if (permissionObj instanceof Long) {
                                 PERMISSION = ((Long) permissionObj).intValue();
@@ -48,14 +44,16 @@ public class Session
                             } else {
                                 throw new ClassCastException("Unexpected type for permission: " + permissionObj.getClass().getName());
                             }
+                            // Retrieve the assigned list
                             assigned = (ArrayList<String>) entry.getValue().get("assigned");
                             break;
                         }
                     }
-                } catch(ClassCastException e) {
+                } catch (ClassCastException e) {
                     System.err.println("Error casting data: " + e.getMessage());
                     e.printStackTrace();
                 }
+                // Invoke the callback with the assigned list
                 callback.accept(assigned);
             }
         });
