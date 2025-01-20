@@ -5,6 +5,7 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -83,9 +84,7 @@ public class ClientList extends JFrame {
         // Button to initiate the search
         JButton btnSearch = new JButton("Search");
 
-        // Label to display error messages if no client is found
-        JLabel lblError = new JLabel("");
-
+        
         // Action components (search field, search button, etc.)
         JComponent[][] elemsAction = {
                 {new JLabel("Search: "), new JLabel("by:"), bxCategories, fldSearch, btnSearch}
@@ -94,7 +93,6 @@ public class ClientList extends JFrame {
         // Action listener for the search button
         btnSearch.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                lblError.setText(""); // Clear any previous error messages
                 Client[] found;
 
                 // Create an array of client data based on the selected category
@@ -117,9 +115,14 @@ public class ClientList extends JFrame {
 
                 // If no clients were found, display an error message
                 if (found.length == 0) {
-                    return;
-                } else {
-                    lblError.setText(""); // Clear the error message
+                    JOptionPane.showMessageDialog(
+                        null,
+                        "No client Found",
+                        "Search Failed",
+                        JOptionPane.ERROR_MESSAGE
+                    );
+                } 
+                else {
                     updateTable(found); // Update the table with the found clients
                 }
             }
@@ -156,8 +159,6 @@ public class ClientList extends JFrame {
         add(btnRefresh, gbc); // Add the refresh button
         gbc.nextY();
         add(scr, gbc); // Add the scroll pane with the table
-        gbc.nextY();
-        add(lblError, gbc); // Add the error label
 
         // Pack the frame to adjust its size based on the components
         pack();
