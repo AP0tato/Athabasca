@@ -104,4 +104,7 @@ This project is for educational purposes.
 ---
 
 **Authors:**  
-@AP0tat0
+[@AP0tat0](https://github.com/AP0tato)
+[@PriSey](https://github.com/PriSey)
+[@Dumplingbob](https://github.com/Dumplingbob)
+[@Felix3242](https://github.com/Felix3242)
