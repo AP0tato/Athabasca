@@ -14,3 +14,8 @@ build
 
 # Ignore bin file
 bin
+
+# Ignore service key
+serviceAccountKey.json
+
+.DS_Store
