@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.function.Consumer;
 
+import java.io.InputStream;
+
 public class DatabaseUtil {
     // Firebase Database URL constant
     public static final String URL = "https://finalproject12-1fd07-default-rtdb.firebaseio.com";
@@ -23,11 +25,7 @@ public class DatabaseUtil {
     public DatabaseUtil() {
         try {
             // Load the service account key JSON file from the project directory
-            Path pathAbsolute = Paths.get(System.getProperty("user.dir")+"/app/src/main/resources/serviceAccountKey.json");
-            Path pathBase = Paths.get(System.getProperty("user.dir"));
-            Path pathRelative = pathBase.relativize(pathAbsolute);
-            // Load the service account key JSON file from the project directory
-            FileInputStream serviceAccount = new FileInputStream(pathRelative.toString());
+            InputStream serviceAccount = getClass().getClassLoader().getResourceAsStream("serviceAccountKey.json");
 
             // Set up Firebase options using the service account credentials and database URL
             FirebaseOptions options = FirebaseOptions.builder()
